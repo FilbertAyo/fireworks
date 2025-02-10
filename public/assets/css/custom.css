@@ -1,0 +1,23 @@
+
+  .justified {
+      text-align: justify;
+  }
+
+  .card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .secolor{
+      color: #29388d;
+    }
+
+    @media (max-width: 768px) {
+
+        .btn-ft{
+          display: none;
+        }
+      }
+
+
