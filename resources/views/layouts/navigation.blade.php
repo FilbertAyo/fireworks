@@ -54,7 +54,7 @@
 
 <script>
     @if (session('success'))
-        swal("Good job!", "{{ session('success') }}", "success", );
+        swal("Success!", "{{ session('success') }}", "success", );
     @elseif (session('error'))
         swal("Oops!", "{{ session('error') }}", "error");
     @endif

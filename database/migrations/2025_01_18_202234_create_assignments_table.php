@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('task_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('status');
+            $table->string('total_amount')->default(0);
             $table->timestamps();
         });
     }

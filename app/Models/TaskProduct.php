@@ -15,6 +15,7 @@ class TaskProduct extends Model
         'product_name',
         'product_price',
         'product_quantity',
+        'product_image',
     ];
 
     public function task()

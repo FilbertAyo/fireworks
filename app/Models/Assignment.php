@@ -9,7 +9,7 @@ class Assignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'task_id','status' ];
+    protected $fillable = ['user_id', 'task_id','status','total_amount']; 
 
     public function task()
     {
@@ -20,4 +20,11 @@ class Assignment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+ 
 }

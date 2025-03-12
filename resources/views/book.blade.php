@@ -34,7 +34,7 @@
 <body class="bg-white p-0">
     @include('layouts.top-nav')
 
-    <section class="section main-banner " id="top" data-section="section1" style="height: 40vh">
+    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh">
         <video autoplay muted loop id="bg-video">
             <source src="assets/images/course-video.mp4" type="video/mp4" />
         </video>
@@ -42,12 +42,8 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="caption mt-5">
-                            <h2 style="font-size: 60px;">Book Event</h2>
-                            <h6>Illuminating Life’s Most Memorable Moments and Every Celebration with Spectacular
-                                Fireworks, Delivered Safely and Professionally.</h6>
-                        </div>
+                        <div class="caption">
+                            <h2 style="font-size: 40px;">Book Event</h2>
                     </div>
                 </div>
             </div>
@@ -76,7 +72,7 @@
                                 <div class="position-relative overflow-hidden">
                                     <a href="javascript:void(0);" data-bs-toggle="modal"
                                         data-bs-target="#productModal{{ $product->id }}">
-                                        <img class="img-fluid" src="img/property-1.jpg" alt="Product Image">
+                                        <img class="img-fluid" src="{{ asset($product->image_url) }}" alt="Product Image">
                                     </a>
                                 </div>
                                 <div class="p-3 pb-0">
@@ -100,6 +96,7 @@
 
                                 <!-- this are needed to be uploaded to the database -->
                                 <input type="hidden" name="product_id[]" value="{{ $product->id }}" >
+                                <input type="hidden" name="product_image[]" value="{{ $product->image_url }}">
                                 <input type="hidden" name="product_name[]" value="{{ $product->product_name }}">
                                 <input type="hidden" name="product_price[]" value="{{ $product->price }}" id="hiddenPrice{{ $product->id }}">
 
@@ -143,7 +140,7 @@
                 <h3 class="mt-3">Event Details</h3>
 
                 <div class="mb-3">
-                    <label for="task_name" class="form-label">Task Name</label>
+                    <label for="task_name" class="form-label">Task Name/Place</label>
                     <input type="text" class="form-control" id="task_name" name="task_name" required>
                 </div>
                 <div class="row">

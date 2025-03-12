@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 require __DIR__ . '/auth.php';
@@ -30,6 +31,7 @@ Route::get('/test', function () {
 
 
 Route::get('/users', [ProfileController::class, 'users']);
+Route::get('/customers',[ProfileController::class, 'customers']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
@@ -40,8 +42,13 @@ Route::resource('assignments', AssignmentController::class);
 Route::resource('products', ProductController::class);
 Route::get('/product_list', [ProductController::class,'product_list']);
 Route::get('/book',[TaskController::class, 'book'])->name('book');
+Route::get('/book_create',[TaskController::class, 'book_create'])->name('book_create');
 Route::put('/deactivate/{id}', [DashboardController::class, 'deactivate'])->name('user.deactivate');
 
 Route::get('/my-dashboard',[DashboardController::class, 'myDashboard'])->name('my-dashboard');
 Route::get('/booking_detail/{task}', [TaskController::class, 'task_details'])->name('task.showTask');
+Route::put('/task_done/{id}', [TaskController::class, 'task_done'])->name('task_done');
+
+Route::post('/payment_update', [AssignmentController::class, 'payment_update'])->name('payment_update');
+Route::delete('/payment/{id}', [AssignmentController::class, 'payment_destroy'])->name('payment.destroy');
 

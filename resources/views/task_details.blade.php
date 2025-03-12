@@ -34,86 +34,9 @@
 
 <body class="bg-white p-0">
 
-    <div class="container-fluid nav-bar">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light px-4">
-            <!-- Sidebar Toggle Button for Medium and Small Screens -->
-            <button class="navbar-toggler d-lg-none order-1" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#sidebarMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    @include('layouts.top-nav')
 
-            <!-- Logo remains as before -->
-            <a href="#" class="navbar-brand d-flex align-items-center text-center">
-                <div class="icon p-2 me-2">
-                    <img class="img-fluid" src="{{ asset('assets/images/icon-deal.png') }}" alt="Icon"
-                        style="width: 30px; height: 30px;">
-                </div>
-            </a>
-
-            <!-- Profile at the Right -->
-
-            <div class="collapse navbar-collapse d-lg-flex d-none" id="navbarCollapse">
-                <div class="navbar-nav ms-auto">
-                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Operation</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{{ url('/product_list') }}" class="dropdown-item">Product List</a>
-                        </div>
-                    </div>
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
-                </div>
-            </div>
-            <div class="d-flex align-items-center ms-auto">
-                @auth
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <img src="{{ asset('assets/images/profile.jpeg') }}" alt="" width="35" height="35"
-                            class="rounded-circle">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-dark text-center p-3 rounded shadow-lg border-0"
-                        aria-labelledby="drop2">
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="text-white fw-bold">{{ Auth::user()->name }}</div>
-                            <a href="{{ route('my-dashboard') }}"
-                                class="text-white text-decoration-none mt-2 px-3 py-1 rounded"
-                                style="background: rgba(255, 255, 255, 0.2); transition: 0.3s;">Dashboard</a>
-                            <form method="POST" action="{{ route('logout') }}" class="w-100 mt-3">
-                                @csrf
-                                <button type="submit"
-                                    class="btn btn-danger btn-sm w-100 fw-bold rounded-pill">Logout</button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="btn btn-primary px-3 d-none d-lg-flex">Login</a>
-                @endauth
-            </div>
-        </nav>
-
-        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarMenu">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="navbar-nav">
-                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Operation</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{{ url('/product_list') }}" class="dropdown-item">Product List</a>
-                        </div>
-                    </div>
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-xxl py-3">
+    <div class="container-xxl py-5">
         <div class="container">
             <div class="tab-content mt-3" id="myTabsContent">
                 <!-- My Bookings Tab -->
@@ -122,47 +45,60 @@
                         <div class="row">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title fw-semibold">My Booking</h5>
+                                <a href="{{ route('my-dashboard') }}" class="btn bg-secondary text-white">Go Back</a>
                             </div>
 
                             <div class="col-lg-12 d-flex align-items-stretch">
-                                <!-- Booking Details Card -->
-                                <div class="card mt-3 w-100 bg-light">
+                                <div class="card mt-3 w-100 shadow-sm border-0 rounded-3">
+                                    <div class="card-header bg-warning border-bottom">
+                                        <h5 class="fw-bold text-dark mb-0"><i class="fas fa-calendar-check me-2"></i>Booking Details</h5>
+                                    </div>
                                     <div class="card-body">
-                                        <h5 class="card-title fw-semibold">Booking Details</h5>
-                                        <div class="row">
+                                        <div class="row g-4">
                                             <div class="col-md-6">
-                                                <p><strong>Task Name:</strong> {{ $task->task_name }}</p>
-                                                <p><strong>Event Date:</strong> {{ $task->event_date }}</p>
-                                                <p><strong>Event Time:</strong> {{ $task->event_time }}</p>
-                                                <p><strong>Event Address:</strong> {{ $task->event_address }}</p>
+                                                <p><strong><i class="fas fa-tasks me-2"></i>Task Name:</strong> {{ $task->task_name }}</p>
+                                                <p><strong><i class="far fa-calendar-alt me-2"></i>Event Date:</strong> {{ $task->event_date }}</p>
+                                                <p><strong><i class="far fa-clock me-2"></i>Event Time:</strong> {{ $task->event_time }}</p>
+                                                <p class="{{ $task->payment_status == 'Paid' ? 'text-success' : 'text-danger' }}">
+                                                    <strong><i class="fas fa-credit-card me-2"></i>Payment Status:</strong> {{ ucfirst($task->payment_status) }}
+                                                </p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><strong>Contact Phone:</strong> {{ $task->event_phone }}</p>
-                                                <p><strong>Contact Email:</strong> {{ $task->event_email }}</p>
-                                                <p><strong>Description:</strong> {{ $task->task_description }}</p>
-                                                <p><strong>Status:</strong>
-                                                    @if ($assignedUsers != null)
-                                                        <span class="badge bg-secondary">Assigned</span>
-                                                    @else
+                                                <p><strong><i class="fas fa-phone-alt me-2"></i>Contact Phone:</strong> {{ $task->event_phone }}</p>
+                                                <p><strong><i class="fas fa-envelope me-2"></i>Contact Email:</strong> {{ $task->event_email }}</p>
+                                                <p><strong><i class="fas fa-map-marker-alt me-2"></i>Event Location:</strong> {{ $task->event_address }}</p>
+                                                <p><strong><i class="fas fa-user-check me-2"></i>Status:</strong>
+                                                    @if ($assignedUsers->isEmpty())
                                                         <span class="badge bg-danger">Not Assigned</span>
+                                                    @else
+                                                        <span class="badge bg-success">Assigned</span>
                                                     @endif
                                                 </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <p><strong><i class="fas fa-file-alt me-2"></i>Task Description:</strong> {{ $task->task_description }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Add FontAwesome for icons -->
+                                <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+
+
+
                             </div>
 
-                            <!-- Selected Products Section -->
+
                             <div class="col-lg-12 mt-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title fw-semibold mb-3">Selected Fireworks</h5>
                                         <div class="row">
                                             @forelse ($products as $product)
-                                                <div class="col-md-3 mb-3">
+                                                <div class="col-md-4 mb-3">
                                                     <div class="card">
-                                                        <img src="{{ asset($product->image_url) }}" class="card-img-top" alt="Product Image">
+                                                        <img src="{{ asset($product->product_image) }}" class="card-img-top" alt="Product Image">
                                                         <div class="card-body">
                                                             <h6>{{ $product->product_name }}</h6>
                                                             <p><strong>Price:</strong> TZS {{ $product->product_price }}/=</p>
@@ -183,7 +119,7 @@
                                 <h5 class="card-title fw-semibold mb-3">Expert attendee</h5>
                                 <div class="row">
                                     @forelse ($assignedUsers as $user)
-                                        <div class="col-md-3 mb-3">
+                                        <div class="col-md-4 mb-3">
                                             <div class="card text-center p-3">
                                                 <!-- Rounded Profile Image -->
                                                 <img src="{{ asset('assets/images/profile.jpeg') }}" alt="Profile Image"
@@ -198,7 +134,7 @@
                                             </div>
                                         </div>
                                     @empty
-                                        <p>No Experts assigned for this task.</p>
+                                        <p>No Experts assigned for your task yet.</p>
                                     @endforelse
                                 </div>
                             </div>
@@ -221,7 +157,7 @@
 
     <script>
         @if (session('success'))
-            swal("Good job!", "{{ session('success') }}", "success");
+            swal("Success!", "{{ session('success') }}", "success");
         @elseif (session('error'))
             swal("Oops!", "{{ session('error') }}", "error");
         @endif

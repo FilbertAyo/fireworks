@@ -1,5 +1,5 @@
-<header class="header-area header-sticky">
-    <div class="container-fluid nav-bar">
+<header>
+
         <nav class="navbar navbar-expand-lg bg-white navbar-light px-4">
             <!-- Sidebar Toggle Button for Medium and Small Screens -->
             <button class="navbar-toggler d-lg-none order-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
@@ -34,13 +34,13 @@
                         aria-expanded="false">
                         <img src="{{ asset('assets/images/profile.jpeg') }}" alt="" width="35" height="35" class="rounded-circle">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-dark text-center p-3 rounded shadow-lg border-0" aria-labelledby="drop2">
+                    <div class="dropdown-menu dropdown-menu-end bg-white text-center p-3 rounded shadow-lg border-0" aria-labelledby="drop2">
                         <div class="d-flex flex-column align-items-center">
-                            <div class="text-white fw-bold">{{ Auth::user()->name }}</div>
-                            <a href="{{ route('my-dashboard') }}" class="text-white text-decoration-none mt-2 px-3 py-1 rounded" style="background: rgba(255, 255, 255, 0.2); transition: 0.3s;">Dashboard</a>
-                            <form method="POST" action="{{ route('logout') }}" class="w-100 mt-3">
+                            <div class="text-dark fw-bold">{{ Auth::user()->name }}</div>
+                            <a href="{{ route('my-dashboard') }}" class="text-dark text-decoration-none mt-2 mb-2 px-3 py-1 rounded">My Dashboard</a>
+                            <form method="POST" action="{{ route('logout') }}" class="w-100">
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm w-100 fw-bold rounded-pill">Logout</button>
+                                <button type="submit" class="btn btn-danger btn-sm w-100 fw-bold ">Logout</button>
                             </form>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </header>
 
 
@@ -79,8 +79,29 @@
 
 <script>
     @if (session('success'))
-        swal("Good job!", "{{ session('success') }}", "success");
+        swal("Success!", "{{ session('success') }}", "success");
     @elseif (session('error'))
         swal("Oops!", "{{ session('error') }}", "error");
     @endif
 </script>
+
+
+<style>
+    header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1050; /* Ensures it's above most elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+

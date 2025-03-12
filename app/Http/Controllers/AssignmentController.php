@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\Payment;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -51,18 +52,15 @@ class AssignmentController extends Controller
             ]);
         }
 
-        Task::where('id', $request->task_id)->update([
-            'task_status' => 'In Progress',
-        ]);
-
-
-        return redirect()->back()->with('success', 'Task successfully assigned to selected users.');
+        return redirect()->back()->with('success', 'Task successfully assigned to selected user.');
     }
 
 
     public function show(Assignment $assignment)
     {
-        //
+        $payments = Payment::where('assignment_id', $assignment->id)->get();
+
+        return view('operation.assign_details', compact('assignment', 'payments'));
     }
 
     /**
@@ -97,11 +95,40 @@ class AssignmentController extends Controller
             $user->update(['user_status' => 'active']); // Change 'inactive' to the desired status
         }
 
-        // Delete the assignment
         $assignment->delete();
-
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Assignment deleted and user status updated successfully.');
     }
+
+    public function payment_update(Request $request)
+    {
+        // First, create the payment record
+        $payment = Payment::create($request->all());
+    
+        
+        $assignment = Assignment::findOrFail($payment->assignment_id);
+     
+        $assignment->total_amount += $payment->amount;  
+        $assignment->save(); 
+    
+        return redirect()->back()->with('success', "Payment updated successfully");
+    }
+    
+
+    public function payment_destroy($id)
+    {
+        // Find the payment record by its ID
+        $payment = Payment::findOrFail($id);
+        
+        $assignment = Assignment::findOrFail($payment->assignment_id);
+        
+        $assignment->total_amount -= $payment->amount;
+        
+        $assignment->save();
+        
+        $payment->delete();
+    
+        return redirect()->back()->with('success', 'Payment deleted successfully');
+    }
+    
 
 }

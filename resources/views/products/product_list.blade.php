@@ -36,7 +36,7 @@
 <body class="bg-white p-0">
     @include('layouts.top-nav')
 
-    <section class="section main-banner " id="top" data-section="section1" style="height: 40vh">
+    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh">
         <video autoplay muted loop id="bg-video">
             <source src="assets/images/course-video.mp4" type="video/mp4" />
         </video>
@@ -44,20 +44,32 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="caption mt-5">
-                            <h2 style="font-size: 60px;">Fireworks List</h2>
-                            <h6>Illuminating Life’s Most Memorable Moments and Every Celebration with Spectacular
-                                Fireworks, Delivered Safely and Professionally.</h6>
-                        </div>
+
+                        <div class="caption">
+                            <h2 style="font-size: 40px;">Fireworks List</h2>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 20px;">
+    <div class="container-fluid bg-primary" style="padding: 20px;">
+        <div class="container">
+            <div class="row g-2">
+                <div class="col-md-10">
+                    <div class="row g-2">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
+                        </div>
 
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-dark border-0 w-100 py-3">Search</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Contact Start -->
@@ -70,23 +82,22 @@
                     @csrf
                     <div class="row col-12">
                         @forelse ($products as $product)
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-3 col-md-4">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href="javascript:void(0);" data-bs-toggle="modal"
                                             data-bs-target="#productModal{{ $product->id }}">
-                                            <img class="img-fluid" src="{{ asset( $product->image_url) }}" alt="">
+                                            <img class="img-fluid" src="{{ asset($product->image_url) }}"
+                                                alt="">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Sample
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">Sample
                                             video</a>
-                                        <div
-                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-                                            Buy</div>
+
                                     </div>
                                     <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">TZS {{ $product->price }}</h5>
-                                        <a class="d-block h5 mb-2" href="">{{ $product->product_name }}</a>
+                                        <h6 class="text-primary mb-1">TZS {{ $product->price }}</h6>
+                                        <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
                                         <p><i
                                                 class="fa fa-fire text-primary me-2"></i>{{ $product->product_description }}
                                         </p>
@@ -96,7 +107,8 @@
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-bed text-primary me-2"></i>{{ $product->category }}</small>
-                                        <small class="flex-fill text-center py-2"> <input type="checkbox"
+                                        <small class="flex-fill text-center py-2">
+                                            <input type="checkbox"
                                                 class="form-check-input" id="product{{ $product->id }}"
                                                 name="products[]" value="{{ $product->id }}">
                                             <label class="form-check-label"
@@ -104,7 +116,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="modal fade" id="productModal{{ $product->id }}" tabindex="-1"
                                 aria-labelledby="productModalLabel{{ $product->id }}" aria-hidden="true">
@@ -117,7 +128,8 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <img class="img-fluid mb-3" src="{{ asset( $product->image_url) }}" alt="Product Image">
+                                            <img class="img-fluid mb-3" src="{{ asset($product->image_url) }}"
+                                                alt="Product Image">
                                             <p><strong>Price:</strong> TZS {{ $product->price }}</p>
                                             <p><strong>Category:</strong> {{ $product->category }}</p>
                                             <p><strong>Description:</strong> {{ $product->product_description }}</p>
@@ -133,10 +145,12 @@
                                     </div>
                                 </div>
                             </div>
-                            @empty
+
+
+                        @empty
                             <div class="text-center">
 
-                                    <h6 class="fw-semibold mb-0 text-danger">No Fireworks found.</h6>
+                                <h6 class="fw-semibold mb-0 text-danger">No Fireworks found.</h6>
 
                             </div>
                         @endforelse
@@ -151,7 +165,6 @@
 
 
                 </form>
-
 
             </div>
         </div>

@@ -32,14 +32,22 @@
                 @if (Auth::user()->userType == 0)
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">TEAM</span>
+                        <span class="hide-menu">Users</span>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/users') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-users"></i>
                             </span>
-                            <span class="hide-menu">users</span>
+                            <span class="hide-menu">Team</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ url('/customers') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-users"></i>
+                            </span>
+                            <span class="hide-menu">Customers</span>
                         </a>
                     </li>
 
@@ -88,13 +96,13 @@
                             class="btn btn-danger fs-2 fw-semibold lh-sm">View website</a>
                     </div>
                     <div class="unlimited-access-img">
-                        <img src="{{ asset('img/icon-deal.png') }}" alt="" class="img-fluid"
+                        <img src="{{ asset('assets/images/icon-deal.png') }}" alt="" class="img-fluid"
                             style="height: 90px">
                     </div>
                 </div>
             </div>
         </nav>
-        <!-- End Sidebar navigation -->
+      
     </div>
-    <!-- End Sidebar scroll-->
+
 </aside>

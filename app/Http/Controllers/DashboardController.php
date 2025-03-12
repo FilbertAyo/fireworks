@@ -21,7 +21,7 @@ class DashboardController extends Controller
     }
 
     public function myDashboard(){
-        
+
         $userId = Auth::id();
         $tasks = Task::where('user_id', $userId)->get();
 
@@ -39,7 +39,7 @@ class DashboardController extends Controller
     }
 
     public function about(){
-        $users = User::all();
+        $users = User::whereIn('userType',[0,1])->get();
         return view('about',compact('users'));
     }
     public function deactivate(Request $request, $id)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Task;
 use App\Models\TaskProduct;
@@ -12,13 +13,12 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function index()
     {
+        $products = Product::all();
         $tasks = Task::all();
-        return view('jobs.task', compact('tasks'));
+        return view('jobs.task', compact('tasks', 'products'));
     }
 
     public function book(Request $request)
@@ -31,6 +31,16 @@ class TaskController extends Controller
 
         // Pass the products to the view
         return view('book', compact('selectedProducts'));
+    }
+
+    public function book_create(Request $request)
+    {
+        $productIds = $request->input('products', []);
+
+        $selectedProducts = Product::whereIn('id', $productIds)->get();
+
+        return view('jobs.create', compact('selectedProducts'));
+      
     }
 
     public function myTask()
@@ -49,7 +59,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -69,9 +79,10 @@ class TaskController extends Controller
             'product_name.*' => 'required|string',
             'product_price.*' => 'required|numeric',
             'product_quantity.*' => 'required|integer',
+            'product_image.*' => 'required|string',
             'task_status' => 'required|string',
             'user_id' => 'required',
-               ]);
+        ]);
 
         // Calculate total amount
         $totalAmount = 0;
@@ -101,6 +112,7 @@ class TaskController extends Controller
                 'product_name' => $request->product_name[$index],
                 'product_price' => $request->product_price[$index],
                 'product_quantity' => $request->product_quantity[$index],
+                'product_image' => $request->product_image[$index],
             ]);
         }
 
@@ -108,16 +120,74 @@ class TaskController extends Controller
     }
 
 
+    public function store_task(Request $request)
+    {
+        $validated = $request->validate([
+            'task_name' => 'required|string|max:255',
+            'event_date' => 'required|date',
+            'event_time' => 'required',
+            'event_address' => 'required|string|max:255',
+            'event_phone' => 'required|string|max:15',
+            'event_email' => 'required|email',
+            'task_description' => 'nullable|string',
+            'product_id.*' => 'required|integer',
+            'product_name.*' => 'required|string',
+            'product_price.*' => 'required|numeric',
+            'product_quantity.*' => 'required|integer',
+            'product_image.*' => 'required|string',
+            'task_status' => 'required|string',
+            'user_id' => 'nullable',
+        ]);
+
+        // Calculate total amount
+        $totalAmount = 0;
+        foreach ($request->product_id as $index => $productId) {
+            $totalAmount += $request->product_price[$index];
+        }
+
+        // Create the Task with the calculated totalAmount
+        $task = Task::create([
+            'task_name' => $validated['task_name'],
+            'event_date' => $validated['event_date'],
+            'event_time' => $validated['event_time'],
+            'event_address' => $validated['event_address'],
+            'event_phone' => $validated['event_phone'],
+            'event_email' => $validated['event_email'],
+            'task_description' => $validated['task_description'],
+            'task_status' => $validated['task_status'],
+            'user_id' => $validated['user_id'],
+            'total_amount' => $totalAmount,
+        ]);
+
+        // Create Task Products with the task_id
+        foreach ($request->product_id as $index => $productId) {
+            TaskProduct::create([
+                'task_id' => $task->id, // Use the created task's ID
+                'product_id' => $productId,
+                'product_name' => $request->product_name[$index],
+                'product_price' => $request->product_price[$index],
+                'product_quantity' => $request->product_quantity[$index],
+                'product_image' => $request->product_image[$index],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Task and products stored successfully!');
+    }
+
+
+
+
     /**
      * Display the specified resource.
      */
     public function show(Task $task)
     {
-        $users = User::all()->where('user_status', 'active');
+        $users = User::all()->where('user_status', 'active')->whereIn('userType', [0, 1]);
+
         $assignedUsers = User::whereHas('assignments', function ($query) use ($task) {
             $query->where('task_id', $task->id);
         })->get();
-        $products = $task->taskProducts; // Assuming the Task model has a `taskProducts` relationship.
+        $products = $task->taskProducts;
 
         return view('jobs.taskshow', compact('task', 'products', 'users', 'assignedUsers'));
     }
@@ -128,28 +198,40 @@ class TaskController extends Controller
         $assignedUsers = User::whereHas('assignments', function ($query) use ($task) {
             $query->where('task_id', $task->id);
         })->get();
-        $products = $task->taskProducts; // Assuming the Task model has a `taskProducts` relationship.
+
+        $products = $task->taskProducts;
 
         return view('task_details', compact('task', 'products', 'users', 'assignedUsers'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Task $task)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update($id)
     {
         $task = Task::find($id);
         $task->update(['payment_status' => 'Paid']);
 
         return redirect()->back()->with('success', 'Payment status updated successfully!');
+    }
+
+    public function task_done($id){
+        $task = Task::find($id);
+        $task->update(['task_status'=>'Completed']);
+
+        $assignment = Assignment::where('task_id', $task->id)->update([
+            'status' => 'Completed'
+        ]);
+
+    //    $user = User::where('id', $assignment->user_id)->update([
+    //     'user_status' => 'active'
+    //    ]);
+
+        return redirect()->back()->with('success', 'Task done successfully!');
     }
 
 
@@ -160,4 +242,6 @@ class TaskController extends Controller
     {
         //
     }
+
+  
 }

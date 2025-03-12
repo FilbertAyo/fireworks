@@ -59,16 +59,18 @@
                                                         <div class="d-flex align-items-center gap-2">
                                                             <span class="badge
                                                                 {{ $assignment->status == 'pending' ? 'bg-danger' : 'bg-success' }}
-                                                                rounded-3 fw-semibold">
+                                                                rounded-5 fw-semibold">
                                                                 {{ $assignment->status }}
                                                             </span>
                                                         </div>
                                                     </td>
                                                     <td class="border-bottom-0">
+
+                                                        <a href="{{ route('assignments.show',$assignment->id) }}" class="badge bg-primary">View</a>
                                                         <a href="{{ route('assignments.destroy', $assignment->id) }}"
-                                                            class="text-danger"
+                                                            class="badge bg-danger"
                                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this assignment?')) { document.getElementById('delete-form-{{ $assignment->id }}').submit(); }">
-                                                            <i class="ti ti-trash"></i>
+                                                            <i class="ti ti-trash"></i> Delete
                                                         </a>
                                                         <form id="delete-form-{{ $assignment->id }}" action="{{ route('assignments.destroy', $assignment->id) }}" method="POST" style="display: none;">
                                                             @csrf

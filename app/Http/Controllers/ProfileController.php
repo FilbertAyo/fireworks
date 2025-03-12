@@ -14,13 +14,16 @@ class ProfileController extends Controller
 {
 
     public function users(){
-        $users = User::all();
-
+        $users = User::whereIn('userType', [0, 1])->get();
         return view('users.user',compact('users'));
     }
-    /**
-     * Display the user's profile form.
-     */
+
+    public function customers(){
+        $users = User::where('userType',2)->get();
+
+        return view('users.customer',compact('users'));
+    }
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [

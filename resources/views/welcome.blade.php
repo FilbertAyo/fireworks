@@ -57,7 +57,6 @@
                                     style="width: 80px; height: 80px;">
                             </div>
 
-                            {{-- <h6>14th – 15th August 2025, Joburg</h6> --}}
                             <h2 class="main-title">KENSEEP EXECUTIVE FIREWORKS</h2>
                             <h6 class="sub-title">Illuminating Life’s Most Memorable Moments and Every Celebration with Spectacular
                                 Fireworks, Delivered Safely and Professionally.</h6>
@@ -81,7 +80,7 @@
     <style>
         @media (max-width: 768px) {
             .main-title {
-                font-size: 24px !important;
+                font-size: 40px !important;
             }
             .sub-title {
                 display: none;
@@ -93,49 +92,17 @@
         }
         @media (min-width: 769px) {
             .main-title {
-                font-size: 60px !important;
+                font-size: 50px !important;
             }
             .sub-title {
                 font-size: 14px !important;
             }
-
         }
     </style>
 
-    <div class="container-fluid bg-primary" style="padding: 20px;">
-        <div class="container">
-            <div class="row g-2">
-                <div class="col-md-10">
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-select border-0 py-3">
-                                <option selected>Property Type</option>
-                                <option value="1">Property Type 1</option>
-                                <option value="2">Property Type 2</option>
-                                <option value="3">Property Type 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-select border-0 py-3">
-                                <option selected>Location</option>
-                                <option value="1">Location 1</option>
-                                <option value="2">Location 2</option>
-                                <option value="3">Location 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-dark border-0 w-100 py-3">Search</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container-xxl py-5">
+
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
@@ -153,9 +120,7 @@
                         handle breathtaking displays with safety and precision. Committed to quality, innovation,
                         and customer satisfaction, Kenseep Executive Fireworks transforms ordinary events into
                         extraordinary memories.</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Tempor erat elitr rebum at clita</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Aliqu diam amet diam et eos</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Clita duo justo magna dolore erat amet</p>
+
                     <a class="btn btn-primary py-3 px-5 mt-3" href="{{ url('/about') }}">Read More</a>
                 </div>
             </div>
@@ -189,23 +154,22 @@
                 <div id="tab-1" class="tab-pane fade show p-0 active">
                     <div class="row g-4">
                         @foreach ($products as $product)
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-3 col-md-4">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href="javascript:void(0);" data-bs-toggle="modal"
                                             data-bs-target="#productModal{{ $product->id }}">
-                                            <img class="img-fluid" src="{{ $product->image_url }}" alt="">
+                                            <img class="img-fluid" src="{{ asset($product->image_url) }}"
+                                                alt="">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Sample
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">Sample
                                             video</a>
-                                        <div
-                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-                                            Buy</div>
+
                                     </div>
                                     <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">TZS {{ $product->price }}</h5>
-                                        <a class="d-block h5 mb-2" href="">{{ $product->product_name }}</a>
+                                        <h6 class="text-primary mb-1">TZS {{ $product->price }}</h6>
+                                        <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
                                         <p><i
                                                 class="fa fa-fire text-primary me-2"></i>{{ $product->product_description }}
                                         </p>
@@ -213,10 +177,9 @@
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
-                                        <small class="flex-fill text-center border-end py-2"><i
-                                                class="fa fa-bed text-primary me-2"></i>{{ $product->category }}</small>
                                         <small class="flex-fill text-center py-2"><i
-                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                                class="fa fa-bed text-primary me-2"></i>{{ $product->category }}</small>
+
                                     </div>
                                 </div>
                             </div>
@@ -274,16 +237,18 @@
                                 <p>Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit
                                     diam justo sed vero dolor duo.</p>
                             </div>
-                            <a href="{{ url('/contact') }}" class="btn btn-primary py-3 px-4 me-2"><i
+                            <a href="{{ url('/contact') }}" class="btn btn-primary me-2 mt-3"><i
                                     class="fa fa-phone-alt me-2"></i>Make A Call</a>
-                            <a href="{{ url('/book') }}" class="btn btn-dark py-3 px-4"><i
-                                    class="fa fa-calendar-alt me-2"></i>Book Event Expert</a>
+                            <a href="{{ url('/book') }}" class="btn btn-dark  mt-3"><i
+                                    class="fa fa-calendar-alt me-2"></i>Book</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     @include('elements.footer')
 
@@ -304,7 +269,7 @@
         <script src="{{ asset('assets/js/video.js') }}"></script>
         <script src="{{ asset('assets/js/slick-slider.js') }}"></script>
         <script src="{{ asset('assets/js/custom.js') }}"></script>
-   
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

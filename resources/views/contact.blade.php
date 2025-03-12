@@ -36,20 +36,15 @@
 <body class="bg-white p-0">
     @include('layouts.top-nav')
 
-    <section class="section main-banner " id="top" data-section="section1" style="height: 40vh">
+    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh">
         <video autoplay muted loop id="bg-video">
             <source src="assets/images/course-video.mp4" type="video/mp4" />
         </video>
         <div class="video-overlay header-text text-center">
-
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="caption mt-5">
-                            <h2 style="font-size: 60px;">Contact Us</h2>
-                            <h6>Illuminating Life’s Most Memorable Moments and Every Celebration with Spectacular
-                                Fireworks, Delivered Safely and Professionally.</h6>
-                        </div>
+                        <div class="caption">
+                            <h2 style="font-size: 40px;">Contact Us</h2>
                     </div>
                 </div>
             </div>
@@ -60,18 +55,16 @@
     <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 20px;">
 
     </div>
-    <!-- Search End -->
 
 
-    <!-- Contact Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl ">
         <div class="container">
 
             <div class="row g-4">
                 <div class="col-12">
                     <div class="row gy-4">
                         <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                            <div class="bg-light rounded p-3">
+                            <div class="bg-danger rounded p-3">
                                 <div class="d-flex align-items-center bg-white rounded p-3"
                                     style="border: 1px dashed rgba(220, 53, 69, .3)" ">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
@@ -82,7 +75,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                            <div class="bg-light rounded p-3">
+                            <div class="bg-danger rounded p-3">
                                 <div class="d-flex align-items-center bg-white rounded p-3"
                                     style="border: 1px dashed rgba(220, 53, 69, .3)">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
@@ -93,7 +86,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                            <div class="bg-light rounded p-3">
+                            <div class="bg-danger rounded p-3">
                                 <div class="d-flex align-items-center bg-white rounded p-3"
                                     style="border: 1px dashed rgba(220, 53, 69, .3)">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">

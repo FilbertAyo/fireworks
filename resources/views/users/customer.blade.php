@@ -15,10 +15,10 @@
                 <div class="row">
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title fw-semibold ">Employees</h5>
+                        <h5 class="card-title fw-semibold ">List of Customers</h5>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
-                            New Expert
+                            New Customer
                         </button>
                     </div>
 
@@ -39,9 +39,7 @@
                                                 <th class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">Contacts</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Role</h6>
-                                                </th>
+
                                                 <th class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">Status</h6>
                                                 </th>
@@ -63,23 +61,14 @@
                                                         <h6 class="fw-semibold mb-1">{{ $user->phone }}</h6>
                                                         <span class="fw-normal">{{ $user->email }}</span>
                                                     </td>
+
                                                     <td class="border-bottom-0">
-
-                                                        @if ($user->userType == 0)
-                                                            Admin
-                                                        @else
-                                                            Expert
-                                                        @endif
-
-                                                    </td>
-                                                    <td class="border-bottom-0">
-
                                                         @if ($user->user_status == 'active')
                                                             <span
-                                                                class="badge bg-success rounded-5 fw-semibold">Active</span>
+                                                                class="badge bg-success rounded-3 fw-semibold">Active</span>
                                                         @elseif ($user->user_status == 'Assigned')
                                                             <span
-                                                                class="badge bg-danger rounded-5 fw-semibold">Assigned</span>
+                                                                class="badge bg-danger rounded-3 fw-semibold">Assigned</span>
                                                         @endif
 
 
@@ -117,12 +106,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Expert</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="{{ url('/register') }}">
                         @csrf
+
+                        <input type="hidden" name="userType">
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
@@ -161,14 +152,6 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">User Role</label>
-                            <select name="userType" id="" class="form-control">
-                                <option value="0">Admin</option>
-                                <option value="1">Expert</option>
-                            </select>
-                        </div>
-
                         <!-- Password -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
@@ -181,7 +164,6 @@
                             @enderror
                         </div>
 
-                        <!-- Confirm Password -->
                         <div class="mb-3">
                             <label for="password-confirm" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="password-confirm"
@@ -202,8 +184,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailModalLabel">User Details <span id="userType"
-                            class="badge bg-dark mx-1 fs-1"></span></h5>
+                    <h5 class="modal-title" id="userDetailModalLabel">User Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center p-5">
@@ -223,9 +204,6 @@
                      </a>
 
                     </div>
-
-
-
                 </div>
 
             </div>
@@ -241,7 +219,6 @@
                     <form method="POST" id="deactivateForm">
                         @csrf
                         @method('PUT')
-
                         <input type="hidden" name="user_id" id="deactivateUserId">
 
                         <div class="mt-3">
