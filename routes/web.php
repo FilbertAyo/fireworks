@@ -29,6 +29,7 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::get('/dash',[DashboardController::class, 'dash']);
 
 Route::get('/users', [ProfileController::class, 'users']);
 Route::get('/customers',[ProfileController::class, 'customers']);

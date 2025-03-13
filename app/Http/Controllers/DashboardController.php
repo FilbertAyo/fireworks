@@ -16,10 +16,20 @@ class DashboardController extends Controller
         if (Auth::user()->userType == '2') {
             return redirect('/')->with('success', 'Welcome to the homepage');
         } else {
-            $userId = Auth::id();
-            $allowance = Payment::where('user_id',$userId)->where('expense_type','allowance')->sum('amount');
-            return view('dashboard', compact('allowance'));
+            return redirect('/dash')->with('success', 'Welcome back to the homepage');
         }
+    }
+
+    public function dash(){
+        $userId = Auth::id();
+        $allowance = Payment::where('user_id',$userId)->where('expense_type','allowance')->sum('amount');
+        $transport = Payment::where('user_id',$userId)->where('expense_type','transport')->sum('amount');
+        $accommodation = Payment::where('user_id',$userId)->where('expense_type','accomodation')->sum('amount');
+        $my_collection = Payment::where('user_id',$userId)->sum('amount');
+        $events = Task::count();
+        $up_events = Task::where('task_status','Pending')->count();
+        $done_events = Task::where('task_status','Completed')->count();
+        return view('dashboard', compact('allowance', 'transport','accommodation','my_collection','events','up_events','done_events'));
     }
 
     public function myDashboard(){

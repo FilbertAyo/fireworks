@@ -6,7 +6,31 @@
             @include('layouts.navigation')
             <div class="m-3">
                 <div class="row">
-                    <!-- Revenue Summary -->
+
+                    <div class="col-lg-3">
+                        <!-- Yearly Breakup -->
+                        <div class="card overflow-hidden">
+                          <div class="card-body p-4">
+                            <h5 class="card-title mb-9 fw-semibold">My Collections</h5>
+                            <div class="row align-items-center">
+                              <div class="col-8">
+                                <h4 class="fw-semibold mb-3">{{ number_format($my_collection ?? 0) }}
+                                </h4>
+
+                              </div>
+                              <div class="col-4">
+                                <div class="d-flex justify-content-end">
+                                  <div
+                                    class="text-white bg-light-success rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-currency-dollar fs-6 text-success"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     <div class="col-lg-3">
                         <!-- Yearly Breakup -->
                         <div class="card overflow-hidden">
@@ -14,22 +38,13 @@
                             <h5 class="card-title mb-9 fw-semibold">Total Allowance</h5>
                             <div class="row align-items-center">
                               <div class="col-8">
-                                <h4 class="fw-semibold mb-3">{{ $allowance ?? '0' }}</h4>
-                                <div class="d-flex align-items-center mb-3">
-                                  <span
-                                    class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-arrow-up-left text-success"></i>
-                                  </span>
-                                  <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                                  <p class="fs-3 mb-0">last year</p>
-                                </div>
-
+                                <h4 class="fw-semibold mb-3">{{ number_format($allowance ?? '0') }}</h4>
                               </div>
                               <div class="col-4">
                                 <div class="d-flex justify-content-end">
                                   <div
-                                    class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                    class="text-white bg-light-info rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-wallet fs-6 text-info"></i>
                                   </div>
                                 </div>
                               </div>
@@ -42,25 +57,16 @@
                         <!-- Yearly Breakup -->
                         <div class="card overflow-hidden">
                           <div class="card-body p-4">
-                            <h5 class="card-title mb-9 fw-semibold">Total Expenses</h5>
+                            <h5 class="card-title mb-9 fw-semibold">Transport</h5>
                             <div class="row align-items-center">
                               <div class="col-8">
-                                <h4 class="fw-semibold mb-3">$36,358</h4>
-                                <div class="d-flex align-items-center mb-3">
-                                  <span
-                                    class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-arrow-up-left text-success"></i>
-                                  </span>
-                                  <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                                  <p class="fs-3 mb-0">last year</p>
-                                </div>
-
+                                <h4 class="fw-semibold mb-3">{{ number_format($transport ?? '0')}}</h4>
                               </div>
                               <div class="col-4">
                                 <div class="d-flex justify-content-end">
                                   <div
-                                    class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                    class="text-white bg-light-warning rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-bus fs-6 text-warning"></i>
                                   </div>
                                 </div>
                               </div>
@@ -73,34 +79,17 @@
                         <!-- Yearly Breakup -->
                         <div class="card overflow-hidden">
                           <div class="card-body p-4">
-                            <h5 class="card-title mb-9 fw-semibold">Net Profit</h5>
+                            <h5 class="card-title mb-9 fw-semibold">Accommodation</h5>
                             <div class="row align-items-center">
                               <div class="col-8">
-                                <h4 class="fw-semibold mb-3">$36,358</h4>
-                                <div class="d-flex align-items-center mb-3">
-                                  <span
-                                    class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-arrow-up-left text-success"></i>
-                                  </span>
-                                  <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                                  <p class="fs-3 mb-0">last year</p>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                  <div class="me-4">
-                                    <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                                    <span class="fs-2">2023</span>
-                                  </div>
-                                  <div>
-                                    <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                                    <span class="fs-2">2023</span>
-                                  </div>
-                                </div>
+                                <h4 class="fw-semibold mb-3">{{ number_format($accommodation ?? '0' )}}</h4>
+
                               </div>
                               <div class="col-4">
                                 <div class="d-flex justify-content-end">
                                   <div
-                                    class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                    class="text-white bg-light-primary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-bed fs-6 text-primary"></i>
                                   </div>
                                 </div>
                               </div>
@@ -109,14 +98,44 @@
                         </div>
                       </div>
 
-                    <div class="col-lg-3">
+
+                      <div class="col-lg-6">
                         <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Upcoming Events</h5>
-                                <h4>5 Events</h4>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+
+                                    <div class="card-body">
+                                        <h6>Total Events</h6>
+                                        <h4>{{ $events }}</h4>
+                                    </div>
+
                             </div>
+
+                            <div class="col-lg-4">
+
+                                    <div class="card-body">
+                                        <h6>Upcoming Events</h6>
+                                        <h4>{{ $up_events }} </h4>
+                                    </div>
+
+                            </div>
+                            <div class="col-lg-4">
+
+                                    <div class="card-body">
+                                        <h6>Events Done</h6>
+                                        <h4>{{ $done_events }} </h4>
+                                    </div>
+                                </div>
+                        
                         </div>
-                    </div>
+
+                          </div>
+
+                      </div>
+
+
+
                 </div>
 
 

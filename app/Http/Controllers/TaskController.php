@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-   
+
     public function index()
     {
         $products = Product::all();
@@ -29,7 +29,6 @@ class TaskController extends Controller
         // Fetch the selected products from the database
         $selectedProducts = Product::whereIn('id', $productIds)->get();
 
-        // Pass the products to the view
         return view('book', compact('selectedProducts'));
     }
 
@@ -40,7 +39,7 @@ class TaskController extends Controller
         $selectedProducts = Product::whereIn('id', $productIds)->get();
 
         return view('jobs.create', compact('selectedProducts'));
-      
+
     }
 
     public function myTask()
@@ -59,7 +58,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -100,7 +99,7 @@ class TaskController extends Controller
             'event_email' => $validated['event_email'],
             'task_description' => $validated['task_description'],
             'task_status' => $validated['task_status'],
-           'user_id' => $validated['user_id'] ?? null, 
+           'user_id' => $validated['user_id'] ?? null,
             'total_amount' => $totalAmount,
         ]);
 
@@ -169,28 +168,28 @@ class TaskController extends Controller
         if (!$task) {
             return redirect()->back()->with('error', 'Task not found!');
         }
-    
+
         $task->update(['task_status' => 'Completed']);
-    
+
         $assignments = Assignment::where('task_id', $task->id)->get();
-    
+
         if ($assignments->isNotEmpty()) {
             Assignment::where('task_id', $task->id)->update(['status' => 'Completed']);
-    
+
             $userIds = $assignments->pluck('user_id')->unique();
-    
+
             User::whereIn('id', $userIds)->update(['user_status' => 'active']);
         }
-    
+
         return redirect()->back()->with('success', 'Task done successfully!');
     }
-    
-    
-   
+
+
+
     public function destroy(Task $task)
     {
         //
     }
 
-  
+
 }
