@@ -23,7 +23,7 @@
                             <div class="card-body p-4">
 
                                 <div class="table-responsive">
-                                    <table class="table text-nowrap mb-0 align-middle">
+                                    <table class="table text-nowrap mb-0 align-middle table-bordered">
                                         <thead class="text-dark fs-4">
                                             <tr>
                                                 <th class="border-bottom-0">
@@ -36,8 +36,12 @@
                                                     <h6 class="fw-semibold mb-0">Task</h6>
                                                 </th>
                                                 <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Total Expenses</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">Status</h6>
                                                 </th>
+
                                                 <th class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">Actions</h6>
                                                 </th>
@@ -54,6 +58,9 @@
                                                     </td>
                                                     <td class="border-bottom-0">
                                                         <h6 class="fw-semibold mb-1">{{ $assignment->task->task_name }}</h6>
+                                                    </td>
+                                                    <td class="border-bottom-0">
+                                                        <h6 class="fw-semibold mb-1">{{ $assignment->task->total_amount }}</h6>
                                                     </td>
                                                     <td class="border-bottom-0">
                                                         <div class="d-flex align-items-center gap-2">

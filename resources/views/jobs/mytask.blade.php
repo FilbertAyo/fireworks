@@ -70,13 +70,14 @@
                                                     </td>
 
                                                     <td class="border-bottom-0">
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <span
-                                                                class="badge bg-primary rounded-3 fw-semibold">{{ $task->task_status }}</span>
-                                                        </div>
+                                                        @if ($task->task_status == 'Pending')
+                                                        <span class="badge bg-warning rounded-5">{{ $task->task_status }}</span>
+                                                    @elseif ($task->task_status == 'Completed')
+                                                        <span class="badge bg-success rounded-5">{{ $task->task_status }}</span>
+                                                    @endif
                                                     </td>
                                                     <td class="border-bottom-0">
-                                                        <a href="{{ route('task.show', $task->id) }}" class="badge bg-warning">View</a>
+                                                        <a href="{{ route('task.show', $task->id) }}" class="badge bg-primary">View</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

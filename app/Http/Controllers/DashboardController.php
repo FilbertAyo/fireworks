@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
@@ -12,11 +13,12 @@ class DashboardController extends Controller
 {
     public function dashboard(){
 
-         // Check the authenticated user's userType
         if (Auth::user()->userType == '2') {
             return redirect('/')->with('success', 'Welcome to the homepage');
         } else {
-            return view('dashboard');
+            $userId = Auth::id();
+            $allowance = Payment::where('user_id',$userId)->where('expense_type','allowance')->sum('amount');
+            return view('dashboard', compact('allowance'));
         }
     }
 

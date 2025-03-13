@@ -123,7 +123,7 @@
                                     <div class="card text-center">
                                         <!-- Rounded Profile Image -->
                                         <img src="{{ asset('assets/images/profile.jpeg') }}" alt="Profile Image"
-                                            class="rounded-circle mx-auto"
+                                            class="rounded-circle mx-auto mt-3"
                                             style="width: 100px; height: 100px; object-fit: cover;">
                                         <!-- User Details -->
                                         <div class="card-body">

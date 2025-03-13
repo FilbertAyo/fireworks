@@ -14,10 +14,39 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-
     <link rel="shortcut icon" type="image/png" href="backend/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.min.css') }}" />
+
+    <style>
+        /* Full-screen loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            /* Ensure it's above all content */
+        }
+
+        /* Loader spinner */
+        .spinner-border {
+            width: 4rem;
+            height: 4rem;
+            border-width: 5px;
+        }
+
+        /* Hide content initially */
+        #content {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased">
@@ -30,6 +59,22 @@
         {{ $slot }}
     @endif
 
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }, 1000);
+        };
+    </script>
 
     <script src="{{ asset('backend/assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

@@ -23,6 +23,7 @@
                                 <form method="POST" action="{{ route('task.store') }}">
                                     @csrf
 
+                                    {{-- <input type="hidden" name="user_id" value="0"> --}}
 
                                     <h5 class="text-danger">Selected Products</h5>
                                     @if ($selectedProducts->isEmpty())

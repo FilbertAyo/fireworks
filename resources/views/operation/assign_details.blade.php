@@ -86,7 +86,7 @@
 
                                         @if ($payments->isEmpty())
                                             <tr>
-                                                <td colspan="4">  
+                                                <td colspan="4">
                                                     <div class="text-center">
                                                     <div class="alert alert-danger">No Payment is made yet.</div>
                                                     </div>
@@ -166,6 +166,8 @@
                                     <div class="text-end">
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
+
+                                    
 
                                 </form>
                             </div>
