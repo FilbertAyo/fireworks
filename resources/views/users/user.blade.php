@@ -76,16 +76,23 @@
 
                                                         @if ($user->user_status == 'active')
                                                             <span
-                                                                class="badge bg-success rounded-5 fw-semibold">Active</span>
+                                                                class="alert alert-success p-1">Active</span>
                                                         @elseif ($user->user_status == 'Assigned')
                                                             <span
-                                                                class="badge bg-danger rounded-5 fw-semibold">Assigned</span>
+                                                                class="alert alert-warning p-1">Assigned</span>
+                                                        @else
+                                                        <span
+                                                        class="alert alert-danger p-1">Blocked</span>
                                                         @endif
-
 
                                                     </td>
                                                     <td class="border-bottom-0">
-                                                        {{-- <a href=""><i class="ti ti-trash"></i></a> --}}
+                                                        <a href="#" class="deactivate-btn badge bg-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal4"
+                                                            data-user-id="{{ $user->id }}"
+                                                            data-user-name="{{ $user->name }}">
+                                                            <i class="ti ti-trash"></i>
+                                                        </a>
                                                         <a href="#" data-bs-toggle="modal"
                                                             class="badge bg-warning" data-bs-target="#userDetailModal"
                                                             data-bs-name="{{ $user->name }}"
@@ -93,7 +100,7 @@
                                                             data-bs-email="{{ $user->email }}"
                                                             data-bs-userType="{{ $user->userType }}"
                                                             data-bs-userStatus="{{ $user->user_status }}">
-                                                            View
+                                                            <i class="ti ti-eye"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -215,26 +222,15 @@
                         <h5 class="card-title mb-1" id="userName">User Name</h5>
                         <p class="card-text mb-1" id="userPhone">Phone: </p>
                         <p class="card-text" id="userEmail">Email: </p>
-                        <a href="#" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal4"
-                        data-bs-id=""
-                        class="btn bg-danger text-white deactivate-user">
-                        Deactivate
-                     </a>
-
                     </div>
-
-
-
                 </div>
 
             </div>
         </div>
-
-
     </div>
 
-    <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -243,13 +239,13 @@
                         @method('PUT')
 
                         <input type="hidden" name="user_id" id="deactivateUserId">
-
                         <div class="mt-3">
                             <h5>Are you sure you want to deactivate <span id="deactivateUserName"></span>?</h5>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn bg-danger text-white"
+                                data-bs-dismiss="modal">No</button>
                             <button type="submit" class="btn btn-primary">Yes, Deactivate</button>
                         </div>
                     </form>
@@ -258,9 +254,28 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".deactivate-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    let userId = this.getAttribute("data-user-id");
+                    let userName = this.getAttribute("data-user-name");
+
+                    document.getElementById("deactivateUserId").value = userId;
+                    document.getElementById("deactivateUserName").textContent = userName;
+
+                    // Update form action dynamically (Laravel route)
+                    document.getElementById("deactivateForm").action =
+                    `/users/${userId}/deactivate`;
+                });
+            });
+        });
+    </script>
+
+
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var userDetailModal = document.getElementById('userDetailModal');
             var deactivateModal = document.getElementById('exampleModal4');
 
@@ -271,7 +286,6 @@
                 var phone = button.getAttribute('data-bs-phone');
                 var email = button.getAttribute('data-bs-email');
                 var userType = button.getAttribute('data-bs-userType');
-                var userStatus = button.getAttribute('data-bs-userStatus');
 
                 document.getElementById('userName').textContent = name;
                 document.getElementById('userPhone').textContent = "Phone: " + phone;
@@ -283,19 +297,18 @@
                     document.getElementById('userType').textContent = "Expert";
                 }
 
+                // Set user ID correctly on the deactivate button
                 var deactivateBtn = document.querySelector('.deactivate-user');
                 deactivateBtn.setAttribute('data-bs-id', userId);
             });
 
             deactivateModal.addEventListener('show.bs.modal', function(event) {
                 var button = document.querySelector('.deactivate-user');
-                var userId = button.getAttribute('data-bs-id');
+                var userId = button.getAttribute('data-bs-id'); // Get correct user ID
                 var userName = document.getElementById('userName').textContent;
 
                 document.getElementById('deactivateUserName').textContent = userName;
                 document.getElementById('deactivateUserId').value = userId;
-
-                document.getElementById('deactivateForm').setAttribute('action', '/deactivate/' + userId);
             });
         });
     </script>

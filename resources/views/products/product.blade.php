@@ -11,7 +11,6 @@
             @include('layouts.navigation')
             <!--  Header End -->
             <div class="m-3">
-
                 <div class="row">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title fw-semibold ">List of Fireworks</h5>
@@ -21,7 +20,14 @@
                         </button>
                     </div>
 
-
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <form action="{{ route('products.index') }}" method="GET" class="d-flex">
+                                <input type="text" name="search" value="{{ request()->input('search') }}" class="form-control" placeholder="Search Products">
+                                <button type="submit" class="btn btn-primary ms-2">Search</button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-lg-12 d-flex align-items-stretch">
                         <div class="card w-100">
                             <div class="card-body p-4">
@@ -80,13 +86,11 @@
                                                     </td>
                                                     <td class="border-bottom-0">
                                                         <div class="d-flex align-items-center gap-2">
-                                                            <span
-                                                                class="badge bg-primary rounded-3 fw-semibold">{{ $product->product_status }}</span>
+                                                            <span class="badge bg-warning rounded-3 fw-semibold">{{ $product->product_status }}</span>
                                                         </div>
                                                     </td>
                                                     <td class="border-bottom-0">
-                                                        <a href="{{ route('products.destroy', $product->id) }}"
-                                                            class="text-danger"
+                                                        <a href="{{ route('products.destroy', $product->id) }}" class="badge bg-danger"
                                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Product?')) { document.getElementById('delete-form-{{ $product->id }}').submit(); }">
                                                             <i class="ti ti-trash"></i>
                                                         </a>
@@ -94,10 +98,10 @@
                                                             @csrf
                                                             @method('DELETE')
                                                         </form>
-                                                        <a href=""><i class="ti ti-eye"></i></a>
+                                                        <a href="{{ route('products.edit',$product->id) }}" class="badge bg-primary"><i class="ti ti-edit"></i></a>
                                                     </td>
                                                 </tr>
-                                                @empty
+                                            @empty
                                                 <tr>
                                                     <td colspan="8" class="text-center">
                                                         <h6 class="fw-semibold mb-0 text-danger">No Fireworks found.</h6>
@@ -107,9 +111,22 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <!-- Pagination -->
+                                <div class="d-flex justify-content-between mt-3">
+                                    <div class="align-self-center">
+                                        <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} products</p>
+                                    </div>
+                                    <div class="align-self-center">
+                                        {{ $products->links('vendor.pagination.bootstrap-4') }} <!-- Bootstrap pagination links -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
 
 

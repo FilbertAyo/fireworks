@@ -22,10 +22,18 @@
                         </button>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <form action="{{ url('/customers') }}" method="GET" class="d-flex">
+                                <input type="text" name="search" value="{{ request()->input('search') }}" class="form-control" placeholder="Search Name or Email">
+                                <button type="submit" class="btn btn-primary ms-2">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="col-lg-12 d-flex align-items-stretch">
                         <div class="card w-100">
                             <div class="card-body p-4">
-
                                 <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 align-middle table-bordered">
                                         <thead class="text-dark fs-4">
@@ -65,12 +73,11 @@
                                                     <td class="border-bottom-0">
                                                         @if ($user->user_status == 'active')
                                                             <span
-                                                                class="badge bg-success rounded-3 fw-semibold">Active</span>
+                                                                class="alert alert-success p-1">Active</span>
                                                         @elseif ($user->user_status == 'Assigned')
                                                             <span
                                                                 class="badge bg-danger rounded-3 fw-semibold">Assigned</span>
                                                         @endif
-
 
                                                     </td>
                                                     <td class="border-bottom-0">
@@ -82,7 +89,7 @@
                                                             data-bs-email="{{ $user->email }}"
                                                             data-bs-userType="{{ $user->userType }}"
                                                             data-bs-userStatus="{{ $user->user_status }}">
-                                                            View
+                                                            <i class="ti ti-eye"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -91,6 +98,16 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    <div class="align-self-center">
+                                        <p>Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} Customers</p>
+                                    </div>
+                                    <div class="align-self-center">
+                                        {{ $users->links('vendor.pagination.bootstrap-4') }} <!-- Bootstrap pagination links -->
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -179,103 +196,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="userDetailModal" tabindex="-1" aria-labelledby="userDetailModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailModalLabel">User Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center p-5">
 
-                    <img src="{{ asset('assets/images/profile.jpeg') }}" alt="Profile Image"
-                        class="rounded-circle mx-auto mb-3" style="width: 120px; height: 120px; object-fit: cover;">
-                    <!-- User Details -->
-                    <div class="card-body">
-                        <h5 class="card-title mb-1" id="userName">User Name</h5>
-                        <p class="card-text mb-1" id="userPhone">Phone: </p>
-                        <p class="card-text" id="userEmail">Email: </p>
-                        <a href="#" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal4"
-                        data-bs-id=""
-                        class="btn bg-danger text-white deactivate-user">
-                        Deactivate
-                     </a>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form method="POST" id="deactivateForm">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="user_id" id="deactivateUserId">
-
-                        <div class="mt-3">
-                            <h5>Are you sure you want to deactivate <span id="deactivateUserName"></span>?</h5>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">No</button>
-                            <button type="submit" class="btn btn-primary">Yes, Deactivate</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var userDetailModal = document.getElementById('userDetailModal');
-            var deactivateModal = document.getElementById('exampleModal4');
-
-            userDetailModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var userId = button.getAttribute('data-bs-id');
-                var name = button.getAttribute('data-bs-name');
-                var phone = button.getAttribute('data-bs-phone');
-                var email = button.getAttribute('data-bs-email');
-                var userType = button.getAttribute('data-bs-userType');
-                var userStatus = button.getAttribute('data-bs-userStatus');
-
-                document.getElementById('userName').textContent = name;
-                document.getElementById('userPhone').textContent = "Phone: " + phone;
-                document.getElementById('userEmail').textContent = "Email: " + email;
-
-                if (userType == 0) {
-                    document.getElementById('userType').textContent = "Admin";
-                } else {
-                    document.getElementById('userType').textContent = "Expert";
-                }
-
-                var deactivateBtn = document.querySelector('.deactivate-user');
-                deactivateBtn.setAttribute('data-bs-id', userId);
-            });
-
-            deactivateModal.addEventListener('show.bs.modal', function(event) {
-                var button = document.querySelector('.deactivate-user');
-                var userId = button.getAttribute('data-bs-id');
-                var userName = document.getElementById('userName').textContent;
-
-                document.getElementById('deactivateUserName').textContent = userName;
-                document.getElementById('deactivateUserId').value = userId;
-
-                document.getElementById('deactivateForm').setAttribute('action', '/deactivate/' + userId);
-            });
-        });
-    </script>
 
 
 </x-app-layout>

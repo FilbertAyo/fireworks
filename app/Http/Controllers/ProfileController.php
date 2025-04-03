@@ -18,10 +18,15 @@ class ProfileController extends Controller
         return view('users.user',compact('users'));
     }
 
-    public function customers(){
-        $users = User::where('userType',2)->get();
+    public function customers(Request $request){
+        $search = $request->input('search');
+        $users = User::where('userType',2)->when($search, function($query,$search){
+            return $query->where('name','like',"%{$search}%")
+            ->orWhere('email','like',"%{$search}%");
+        })->paginate(10);
 
-        return view('users.customer',compact('users'));
+        // $users = User::where('userType',2)->get();
+        return view('users.customer',compact('users','search'));
     }
 
     public function edit(Request $request): View

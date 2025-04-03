@@ -36,10 +36,8 @@
 <body class="bg-white p-0">
     @include('layouts.top-nav')
 
-    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh">
-        <video autoplay muted loop id="bg-video">
-            <source src="assets/images/course-video.mp4" type="video/mp4" />
-        </video>
+    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh; background-image: url('{{ asset('assets/images/kenseep.jpg') }}');">
+
         <div class="video-overlay header-text text-center">
             <div class="container">
                 <div class="row">
@@ -64,9 +62,9 @@
                 <div class="col-12">
                     <div class="row gy-4">
                         <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                            <div class="bg-danger rounded p-3">
+                            <div class=" rounded p-3" style="background-color: rgba(185, 0, 0, 0.3);">
                                 <div class="d-flex align-items-center bg-white rounded p-3"
-                                    style="border: 1px dashed rgba(220, 53, 69, .3)" ">
+                                  >
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
                                         <i class="fa fa-map-marker-alt text-primary"></i>
                                     </div>
@@ -75,24 +73,22 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                            <div class="bg-danger rounded p-3">
-                                <div class="d-flex align-items-center bg-white rounded p-3"
-                                    style="border: 1px dashed rgba(220, 53, 69, .3)">
+                            <div class="rounded p-3" style="background-color: rgba(185, 0, 0, 0.3);">
+                                <div class="d-flex align-items-center bg-white rounded p-3">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
                                         <i class="fa fa-envelope-open text-primary"></i>
                                     </div>
-                                    <span>info@example.com</span>
+                                    <span>kenseepexecutivefireworks@gmail.com</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                            <div class="bg-danger rounded p-3">
-                                <div class="d-flex align-items-center bg-white rounded p-3"
-                                    style="border: 1px dashed rgba(220, 53, 69, .3)">
+                            <div class="rounded p-3" style="background-color: rgba(185, 0, 0, 0.3);">
+                                <div class="d-flex align-items-center bg-white rounded p-3">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
                                         <i class="fa fa-phone-alt text-primary"></i>
                                     </div>
-                                    <span>+012 345 6789</span>
+                                    <span>+255 673 443 706</span>
                                 </div>
                             </div>
                         </div>

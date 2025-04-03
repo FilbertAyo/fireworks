@@ -107,7 +107,7 @@
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
                     <div class="about-img position-relative overflow-hidden p-5 pe-0">
-                        <img class="img-fluid w-100" src="assets/images/Baby you’re a firework 🎇.jpeg">
+                        <img class="img-fluid w-100" src="{{ asset('assets/images/kenseep.jpg') }}">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -121,11 +121,67 @@
                         and customer satisfaction, Kenseep Executive Fireworks transforms ordinary events into
                         extraordinary memories.</p>
 
-                    <a class="btn btn-primary py-3 px-5 mt-3" href="{{ url('/about') }}">Read More</a>
+                    <a class="btn btn-primary py-3 px-5 mt-3" href="{{ url('/contact') }}">Contact Us</a>
                 </div>
+            </div>
+
+            <div class="col-lg-12 mt-5">
+
+                <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                    <h1 class="mb-3">Fireworks Services</h1>
+                    <p>Explore our spectacular fireworks services for all occasions.</p>
+                </div>
+
+                <div class="row d-flex align-items-stretch">
+                    <div class="col-lg-4">
+                        <div class="meeting-item h-100">
+                            <div class="thumb">
+                                <div class="price">
+                                    <span class="text-danger">Event Celebrations</span>
+                                </div>
+                                <a href="meeting-details.html"><img src="assets/images/wedding picture ideas, fireworks.jpeg" alt="Event Celebrations"></a>
+                            </div>
+                            <div class="down-content">
+                                <a class="text-white">Make your events unforgettable with spectacular fireworks displays for weddings, New Year’s, and more.</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="meeting-item h-100">
+                            <div class="thumb">
+                                <div class="price">
+                                    <span class="text-danger">Online Fireworks Shop</span>
+                                </div>
+                                <a href="meeting-details.html"><img src="assets/images/56 First Date Ideas for Every Budget.jpeg" alt="Online Fireworks Shop"></a>
+                            </div>
+                            <div class="down-content">
+                                <a class="text-white">Buy fireworks online and have them delivered to your doorstep. Perfect for DIY celebrations. <br> <br>  </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="meeting-item h-100">
+                            <div class="thumb">
+                                <div class="price">
+                                    <span class="text-primary">Special Occasions</span>
+                                </div>
+                                <a href="meeting-details.html"><img src="assets/images/Concert B&W Wallpaper.jpeg" alt="Special Occasions"></a>
+                            </div>
+                            <div class="down-content">
+                                <a class="text-white">Enhance ceremonies like baby showers, football events, and club parties with breathtaking fireworks.</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
             </div>
         </div>
     </div>
+
 
     <div class="container-xxl">
         <div class="container">
@@ -150,83 +206,52 @@
                     </ul>
                 </div>
             </div>
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane fade show p-0 active">
+
                     <div class="row g-4">
                         @foreach ($products as $product)
-                            <div class="col-lg-3 col-md-4">
+                         <div class="col-6 col-md-4 col-lg-3 mb-3">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href="javascript:void(0);" data-bs-toggle="modal"
-                                            data-bs-target="#productModal{{ $product->id }}">
+                                        <a href="{{ route('product.showProduct',$product->id) }}">
                                             <img class="img-fluid" src="{{ asset($product->image_url) }}"
                                                 alt="">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">Sample
-                                            video</a>
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2"> video</a>
 
                                     </div>
                                     <div class="p-4 pb-0">
-                                        <h6 class="text-primary mb-1">TZS {{ $product->price }}</h6>
+                                        <h6 class="text-primary mb-1">TZS {{ number_format($product->price) }}</h6>
                                         <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
-                                        <p><i
+                                        {{-- <p><i
                                                 class="fa fa-fire text-primary me-2"></i>{{ $product->product_description }}
-                                        </p>
+                                        </p> --}}
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
                                         <small class="flex-fill text-center py-2"><i
-                                                class="fa fa-bed text-primary me-2"></i>{{ $product->category }}</small>
-
+                                                class="fa fa-list text-primary me-2"></i>{{ $product->category }}</small>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="productModal{{ $product->id }}" tabindex="-1"
-                                aria-labelledby="productModalLabel{{ $product->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="productModalLabel{{ $product->id }}">
-                                                {{ $product->product_name }}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img class="img-fluid mb-3" src="img/property-1.jpg" alt="Product Image">
-                                            <p><strong>Price:</strong> TZS {{ $product->price }}</p>
-                                            <p><strong>Category:</strong> {{ $product->category }}</p>
-                                            <p><strong>Description:</strong> {{ $product->product_description }}</p>
-                                            <p><strong>Duration:</strong> {{ $product->duration }}'s</p>
-                                            <p><strong>Product Status:</strong> {{ $product->product_status }}</p>
-                                            <p><strong>Video URL:</strong> <a href="{{ $product->video_url }}"
-                                                    target="_blank">View Video</a></p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                         @endforeach
 
-
                         <div class="col-12 text-center">
-                            <a class="btn btn-primary py-3 px-5" href="{{ url('/product_list') }}">Browse More
+                            <a class="btn btn-primary" href="{{ url('/product_list') }}">Browse More
                                 Products</a>
                         </div>
                     </div>
-                </div>
 
-            </div>
         </div>
     </div>
 
 
     <div class="container-xxl mt-5">
         <div class="container">
-            <div class="bg-light rounded p-3">
-                <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
+            <div class="rounded p-3" style="background:  rgba(185, 0, 0, 0.3);">
+                <div class="bg-white rounded p-4">
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-6">
                             <img class="img-fluid rounded w-100" src="assets/images/contactus.jpeg" alt="">
@@ -247,6 +272,37 @@
             </div>
         </div>
     </div>
+
+    <div class="container-xxl py-5">
+
+        <div class="text-center mx-auto mb-5 wow fadeInUp" style="max-width: 600px;">
+            <h1 class="mb-3">Our Team</h1>
+            <p>Meet our team</p>
+        </div>
+        <div class="row g-4 wow fadeInUp">
+
+            @foreach ($users as $user)
+            <div class="col-lg-3 col-md-6" >
+                <div class="team-item rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="img/team-4.jpg" alt="">
+                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">{{ $user->name }}</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+        </div>
+
+</div>
 
 
 

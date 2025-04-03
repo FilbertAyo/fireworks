@@ -1,5 +1,24 @@
 <header>
 
+    <div class="top-bar text-white py-2" style="background-color: #222222;">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Left Side: Contact Info -->
+            <div class="d-flex align-items-center">
+                <small class="me-3 d-none d-sm-inline"><i class="fas fa-phone-alt me-1"></i> +255 673 443 706</small>
+                <small class="d-none d-sm-inline"><i class="fas fa-envelope me-1"></i> kenseepexecutivefireworks@gmail.com</small>
+                <small class="d-sm-none"><i class="fas fa-phone-alt"></i> +255 673 443 706</small>
+            </div>
+
+            <!-- Right Side: Social Media Icons -->
+            <div class="d-flex">
+                <a href="#" class="text-white d-none d-sm-inline me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white d-none d-sm-inline me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white d-none d-sm-inline me-3"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
         <nav class="navbar navbar-expand-lg bg-white navbar-light px-4">
             <!-- Sidebar Toggle Button for Medium and Small Screens -->
             <button class="navbar-toggler d-lg-none order-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
@@ -17,16 +36,17 @@
 
             <div class="collapse navbar-collapse d-lg-flex d-none" id="navbarCollapse">
                 <div class="navbar-nav ms-auto">
-                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Operation</a>
+                        <a href="#" class="nav-link dropdown-toggle {{ Request::is('product_list') ? 'active' : '' }}" data-bs-toggle="dropdown">Operation</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{{ url('/product_list') }}" class="dropdown-item">Product List</a>
+                            <a href="{{ url('/product_list') }}" class="dropdown-item {{ Request::is('product_list') ? 'active' : '' }}">Product List</a>
                         </div>
                     </div>
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/contact') }}" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
+
                 </div>
+
             </div>
               <div class="d-flex align-items-center ms-auto">
                 @auth
@@ -45,6 +65,7 @@
                         </div>
                     </div>
                 @else
+
                     <a href="{{ route('login') }}" class="btn btn-primary px-3 d-none d-lg-flex">Login</a>
                 @endauth
             </div>
@@ -73,18 +94,7 @@
 
 </header>
 
-
-<script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
-
-<script>
-    @if (session('success'))
-        swal("Success!", "{{ session('success') }}", "success");
-    @elseif (session('error'))
-        swal("Oops!", "{{ session('error') }}", "error");
-    @endif
-</script>
-
+@include('elements.toastr')
 
 <style>
     header {

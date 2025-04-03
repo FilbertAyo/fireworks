@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'home'])->name('welcome');
 Route::get('/contact', [DashboardController::class, 'contact']);
-Route::get('/about', [DashboardController::class, 'about']);
 
 Route::get('/dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/chart-data', [DashboardController::class, 'getChartData']);
@@ -42,9 +41,10 @@ Route::resource('assignments', AssignmentController::class);
 
 Route::resource('products', ProductController::class);
 Route::get('/product_list', [ProductController::class,'product_list']);
+Route::get('/product/{id}', [ProductController::class, 'product_details'])->name('product.showProduct');
 Route::get('/book',[TaskController::class, 'book'])->name('book');
 Route::get('/book_create',[TaskController::class, 'book_create'])->name('book_create');
-Route::put('/deactivate/{id}', [DashboardController::class, 'deactivate'])->name('user.deactivate');
+Route::put('/users/{id}/deactivate', [DashboardController::class, 'deactivate'])->name('users.deactivate');
 
 Route::get('/my-dashboard',[DashboardController::class, 'myDashboard'])->name('my-dashboard');
 Route::get('/booking_detail/{task}', [TaskController::class, 'task_details'])->name('task.showTask');

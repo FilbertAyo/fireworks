@@ -10,10 +10,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('products.product',compact('products'));
+        $search = $request->input('search');
+
+        // Paginate the products with search functionality
+        $products = Product::when($search, function ($query, $search) {
+            return $query->where('product_name', 'like', "%{$search}%")
+                ->orWhere('category', 'like', "%{$search}%");
+        })
+        ->paginate(10);  // Adjust the number of items per page (10 in this case)
+
+        return view('products.product', compact('products', 'search'));
     }
 
     /**
@@ -77,6 +85,13 @@ class ProductController extends Controller
 
         return view('products.product_list', compact('products'));
     }
+
+    public function product_details($id) {
+
+        $product = Product::findOrFail($id);
+
+        return view('products.product_details', compact('product'));
+    }
     /**
      * Display the specified resource.
      */
@@ -90,7 +105,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $product = Product::findOrFail($product->id);
+        return view('products.product_edit', compact('product'));
     }
 
     /**
@@ -98,8 +114,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        // Get all request data
+        $data = $request->all();
+
+        // Update product with all data
+        $product->update($data);
+
+        return redirect()->back()->with('success', 'Product updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

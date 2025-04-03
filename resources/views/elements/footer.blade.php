@@ -4,18 +4,18 @@
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Get In Touch</h5>
                           <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Ubungo External, Dar es salaam, TZ</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+255 673 443 706</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>kenseepexecutivefireworks@gmail.com</p>
                 <div class="d-flex pt-2">
                      <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
                     <a class="btn btn-outline-light btn-social" href=""><i
                             class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Quick Links</h5>
                 <div class="btn btn-link text-white-50">Home</div>
-                <div class="btn btn-link text-white-50">About Us</div>
                 <div class="btn btn-link text-white-50">Product Lists</div>
                 <div class="btn btn-link text-white-50">Booking</div>
                 <div class="btn btn-link text-white-50">Contact Us</div>
@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                     &copy; <a class="border-bottom" href="#">Kenseep executive fireworks</a>, All Right Reserved.
-                 Designed By <a class="border-bottom" href="https://htmlcodex.com">Filbert Ayo</a>
+                 Designed By <a class="border-bottom" href="https://filbertayo-flax-xi.vercel.app/" target="_blank">Filbert Ayo</a>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     <div class="footer-menu">

@@ -39,8 +39,8 @@ class TaskController extends Controller
         $selectedProducts = Product::whereIn('id', $productIds)->get();
 
         return view('jobs.create', compact('selectedProducts'));
-
     }
+
 
     public function myTask()
     {

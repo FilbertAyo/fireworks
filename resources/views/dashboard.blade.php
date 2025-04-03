@@ -98,10 +98,84 @@
                         </div>
                       </div>
 
+                      <div class="py-3">
+                        <h3>Company Evaluations</h3>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="card p-3">
+                            <form method="GET" action="{{ url('/dash') }}" class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <select name="year" class="form-control">
+                                            <option value="all" {{ $year == 'all' ? 'selected' : '' }}>All Years</option>
+                                            @for($i = date('Y'); $i >= 2020; $i--)
+                                                <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <select name="month" class="form-control">
+                                            <option value="all" {{ $month == 'all' ? 'selected' : '' }}>All Months</option>
+                                            @foreach(range(1, 12) as $m)
+                                                <option value="{{ $m }}" {{ $m == $month ? 'selected' : '' }}>
+                                                    {{ date('F', mktime(0, 0, 0, $m, 1)) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Amount (TZS)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Total Amount</td>
+                                        <td>collections</td>
+                                        <td>{{ number_format($totalCollection) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Allowance Expenses</td>
+                                        <td>Expense</td>
+                                        <td>{{ number_format($totalAllowance) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transport Expenses</td>
+                                        <td>Expense</td>
+                                        <td>{{ number_format($totalTransport) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Accommodation Expenses</td>
+                                        <td>Expense</td>
+                                        <td>{{ number_format($totalAccommodation) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Profit/Loss</strong></td>
+                                        <td></td>
+                                        <td>
+                                            <strong class="{{ $profitLoss >= 0 ? 'text-success' : 'text-danger' }}">
+                                                {{ $profitLoss >= 0 ? '+' : '-' }} {{ number_format(abs($profitLoss)) }}
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                          </div>
+                      </div>
 
                       <div class="col-lg-6">
                         <div class="card">
-
                         <div class="row">
                             <div class="col-lg-4">
 
@@ -111,7 +185,6 @@
                                     </div>
 
                             </div>
-
                             <div class="col-lg-4">
 
                                     <div class="card-body">
@@ -127,18 +200,11 @@
                                         <h4>{{ $done_events }} </h4>
                                     </div>
                                 </div>
-                        
                         </div>
-
                           </div>
-
                       </div>
 
-
-
                 </div>
-
-
             </div>
         </div>
     </div>

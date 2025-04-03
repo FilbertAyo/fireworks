@@ -55,8 +55,6 @@
                                             <span class="badge bg-secondary">Assigned</span>
                                         @endif
                                     </p>
-
-
                                 </div>
                             </div>
                         </div>
@@ -134,7 +132,7 @@
                                     </div>
                                 </div>
                             @empty
-                             
+
                                 <div class="mb-3 text-center">
                                     <div class="alert alert-danger">No Experts assigned for this task.</div>
                                 </div>

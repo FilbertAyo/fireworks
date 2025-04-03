@@ -36,18 +36,13 @@
 <body class="bg-white p-0">
     @include('layouts.top-nav')
 
-    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh">
-        <video autoplay muted loop id="bg-video">
-            <source src="assets/images/course-video.mp4" type="video/mp4" />
-        </video>
-        <div class="video-overlay header-text text-center">
+    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh; background-image: url('{{ asset('assets/images/kenseep.jpg') }}');">
 
+        <div class="video-overlay header-text text-center">
             <div class="container">
                 <div class="row">
-
                         <div class="caption">
                             <h2 style="font-size: 40px;">Fireworks List</h2>
-
                     </div>
                 </div>
             </div>
@@ -60,98 +55,57 @@
                 <div class="col-md-10">
                     <div class="row g-2">
                         <div class="col-md-12">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Search Keyword">
+                            <input type="text" class="form-control border-0 py-2" placeholder="Search Fireworks">
                         </div>
 
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-dark border-0 w-100 py-3">Search</button>
+                    <button class="btn btn-dark border-0 w-100 py-2">Search</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Contact Start -->
     <div class="container-xxl py-5">
-        <div class="container">
-
             <div class="row g-4">
 
                 <form method="GET" action="{{ route('book') }}">
                     @csrf
-                    <div class="row col-12">
+                    <div class="row">
                         @forelse ($products as $product)
-                            <div class="col-lg-3 col-md-4">
+                        <div class="col-6 col-md-4 col-lg-3 mb-3">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href="javascript:void(0);" data-bs-toggle="modal"
-                                            data-bs-target="#productModal{{ $product->id }}">
+                                        <a href="{{ route('product.showProduct',$product->id) }}">
                                             <img class="img-fluid" src="{{ asset($product->image_url) }}"
                                                 alt="">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">Sample
-                                            video</a>
-
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">video</a>
                                     </div>
-                                    <div class="p-4 pb-0">
-                                        <h6 class="text-primary mb-1">TZS {{ $product->price }}</h6>
-                                        <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
-                                        <p><i
-                                                class="fa fa-fire text-primary me-2"></i>{{ $product->product_description }}
-                                        </p>
+                                    <div class="py-4 px-2 pb-0 mb-2">
+                                        <h6 class="text-primary mb-1">TZS {{ number_format($product->price) }}</h6>
+                                        <h6 class="d-block h6" href="">{{ $product->product_name }}</h6>
+                                        <small class="flex-fill"><i
+                                            class="fa fa-layer-group text-primary me-2"></i>{{ $product->category }}</small>
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
-                                        <small class="flex-fill text-center border-end py-2"><i
-                                                class="fa fa-bed text-primary me-2"></i>{{ $product->category }}</small>
+
                                         <small class="flex-fill text-center py-2">
                                             <input type="checkbox"
                                                 class="form-check-input" id="product{{ $product->id }}"
                                                 name="products[]" value="{{ $product->id }}">
                                             <label class="form-check-label"
-                                                for="product{{ $product->id }}">Select</label></small>
+                                                for="product{{ $product->id }}">select</label></small>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="modal fade" id="productModal{{ $product->id }}" tabindex="-1"
-                                aria-labelledby="productModalLabel{{ $product->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="productModalLabel{{ $product->id }}">
-                                                {{ $product->product_name }}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img class="img-fluid mb-3" src="{{ asset($product->image_url) }}"
-                                                alt="Product Image">
-                                            <p><strong>Price:</strong> TZS {{ $product->price }}</p>
-                                            <p><strong>Category:</strong> {{ $product->category }}</p>
-                                            <p><strong>Description:</strong> {{ $product->product_description }}</p>
-                                            <p><strong>Duration:</strong> {{ $product->duration }}'s</p>
-                                            <p><strong>Product Status:</strong> {{ $product->product_status }}</p>
-                                            <p><strong>Video URL:</strong> <a href="{{ $product->video_url }}"
-                                                    target="_blank">View Video</a></p>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-between">
-                                            <button type="button" class="btn btn-success">Buy</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
                         @empty
                             <div class="text-center">
-
                                 <h6 class="fw-semibold mb-0 text-danger">No Fireworks found.</h6>
-
                             </div>
                         @endforelse
                     </div>
@@ -167,7 +121,7 @@
                 </form>
 
             </div>
-        </div>
+
     </div>
 
 
@@ -181,28 +135,20 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/tabs.js"></script>
-    <script src="assets/js/video.js"></script>
-    <script src="assets/js/slick-slider.js"></script>
-    <script src="assets/js/custom.js"></script>
-
-
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
+    <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
+    <script src="{{ asset('assets/js/lightbox.js') }}"></script>
+    <script src="{{ asset('assets/js/tabs.js') }}"></script>
+    <script src="{{ asset('assets/js/video.js') }}"></script>
+    <script src="{{ asset('assets/js/slick-slider.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 </body>
 
