@@ -94,7 +94,7 @@
                                                             <i class="ti ti-trash"></i>
                                                         </a>
                                                         <a href="#" data-bs-toggle="modal"
-                                                            class="badge bg-warning" data-bs-target="#userDetailModal"
+                                                            class="badge bg-primary" data-bs-target="#userDetailModal"
                                                             data-bs-name="{{ $user->name }}"
                                                             data-bs-phone="{{ $user->phone }}"
                                                             data-bs-email="{{ $user->email }}"

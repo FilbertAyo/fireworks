@@ -79,13 +79,13 @@
                                                     </td>
                                                     <td class="border-bottom-0">
                                                         @if ($task->task_status == 'Pending')
-                                                        <span class="badge bg-warning rounded-5">{{ $task->task_status }}</span>
+                                                        <span class="alert alert-warning p-1">{{ $task->task_status }}</span>
                                                     @elseif ($task->task_status == 'Completed')
-                                                        <span class="badge bg-success rounded-5">{{ $task->task_status }}</span>
+                                                        <span class="alert alert-success p-1">{{ $task->task_status }}</span>
                                                     @endif
                                                     </td>
                                                     <td class="border-bottom-0">
-                                                        <a href="{{ route('task.show', $task->id) }}" class="badge bg-primary">View</a>
+                                                        <a href="{{ route('task.show', $task->id) }}" class="badge bg-primary"><i class="ti ti-eye"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -112,7 +112,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  
+
                     <form method="GET" action="{{ route('book_create') }}">
                         @csrf
                         <div class="row col-12">
@@ -124,12 +124,12 @@
                                                 <img class="img-fluid" src="{{ asset($product->image_url) }}"
                                                     >
                                             </a>
-                                       
+
                                         </div>
                                         <div class="p-4 pb-0">
                                             <h6 class="text-primary mb-1">TZS {{ $product->price }}</h6>
                                             <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
-                                         
+
                                         </div>
                                         <div class="d-flex border-top">
                                             <small class="flex-fill text-center border-end ">{{ $product->duration }}'s</small>
@@ -143,20 +143,20 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                             @empty
                                 <div class="text-center">
-    
+
                                     <h6 class="fw-semibold mb-0 text-danger">No Fireworks found.</h6>
-    
+
                                 </div>
                             @endforelse
                         </div>
                         <div class="text-center">
                             <button type="submit" class="badge bg-primary mt-4">Proceed to Book</button>
                         </div>
-    
-    
+
+
                     </form>
 
                 </div>

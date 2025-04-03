@@ -37,22 +37,18 @@
             <div class="collapse navbar-collapse d-lg-flex d-none" id="navbarCollapse">
                 <div class="navbar-nav ms-auto">
                     <a href="{{ url('/') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ Request::is('product_list') ? 'active' : '' }}" data-bs-toggle="dropdown">Operation</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{{ url('/product_list') }}" class="dropdown-item {{ Request::is('product_list') ? 'active' : '' }}">Product List</a>
-                        </div>
-                    </div>
+                    <a href="{{ url('/product_list') }}" class="nav-item nav-link {{ Request::is('product_list') ? 'active' : '' }}">Products</a>
+                    <a href="{{ url('/book') }}" class="nav-item nav-link {{ Request::is('book') ? 'active' : '' }}">Booking</a>
                     <a href="{{ url('/contact') }}" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
-
                 </div>
 
             </div>
               <div class="d-flex align-items-center ms-auto">
+
                 @auth
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="{{ asset('assets/images/profile.jpeg') }}" alt="" width="35" height="35" class="rounded-circle">
+                        <i class="fa fa-user text-black"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-white text-center p-3 rounded shadow-lg border-0" aria-labelledby="drop2">
                         <div class="d-flex flex-column align-items-center">
@@ -65,13 +61,29 @@
                         </div>
                     </div>
                 @else
-
                     <a href="{{ route('login') }}" class="btn btn-primary px-3 d-none d-lg-flex">Login</a>
                 @endauth
             </div>
         </nav>
 
-        <!-- Sidebar Navigation for Medium and Small Screens -->
+        <style>
+            /* Custom offcanvas style to make it open halfway */
+            #sidebarMenu {
+                height: 50vh; /* Half the viewport height */
+                top: auto;
+                bottom: 0;
+            }
+
+            /* Ensure it's visible properly */
+            .offcanvas.offcanvas-start {
+                transform: translateX(-100%); /* Initially hidden */
+            }
+
+            .offcanvas.show {
+                transform: translateX(0); /* Slide it in */
+            }
+        </style>
+
         <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarMenu">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title">Menu</h5>
@@ -80,17 +92,13 @@
             <div class="offcanvas-body">
                 <div class="navbar-nav">
                     <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Operation</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{{ url('/product_list') }}" class="dropdown-item">Product List</a>
-                        </div>
-                    </div>
+                    <a href="{{ url('/product_list') }}" class="nav-item nav-link active">Products</a>
+                    <a href="{{ url('/book') }}" class="nav-item nav-link active">Booking</a>
                     <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
             </div>
         </div>
+
 
 </header>
 

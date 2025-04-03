@@ -32,22 +32,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+ <!-- Libraries Stylesheet -->
+ <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+ <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+ <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+ <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body class="bg-white p-0">
 
     @include('layouts.top-nav')
 
-    <div class="container-xxl py-3 ">
+    <div class="py-3 ">
         <div class="container">
             <ul class="nav nav-tabs" id="myTabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -81,28 +77,16 @@
                         <div class="col-lg-12 d-flex align-items-stretch">
 
                                         <table class="table text-nowrap align-middle table-bordered">
-                                            <thead class="text-dark fs-4">
+                                            <thead class="text-dark fs-1">
                                                 <tr>
-                                                    <th class="border-bottom-0">
+                                                    <th>
                                                         <h6 class="fw-semibold mb-0">Id</h6>
                                                     </th>
-                                                    <th class="border-bottom-0">
+                                                    <th>
                                                         <h6 class="fw-semibold mb-0">Task Name/Place</h6>
                                                     </th>
-                                                    <th class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-0">Date & Time</h6>
-                                                    </th>
-                                                    <th class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-0">Contacts</h6>
-                                                    </th>
-                                                    <th class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-0">Where</h6>
-                                                    </th>
 
-                                                    <th class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-0">Status</h6>
-                                                    </th>
-                                                    <th class="border-bottom-0">
+                                                    <th>
                                                         <h6 class="fw-semibold mb-0">Actions</h6>
                                                     </th>
                                                 </tr>
@@ -110,32 +94,17 @@
                                             <tbody>
                                                 @foreach ($tasks as $index => $task)
                                                     <tr>
-                                                        <td class="border-bottom-0">
+                                                        <td>
                                                             <h6 class="fw-semibold mb-0">{{ $index + 1 }}</h6>
                                                         </td>
-                                                        <td class="border-bottom-0">
-                                                            <h6 class="fw-semibold mb-1">{{ $task->task_name }}</h6>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <h6 class="fw-semibold mb-1">{{ $task->event_date }}</h6>
-                                                            <span class="fw-normal">{{ $task->event_time }}</span>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <h6 class="fw-semibold mb-1">{{ $task->event_phone }}</h6>
-                                                            <span class="fw-normal">{{ $task->event_email }}</span>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <h6 class="fw-semibold mb-1">{{ $task->event_address }}</h6>
+                                                        <td>
+                                                            <h6 class="fw-semibold py-1">{{ $task->task_name }}</h6>
+                                                            <span
+                                                            class="alert alert-primary p-0">{{ $task->task_status }}</span>
                                                         </td>
 
-                                                        <td class="border-bottom-0">
-                                                            <div class="d-flex align-items-center gap-2">
-                                                                <span
-                                                                    class="badge bg-primary rounded-3 fw-semibold">{{ $task->task_status }}</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <a href="{{ route('task.showTask', $task->id) }}" class="badge bg-warning">View</a>
+                                                        <td>
+                                                            <a href="{{ route('task.showTask', $task->id) }}" class="badge bg-warning"><i class="fa fa-eye"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

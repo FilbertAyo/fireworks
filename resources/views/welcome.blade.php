@@ -33,7 +33,32 @@
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <style>
 
+        .caption{
+            margin-top: 0px;
+        }
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 40px !important;
+            }
+            .sub-title {
+                display: none;
+            }
+            .buy-firework{
+                display: none;
+            }
+
+        }
+        @media (min-width: 769px) {
+            .main-title {
+                font-size: 50px !important;
+            }
+            .sub-title {
+                font-size: 14px !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-white">
@@ -66,7 +91,12 @@
                                     <a href="/becomesponsor.html" class="outline-btn">Buy firework</a>
                                 </div>
                                 <div class="col-auto">
+                                    @auth
                                     <a href="{{ url('/book') }}" class="main-btn scroll-to-section">Book event</a>
+                                @else
+                                    <a href="{{ url('/login') }}" class="main-btn scroll-to-section">Book event</a>
+                                @endauth
+
                                 </div>
                             </div>
 
@@ -77,38 +107,13 @@
         </div>
     </section>
 
-    <style>
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 40px !important;
-            }
-            .sub-title {
-                display: none;
-            }
-            .buy-firework{
-                display: none;
-            }
-
-        }
-        @media (min-width: 769px) {
-            .main-title {
-                font-size: 50px !important;
-            }
-            .sub-title {
-                font-size: 14px !important;
-            }
-        }
-    </style>
-
 
     <div class="container-xxl py-5">
 
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
-                    <div class="about-img position-relative overflow-hidden p-5 pe-0">
                         <img class="img-fluid w-100" src="{{ asset('assets/images/kenseep.jpg') }}">
-                    </div>
                 </div>
                 <div class="col-lg-6">
                     <h1 class="mb-4">About us</h1>
@@ -127,13 +132,13 @@
 
             <div class="col-lg-12 mt-5">
 
-                <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-                    <h1 class="mb-3">Fireworks Services</h1>
+                <div class="text-center mx-auto mb-4" >
+                    <h1 class="mb-1">Fireworks Services</h1>
                     <p>Explore our spectacular fireworks services for all occasions.</p>
                 </div>
 
                 <div class="row d-flex align-items-stretch">
-                    <div class="col-lg-4">
+                    <div class="col-12 col-md-4">
                         <div class="meeting-item h-100">
                             <div class="thumb">
                                 <div class="price">
@@ -147,7 +152,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-12 col-md-4">
                         <div class="meeting-item h-100">
                             <div class="thumb">
                                 <div class="price">
@@ -161,7 +166,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-12 col-md-4">
                         <div class="meeting-item h-100">
                             <div class="thumb">
                                 <div class="price">
@@ -174,8 +179,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
             </div>
@@ -187,8 +190,8 @@
         <div class="container">
             <div class="row g-0 gx-5 align-items-end">
                 <div class="col-lg-6">
-                    <div class="text-start mx-auto mb-5">
-                        <h1 class="mb-3">Fireworks Products</h1>
+                    <div class="text-start mx-auto mb-4">
+                        <h1 class="mb-1">Fireworks Products</h1>
                         <p>Browse our selection of fireworks products, choose your favorites, and either purchase them
                             now or use them to book an event.</p>
                     </div>
@@ -212,26 +215,24 @@
                          <div class="col-6 col-md-4 col-lg-3 mb-3">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href="{{ route('product.showProduct',$product->id) }}">
-                                            <img class="img-fluid" src="{{ asset($product->image_url) }}"
-                                                alt="">
+                                        <a href="{{ route('product.showProduct', $product->id) }}">
+                                            <img class="img-fluid" src="{{ asset($product->image_url) }}" alt="">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2"> video</a>
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2"> <i class="bi bi-play-circle"></i></a>
 
                                     </div>
-                                    <div class="p-4 pb-0">
+                                    <div class="py-4 px-2 pb-0 mb-2">
                                         <h6 class="text-primary mb-1">TZS {{ number_format($product->price) }}</h6>
-                                        <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
-                                        {{-- <p><i
-                                                class="fa fa-fire text-primary me-2"></i>{{ $product->product_description }}
-                                        </p> --}}
+                                        <h6 class="d-block h6" href="">{{ $product->product_name }}</h6>
+                                        <small class="flex-fill"><i
+                                            class="fa fa-layer-group text-primary me-2"></i>{{ $product->category }}</small>
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
                                         <small class="flex-fill text-center py-2"><i
-                                                class="fa fa-list text-primary me-2"></i>{{ $product->category }}</small>
+                                                class="fa fa-box text-primary me-2"></i>{{ $product->quantity }} pieces</small>
                                     </div>
                                 </div>
                             </div>
@@ -246,6 +247,22 @@
 
         </div>
     </div>
+
+
+    <!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoModalLabel">YouTube Video</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="youtubeVideo" width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <div class="container-xxl mt-5">
@@ -273,7 +290,7 @@
         </div>
     </div>
 
-    <div class="container-xxl py-5">
+    {{-- <div class="container-xxl py-5">
 
         <div class="text-center mx-auto mb-5 wow fadeInUp" style="max-width: 600px;">
             <h1 class="mb-3">Our Team</h1>
@@ -302,7 +319,7 @@
 
         </div>
 
-</div>
+</div> --}}
 
 
 

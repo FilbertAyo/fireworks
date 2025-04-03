@@ -13,7 +13,6 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
         // Paginate the products with search functionality
         $products = Product::when($search, function ($query, $search) {
             return $query->where('product_name', 'like', "%{$search}%")
@@ -79,11 +78,18 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'product added successfully');
     }
 
-    public function product_list() {
+    public function product_list(Request $request) {
 
-        $products = Product::all();
+        $search = $request->input('search');
 
-        return view('products.product_list', compact('products'));
+        // Paginate the products with search functionality
+        $products = Product::when($search, function ($query, $search) {
+            return $query->where('product_name', 'like', "%{$search}%")
+                ->orWhere('category', 'like', "%{$search}%");
+        })
+        ->paginate(8);
+
+        return view('products.product_list', compact('products','search'));
     }
 
     public function product_details($id) {

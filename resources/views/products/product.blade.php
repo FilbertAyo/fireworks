@@ -35,61 +35,57 @@
                                     <table class="table text-nowrap mb-0 align-middle table-bordered">
                                         <thead class="text-dark fs-4">
                                             <tr>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Id</h6>
+                                                <th>
+                                                    Id
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Name</h6>
+                                                <th>
+                                                    Name
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Category</h6>
+                                                <th>
+                                                    Category
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Price(Tsh)</h6>
+                                                <th>
+                                                    Price(Tsh)
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Duration(Sec)</h6>
+                                                <th>
+                                                    Duration(Sec)
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Quantity</h6>
+                                                <th>
+                                                    Q(pieces)
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Status</h6>
+                                                <th>
+                                                    Status
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Actions</h6>
+                                                <th>
+                                                    Actions
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse ($products as $index => $product)
                                                 <tr>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-0">{{ $index + 1 }}</h6>
+                                                    <td>
+                                                       {{ $index + 1 }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $product->product_name }}</h6>
+                                                    <td>
+                                                        {{ $product->product_name }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $product->category }}</h6>
-                                                        <span class="fw-normal">{{ $product->event_time }}</span>
+                                                    <td>
+                                                       {{ $product->category }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $product->price }}</h6>
-                                                        <span class="fw-normal">{{ $product->event_email }}</span>
+                                                    <td>
+                                                       {{ $product->price }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $product->duration }}</h6>
+                                                    <td>
+                                                      {{ $product->duration }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $product->quantity }}</h6>
+                                                    <td>
+                                                        {{ $product->quantity }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <span class="badge bg-warning rounded-3 fw-semibold">{{ $product->product_status }}</span>
-                                                        </div>
+                                                    <td>
+                                                        <span class="alert alert-warning p-1">{{ $product->product_status }}</span>
                                                     </td>
-                                                    <td class="border-bottom-0">
+                                                    <td>
                                                         <a href="{{ route('products.destroy', $product->id) }}" class="badge bg-danger"
                                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Product?')) { document.getElementById('delete-form-{{ $product->id }}').submit(); }">
                                                             <i class="ti ti-trash"></i>
@@ -146,54 +142,50 @@
                     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- product Name -->
+                        <!-- Product Name -->
                         <div class="mb-3">
-                            <label for="product_name" class="form-label">product Name</label>
-                            <input type="text" class="form-control" id="product_name" name="product_name" required>
+                            <label for="product_name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Name" required value="{{ old('product_name') }}">
                         </div>
-
 
                         <div class="row">
                             <div class="mb-3 col-6">
-                                <label for="event_date" class="form-label">Category</label>
-                                <input type="text" class="form-control" id="event_date" name="category" required>
+                                <label for="category" class="form-label">Category</label>
+                                <input type="text" class="form-control" id="category" name="category" placeholder="Category" required value="{{ old('category') }}">
                             </div>
 
-                            <!-- Event Time -->
+                            <!-- Price -->
                             <div class="mb-3 col-6">
-                                <label for="event_time" class="form-label">Price</label>
-                                <input type="text" class="form-control" id="event_time" name="price" required>
+                                <label for="price" class="form-label">Price</label>
+                                <input type="text" class="form-control" id="price" name="price" placeholder="in Tzs" required value="{{ old('price') }}">
                             </div>
                         </div>
-
 
                         <div class="row">
                             <div class="mb-3 col-6">
-                                <label for="contact_person" class="form-label">Duration</label>
-                                <input type="text" class="form-control" id="contact_person" name="duration"
-                                    required>
+                                <label for="duration" class="form-label">Duration</label>
+                                <input type="number" class="form-control" id="duration" name="duration" placeholder="in seconds" required value="{{ old('duration') }}">
                             </div>
-                            <div class="mb-3  col-6">
-                                <label for="contact_phone" class="form-label">Quantity</label>
-                                <input type="text" class="form-control" id="contact_phone" name="quantity"
-                                    required>
+                            <div class="mb-3 col-6">
+                                <label for="quantity" class="form-label">Pieces per Firework</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required value="{{ old('quantity') }}">
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="contact_person" class="form-label">Product Image</label>
-                            <input type="file" class="form-control" id="contact_person" name="image_url"
-                                required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="contact_phone" class="form-label">Sample Video url</label>
-                            <input type="text" class="form-control" id="contact_phone" name="video_url"
-                                required>
+                            <label for="image_url" class="form-label">Product Image</label>
+                            <input type="file" class="form-control" id="image_url" name="image_url" required>
                         </div>
-                        <!-- product Description -->
+
                         <div class="mb-3">
-                            <label for="product_description" class="form-label">product Description</label>
-                            <textarea class="form-control" id="product_description" name="product_description" rows="3"></textarea>
+                            <label for="video_url" class="form-label">Sample Video URL</label>
+                            <input type="text" class="form-control" id="video_url" name="video_url" placeholder="YouTube URL" required value="{{ old('video_url') }}">
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="mb-3">
+                            <label for="product_description" class="form-label">Product Description</label>
+                            <textarea class="form-control" id="product_description" name="product_description" rows="3">{{ old('product_description') }}</textarea>
                             <input type="hidden" name="product_status" value="In Stock">
                         </div>
 
@@ -201,8 +193,8 @@
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Add Firework</button>
                         </div>
-
                     </form>
+
 
                 </div>
             </div>

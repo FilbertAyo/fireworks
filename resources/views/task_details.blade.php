@@ -36,7 +36,7 @@
 
     @include('layouts.top-nav')
 
-    <div class="container-xxl py-5">
+    <div class="py-5">
         <div class="container">
             <div class="tab-content mt-3" id="myTabsContent">
                 <!-- My Bookings Tab -->
@@ -45,12 +45,12 @@
                         <div class="row">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title fw-semibold">My Booking</h5>
-                                <a href="{{ route('my-dashboard') }}" class="btn bg-secondary text-white">Go Back</a>
+                                <a href="{{ route('my-dashboard') }}" class="badge bg-dark text-white">Go Back</a>
                             </div>
 
                             <div class="col-lg-12 d-flex align-items-stretch">
                                 <div class="card mt-3 w-100 shadow-sm border-0 rounded-3">
-                                    <div class="card-header bg-warning border-bottom">
+                                    <div class="card-header bg-danger border-bottom">
                                         <h5 class="fw-bold text-dark mb-0"><i class="fas fa-calendar-check me-2"></i>Booking Details</h5>
                                     </div>
                                     <div class="card-body">

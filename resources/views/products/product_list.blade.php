@@ -49,21 +49,24 @@
         </div>
     </section>
 
+
     <div class="container-fluid bg-primary" style="padding: 20px;">
         <div class="container">
+            <form action="{{ url('/product_list') }}" method="GET">
             <div class="row g-2">
                 <div class="col-md-10">
                     <div class="row g-2">
                         <div class="col-md-12">
-                            <input type="text" class="form-control border-0 py-2" placeholder="Search Fireworks">
+                            <input type="text" class="form-control border-0 py-2" name="search" value="{{ request()->input('search') }}" placeholder="Search Fireworks or category">
                         </div>
 
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-dark border-0 w-100 py-2">Search</button>
+                    <button type="submit" class="btn btn-dark border-0 w-100 py-2">Search</button>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 
@@ -82,7 +85,7 @@
                                                 alt="">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">video</a>
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2"><i class="bi bi-play-circle"></i></a>
                                     </div>
                                     <div class="py-4 px-2 pb-0 mb-2">
                                         <h6 class="text-primary mb-1">TZS {{ number_format($product->price) }}</h6>
@@ -93,6 +96,8 @@
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
+                                                <small class="flex-fill text-center border-end py-2"><i
+                                                    class="fa fa-box text-primary me-2"></i>{{ $product->quantity }} pieces</small>
 
                                         <small class="flex-fill text-center py-2">
                                             <input type="checkbox"
@@ -111,19 +116,25 @@
                     </div>
                     <div class="text-center">
                         @auth
+                            <div class="d-flex justify-content-between mt-3">
+                                <div class="align-self-center">
+                                    <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} products</p>
+                                </div>
+                                <div class="align-self-center">
+                                    {{ $products->links('vendor.pagination.bootstrap-4') }} <!-- Bootstrap pagination links -->
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary mt-4">Proceed to Book</button>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-primary mt-4">Proceed to Book</a>
+
                         @endauth
                     </div>
 
-
                 </form>
-
             </div>
-
     </div>
-
 
     @include('elements.footer')
 

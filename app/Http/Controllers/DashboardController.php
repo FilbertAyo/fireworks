@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function dashboard(){
 
         if (Auth::user()->userType == '2') {
-            return redirect('/')->with('success', 'Welcome to the homepage');
+            return redirect('/');
         } else {
             return redirect('/dash');
         }
@@ -77,7 +77,7 @@ class DashboardController extends Controller
     public function home(){
         $users = User::whereIn('userType', [0, 1])->get();
 
-        $products = Product::inRandomOrder()->take(12)->get();
+        $products = Product::inRandomOrder()->take(8)->get();
 
         return view('welcome',compact('users', 'products'));
     }

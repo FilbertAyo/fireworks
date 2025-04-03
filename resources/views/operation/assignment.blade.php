@@ -26,58 +26,56 @@
                                     <table class="table text-nowrap mb-0 align-middle table-bordered">
                                         <thead class="text-dark fs-4">
                                             <tr>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Id</h6>
+                                                <th>
+                                                    Id</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Assignee</h6>
+                                                <th>
+                                                    Assignee</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Task</h6>
+                                                <th>
+                                                    Task</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Total Expenses</h6>
+                                                <th>
+                                                    Total Expenses</h6>
                                                 </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Status</h6>
+                                                <th>
+                                                    Status</h6>
                                                 </th>
 
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Actions</h6>
+                                                <th>
+                                                    Actions</h6>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse ($assignments as $index => $assignment)
                                                 <tr>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-0">{{ $index + 1 }}</h6>
+                                                    <td>
+                                                        {{ $index + 1 }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $assignment->user->name }}</h6>
+                                                    <td>
+                                                        {{ $assignment->user->name }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $assignment->task->task_name }}</h6>
+                                                    <td>
+                                                        {{ $assignment->task->task_name }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <h6 class="fw-semibold mb-1">{{ $assignment->task->total_amount }}</h6>
+                                                    <td>
+                                                        {{ $assignment->task->total_amount }}
                                                     </td>
-                                                    <td class="border-bottom-0">
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <span class="badge
-                                                                {{ $assignment->status == 'pending' ? 'bg-danger' : 'bg-success' }}
-                                                                rounded-5 fw-semibold">
+                                                    <td>
+
+                                                            <span class="alert p-1
+                                                                {{ $assignment->status == 'pending' ? 'alert-danger' : 'alert-success' }} ">
                                                                 {{ $assignment->status }}
                                                             </span>
-                                                        </div>
+                                                      
                                                     </td>
-                                                    <td class="border-bottom-0">
-
-                                                        <a href="{{ route('assignments.show',$assignment->id) }}" class="badge bg-primary">View</a>
+                                                    <td>
+                                                        <a href="{{ route('assignments.show',$assignment->id) }}" class="badge bg-primary"><i class="ti ti-eye"></i></a>
                                                         <a href="{{ route('assignments.destroy', $assignment->id) }}"
                                                             class="badge bg-danger"
                                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this assignment?')) { document.getElementById('delete-form-{{ $assignment->id }}').submit(); }">
-                                                            <i class="ti ti-trash"></i> Delete
+                                                            <i class="ti ti-trash"></i>
                                                         </a>
                                                         <form id="delete-form-{{ $assignment->id }}" action="{{ route('assignments.destroy', $assignment->id) }}" method="POST" style="display: none;">
                                                             @csrf
