@@ -83,7 +83,12 @@
                                                         {{ $product->quantity }}
                                                     </td>
                                                     <td>
-                                                        <span class="alert alert-warning p-1">{{ $product->product_status }}</span>
+                                                        @if ($product->product_status == 'In Stock')
+                                                            <span class="alert alert-success p-1">{{ $product->product_status }}</span>
+                                                        @elseif ($product->product_status == 'Sold Out')
+                                                            <span class="alert alert-danger p-1">{{ $product->product_status }}</span>
+
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('products.destroy', $product->id) }}" class="badge bg-danger"

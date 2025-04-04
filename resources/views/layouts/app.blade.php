@@ -16,7 +16,6 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="shortcut icon" type="image/png" href="backend/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.min.css') }}" />
 
 </head>

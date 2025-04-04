@@ -115,16 +115,16 @@
                         @endforelse
                     </div>
                     <div class="text-center">
-                        @auth
-                            <div class="d-flex justify-content-between mt-3">
-                                <div class="align-self-center">
-                                    <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} products</p>
-                                </div>
-                                <div class="align-self-center">
-                                    {{ $products->links('vendor.pagination.bootstrap-4') }} <!-- Bootstrap pagination links -->
-                                </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div class="align-self-center">
+                                <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} products</p>
                             </div>
+                            <div class="align-self-center">
+                                {{ $products->links('vendor.pagination.bootstrap-4') }} <!-- Bootstrap pagination links -->
+                            </div>
+                        </div>
 
+                        @auth
                             <button type="submit" class="btn btn-primary mt-4">Proceed to Book</button>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-primary mt-4">Proceed to Book</a>

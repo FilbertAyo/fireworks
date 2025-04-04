@@ -117,17 +117,34 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        // Get all request data
-        $data = $request->all();
+     */public function update(Request $request, Product $product)
+{
+    $data = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'price' => 'required|numeric',
+        'category' => 'required|string|max:255',
+        'product_description' => 'required|string',
+        'duration' => 'required|integer',
+        'quantity' => 'required|integer',
+        'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // optional image upload
+        'product_status' => 'required',
+        'video_url' => 'required|string',
+    ]);
 
-        // Update product with all data
-        $product->update($data);
-
-        return redirect()->back()->with('success', 'Product updated successfully');
+    // Handle the image upload
+    if ($request->hasFile('image_url')) {
+        $image = $request->file('image_url');
+        $imageName = time() . '.' . $image->getClientOriginalExtension(); // Unique filename
+        $image->move(public_path('product_images'), $imageName);
+        $data['image_url'] = 'product_images/' . $imageName;
     }
+
+    // Update product with validated data
+    $product->update($data);
+
+    return redirect()->back()->with('success', 'Product updated successfully');
+}
+
 
 
     /**

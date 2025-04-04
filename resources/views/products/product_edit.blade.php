@@ -65,15 +65,20 @@
                                                 <div class="mb-3 col-6">
                                                     <label class="form-label">Product Status</label>
                                                     <select name="product_status" class="form-control">
-                                                        <option value="Available" {{ $product->product_status == 'Available' ? 'selected' : '' }}>Available</option>
+                                                        <option value="In Stock" {{ $product->product_status == 'In Stock' ? 'selected' : '' }}>In Stock</option>
                                                         <option value="Sold Out" {{ $product->product_status == 'Sold Out' ? 'selected' : '' }}>Sold Out</option>
                                                     </select>
                                                 </div>
 
                                             </div>
                                             <div class="mb-3">
+                                                <label class="form-label">Video url</label>
+                                                <input type="text" name="video_url" class="form-control" value="{{ $product->video_url }}" required>
+                                            </div>
+
+                                            <div class="mb-3">
                                                 <label class="form-label">Description</label>
-                                                <input type="text" name="product_description" class="form-control" value="{{ $product->product_description }}" required>
+                                                <textarea name="product_description" class="form-control" required>{{ $product->product_description }}</textarea>
                                             </div>
 
                                             <!-- Save Changes Button -->
