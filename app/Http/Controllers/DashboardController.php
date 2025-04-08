@@ -89,12 +89,15 @@ class DashboardController extends Controller
         $users = User::whereIn('userType',[0,1])->get();
         return view('about',compact('users'));
     }
-    public function deactivate(Request $request, $id)
-{
-    $user = User::findOrFail($id);
-    $user->user_status = 'blocked';
-    $user->save();
+    public function updateStatus(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->user_status = $request->user_status; // 'active' or 'blocked'
+        $user->save();
 
-    return redirect()->back()->with('success', 'User has been deactivated');
-}
+        $message = $user->user_status == 'active' ? 'User has been activated' : 'User has been deactivated';
+
+        return redirect()->back()->with('success', $message);
+    }
+
 }

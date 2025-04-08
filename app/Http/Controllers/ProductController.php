@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $categories = Category::all();
+
         $search = $request->input('search');
         // Paginate the products with search functionality
         $products = Product::when($search, function ($query, $search) {
@@ -20,7 +23,7 @@ class ProductController extends Controller
         })
         ->paginate(10);  // Adjust the number of items per page (10 in this case)
 
-        return view('products.product', compact('products', 'search'));
+        return view('products.product', compact('products', 'search', 'categories'));
     }
 
     /**
@@ -44,6 +47,7 @@ class ProductController extends Controller
             'product_description' => 'required|string',
             'duration' => 'required|integer',
             'quantity' => 'required|integer',
+            'piece' => 'required|integer',
             'image_url' => 'required',
             'product_status' => 'required',
             'video_url' => 'required|string',
@@ -66,6 +70,7 @@ class ProductController extends Controller
         $product->product_description = $request->product_description;
         $product->duration = $request->duration;
         $product->quantity = $request->quantity;
+        $product->piece = $request->piece;
         $product->image_url = $imagePath;
         $product->product_status = $request->product_status;
         $product->video_url = $request->video_url; // Admin-provided path
@@ -126,6 +131,7 @@ class ProductController extends Controller
         'product_description' => 'required|string',
         'duration' => 'required|integer',
         'quantity' => 'required|integer',
+        'piece' => 'required|integer',
         'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // optional image upload
         'product_status' => 'required',
         'video_url' => 'required|string',
@@ -164,6 +170,31 @@ class ProductController extends Controller
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Product deleted successfully.');
+    }
+
+
+
+    public function category(){
+        $categories = Category::all();
+        return view('settings.category',compact('categories'));
+    }
+
+    public function storeCategory(){
+        $category = new Category();
+        $category->category_name = request('category_name');
+        $category->save();
+
+        return redirect()->back()->with('success', 'Category added successfully');
+    }
+    public function destroyCategory($category)
+    {
+        $category = Category::findOrFail($category);
+
+        // Delete the category record from the database
+        $category->delete();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 
 }

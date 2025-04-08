@@ -11,6 +11,7 @@
                     <a class="btn btn-outline-light btn-social" href=""><i
                             class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://wa.me/255673443706?text=Hello%20I%20am%20interested%20in%20your%20services"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">

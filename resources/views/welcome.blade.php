@@ -232,7 +232,7 @@
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
                                         <small class="flex-fill text-center py-2"><i
-                                                class="fa fa-box text-primary me-2"></i>{{ $product->quantity }} pieces</small>
+                                                class="fa fa-box text-primary me-2"></i>{{ $product->piece }} pieces</small>
                                     </div>
                                 </div>
                             </div>
@@ -279,8 +279,10 @@
                                 <p>Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit
                                     diam justo sed vero dolor duo.</p>
                             </div>
-                            <a href="{{ url('/contact') }}" class="btn btn-primary me-2 mt-3"><i
-                                    class="fa fa-phone-alt me-2"></i>Make A Call</a>
+                            <a href="tel:+255673443706" class="btn btn-primary me-2 mt-3">
+                                <i class="fa fa-phone-alt me-2"></i>Make A Call
+                            </a>
+
                             <a href="{{ url('/book') }}" class="btn btn-dark  mt-3"><i
                                     class="fa fa-calendar-alt me-2"></i>Book</a>
                         </div>

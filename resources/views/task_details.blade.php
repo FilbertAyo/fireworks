@@ -96,7 +96,7 @@
                                         <h5 class="card-title fw-semibold mb-3">Selected Fireworks</h5>
                                         <div class="row">
                                             @forelse ($products as $product)
-                                                <div class="col-md-4 mb-3">
+                                                <div class="col-3">
                                                     <div class="card">
                                                         <img src="{{ asset($product->product_image) }}" class="card-img-top" alt="Product Image">
                                                         <div class="card-body">

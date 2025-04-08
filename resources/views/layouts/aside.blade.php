@@ -72,21 +72,25 @@
                             <span class="hide-menu">Assignment</span>
                         </a>
                     </li>
+                    @endif
+
 
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">PRODUCTS</span>
+                        <span class="hide-menu">Settings</span>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-checklist"></i>
-                            </span>
+                            <span><i class="ti ti-checklist"></i></span>
                             <span class="hide-menu">Products</span>
                         </a>
                     </li>
-                @endif
-
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ url('/category') }}" aria-expanded="false">
+                            <span><i class="ti ti-list"></i></span>
+                            <span class="hide-menu">Category</span>
+                        </a>
+                    </li>
             </ul>
             <div class="unlimited-access hide-menu bg-light-danger position-relative mb-7 mt-5 rounded">
                 <div class="d-flex">
@@ -102,7 +106,7 @@
                 </div>
             </div>
         </nav>
-      
+
     </div>
 
 </aside>

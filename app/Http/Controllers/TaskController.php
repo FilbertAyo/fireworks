@@ -16,6 +16,11 @@ class TaskController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+
+        if ($user->userType != 0) {
+           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+        }
         $products = Product::all();
         $tasks = Task::all();
         return view('jobs.task', compact('tasks', 'products'));
@@ -30,6 +35,19 @@ class TaskController extends Controller
         $selectedProducts = Product::whereIn('id', $productIds)->get();
 
         return view('book', compact('selectedProducts'));
+    }
+
+    public function bookCreate(Request $request)
+
+    {
+        $search = $request->input('search');
+        // Paginate the products with search functionality
+        $products = Product::when($search, function ($query, $search) {
+            return $query->where('product_name', 'like', "%{$search}%")
+                ->orWhere('category', 'like', "%{$search}%");
+        })
+        ->paginate(12);
+        return view('jobs.prod_list', compact('products', 'search'));
     }
 
     public function book_create(Request $request)
@@ -124,6 +142,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+
         $users = User::all()->where('user_status', 'active')->whereIn('userType', [0, 1]);
 
         $assignedUsers = User::whereHas('assignments', function ($query) use ($task) {

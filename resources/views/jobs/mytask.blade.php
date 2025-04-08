@@ -71,9 +71,9 @@
 
                                                     <td class="border-bottom-0">
                                                         @if ($task->task_status == 'Pending')
-                                                        <span class="badge bg-warning rounded-5">{{ $task->task_status }}</span>
+                                                        <span class="alert alert-warning p-1">{{ $task->task_status }}</span>
                                                     @elseif ($task->task_status == 'Completed')
-                                                        <span class="badge bg-success rounded-5">{{ $task->task_status }}</span>
+                                                        <span class="alert alert-success p-1">{{ $task->task_status }}</span>
                                                     @endif
                                                     </td>
                                                     <td class="border-bottom-0">

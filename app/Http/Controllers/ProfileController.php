@@ -14,6 +14,13 @@ class ProfileController extends Controller
 {
 
     public function users(){
+
+        $user = Auth::user();
+
+        if ($user->userType != 0) {
+           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+        }
+
         $users = User::whereIn('userType', [0, 1])->get();
         return view('users.user',compact('users'));
     }
@@ -24,6 +31,12 @@ class ProfileController extends Controller
             return $query->where('name','like',"%{$search}%")
             ->orWhere('email','like',"%{$search}%");
         })->paginate(10);
+
+        $user = Auth::user();
+
+        if ($user->userType != 0) {
+           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+        }
 
         // $users = User::where('userType',2)->get();
         return view('users.customer',compact('users','search'));

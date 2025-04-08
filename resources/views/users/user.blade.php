@@ -1,6 +1,4 @@
 <x-app-layout>
-
-
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
 
@@ -13,7 +11,6 @@
             <div class="m-3">
 
                 <div class="row">
-
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title fw-semibold ">Employees</h5>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -87,12 +84,18 @@
 
                                                     </td>
                                                     <td class="border-bottom-0">
-                                                        <a href="#" class="deactivate-btn badge bg-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#exampleModal4"
-                                                            data-user-id="{{ $user->id }}"
-                                                            data-user-name="{{ $user->name }}">
-                                                            <i class="ti ti-trash"></i>
-                                                        </a>
+                                                        <a href="#"
+                                                        class="status-toggle-btn badge {{ $user->user_status == 'active' ? 'bg-danger' : 'bg-warning' }}"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#statusModal"
+                                                        data-user-id="{{ $user->id }}"
+                                                        data-user-name="{{ $user->name }}"
+                                                        data-action="{{ $user->user_status == 'active' ? 'deactivate' : 'activate' }}"
+                                                        data-status="{{ $user->user_status == 'active' ? 'blocked' : 'active' }}">
+                                                        <i class="ti {{ $user->user_status == 'active' ? 'ti-x' : 'ti-check' }}"></i>
+                                                     </a>
+
+
                                                         <a href="#" data-bs-toggle="modal"
                                                             class="badge bg-primary" data-bs-target="#userDetailModal"
                                                             data-bs-name="{{ $user->name }}"
@@ -118,6 +121,59 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="userDetailModal" tabindex="-1" aria-labelledby="userDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userDetailModalLabel">User Details <span id="userType"
+                            class="badge bg-dark mx-1 fs-1"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-5">
+
+                    <img src="{{ asset('assets/images/profile.jpeg') }}" alt="Profile Image"
+                        class="rounded-circle mx-auto mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                    <!-- User Details -->
+                    <div class="card-body">
+                        <h5 class="card-title mb-1" id="userName">User Name</h5>
+                        <p class="card-text mb-1" id="userPhone">Phone: </p>
+                        <p class="card-text" id="userEmail">Email: </p>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form method="POST" id="statusForm">
+                        @csrf
+                        @method('PUT')
+
+                        <input type="hidden" name="user_id" id="statusUserId">
+                        <input type="hidden" name="user_status" id="statusUserStatus">
+
+                        <div class="mt-3">
+                            <h5>Are you sure you want to <span id="actionText"></span> <span id="statusUserName"></span>?</h5>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-primary">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -204,80 +260,31 @@
         </div>
     </div>
 
-    <div class="modal fade" id="userDetailModal" tabindex="-1" aria-labelledby="userDetailModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailModalLabel">User Details <span id="userType"
-                            class="badge bg-dark mx-1 fs-1"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center p-5">
-
-                    <img src="{{ asset('assets/images/profile.jpeg') }}" alt="Profile Image"
-                        class="rounded-circle mx-auto mb-3" style="width: 120px; height: 120px; object-fit: cover;">
-                    <!-- User Details -->
-                    <div class="card-body">
-                        <h5 class="card-title mb-1" id="userName">User Name</h5>
-                        <p class="card-text mb-1" id="userPhone">Phone: </p>
-                        <p class="card-text" id="userEmail">Email: </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form method="POST" id="deactivateForm">
-                        @csrf
-                        @method('PUT')
-
-                        <input type="hidden" name="user_id" id="deactivateUserId">
-                        <div class="mt-3">
-                            <h5>Are you sure you want to deactivate <span id="deactivateUserName"></span>?</h5>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-danger text-white"
-                                data-bs-dismiss="modal">No</button>
-                            <button type="submit" class="btn btn-primary">Yes, Deactivate</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".deactivate-btn").forEach(button => {
+            document.querySelectorAll(".status-toggle-btn").forEach(button => {
                 button.addEventListener("click", function() {
                     let userId = this.getAttribute("data-user-id");
                     let userName = this.getAttribute("data-user-name");
+                    let action = this.getAttribute("data-action");
+                    let newStatus = this.getAttribute("data-status");
 
-                    document.getElementById("deactivateUserId").value = userId;
-                    document.getElementById("deactivateUserName").textContent = userName;
+                    document.getElementById("statusUserId").value = userId;
+                    document.getElementById("statusUserName").textContent = userName;
+                    document.getElementById("statusUserStatus").value = newStatus;
+                    document.getElementById("actionText").textContent = action;
 
-                    // Update form action dynamically (Laravel route)
-                    document.getElementById("deactivateForm").action =
-                    `/users/${userId}/deactivate`;
+                    // Update form action
+                    document.getElementById("statusForm").action = `/users/${userId}/status`;
                 });
             });
         });
     </script>
 
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var userDetailModal = document.getElementById('userDetailModal');
-            var deactivateModal = document.getElementById('exampleModal4');
 
             userDetailModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
@@ -297,19 +304,9 @@
                     document.getElementById('userType').textContent = "Expert";
                 }
 
-                // Set user ID correctly on the deactivate button
-                var deactivateBtn = document.querySelector('.deactivate-user');
-                deactivateBtn.setAttribute('data-bs-id', userId);
             });
 
-            deactivateModal.addEventListener('show.bs.modal', function(event) {
-                var button = document.querySelector('.deactivate-user');
-                var userId = button.getAttribute('data-bs-id'); // Get correct user ID
-                var userName = document.getElementById('userName').textContent;
 
-                document.getElementById('deactivateUserName').textContent = userName;
-                document.getElementById('deactivateUserId').value = userId;
-            });
         });
     </script>
 

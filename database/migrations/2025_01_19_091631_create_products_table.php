@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('duration')->nullable();
             $table->string('image_url')->nullable();
             $table->string('quantity')->nullable();
+            $table->string('piece')->nullable();
             $table->string('product_status')->nullable();
             $table->string('video_url')->nullable();
             $table->timestamps();

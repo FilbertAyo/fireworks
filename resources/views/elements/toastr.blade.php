@@ -131,9 +131,11 @@
             }
         });
 
-        return false; 
+        return false;
     }
 </script>
+
+
 
 
 <script src="{{ asset('toastr/global.min.js') }}"></script>

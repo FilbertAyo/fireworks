@@ -15,10 +15,9 @@
                 <div class="row">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title fw-semibold ">List of Tasks</h5>
-                        <button type="button" class="badge bg-primary" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                    <a href="{{ route('products.list') }}" class="btn btn-primary">
                             New Task
-                        </button>
+                    </a>
                     </div>
 
                     <div class="col-lg-12 d-flex align-items-stretch">

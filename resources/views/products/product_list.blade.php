@@ -96,8 +96,7 @@
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
                                                 class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
-                                                <small class="flex-fill text-center border-end py-2"><i
-                                                    class="fa fa-box text-primary me-2"></i>{{ $product->quantity }} pieces</small>
+                                                <small class="flex-fill text-center border-end py-2"><i class="fa fa-box text-primary me-2"></i>{{ $product->piece }} pieces</small>
 
                                         <small class="flex-fill text-center py-2">
                                             <input type="checkbox"
@@ -120,7 +119,7 @@
                                 <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} products</p>
                             </div>
                             <div class="align-self-center">
-                                {{ $products->links('vendor.pagination.bootstrap-4') }} <!-- Bootstrap pagination links -->
+                                {{ $products->links('vendor.pagination.bootstrap-4') }} 
                             </div>
                         </div>
 

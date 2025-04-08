@@ -51,11 +51,17 @@
                                                 <input type="number" name="price" class="form-control" value="{{ $product->price }}" required>
                                             </div>
 
-
-                                            <div class="mb-3">
-                                                <label class="form-label">Duration (minutes)</label>
+                                            <div class="row">
+                                                <div class="mb-3 col-6">
+                                                    <label class="form-label">Duration (minutes)</label>
                                                 <input type="number" name="duration" class="form-control" value="{{ $product->duration }}" required>
+                                                </div>
+                                                <div class="mb-3 col-6">
+                                                    <label class="form-label">Pieces</label>
+                                                    <input type="number" name="piece" class="form-control" value="{{ $product->piece }}" required>
+                                                </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="mb-3 col-6">
                                                     <label class="form-label">Quantity</label>

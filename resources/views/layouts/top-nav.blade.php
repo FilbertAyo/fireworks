@@ -11,10 +11,13 @@
 
             <!-- Right Side: Social Media Icons -->
             <div class="d-flex">
-                <a href="#" class="text-white d-none d-sm-inline me-3"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white d-none d-sm-inline me-3"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white d-none d-sm-inline me-3"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/255673443706?text=Hello%20I%20am%20interested%20in%20your%20services" class="text-white me-3" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
             </div>
         </div>
     </div>
