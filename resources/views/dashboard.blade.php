@@ -174,7 +174,7 @@
                           </div>
                       </div>
 
-     
+
                       <div class="col-lg-6">
                         <div class="card">
                         <div class="row">
@@ -189,16 +189,16 @@
                             <div class="col-lg-4">
 
                                     <div class="card-body">
-                                        <h6>Upcoming Events</h6>
-                                        <h4>{{ $up_events }} </h4>
+                                        <h6 class="text-warning">Upcoming Events</h6>
+                                        <h4 class="text-warning">{{ $up_events }} </h4>
                                     </div>
 
                             </div>
                             <div class="col-lg-4">
 
                                     <div class="card-body">
-                                        <h6>Events Done</h6>
-                                        <h4>{{ $done_events }} </h4>
+                                        <h6 class="text-success">Events Done</h6>
+                                        <h4 class="text-success">{{ $done_events }} </h4>
                                     </div>
                                 </div>
                         </div>

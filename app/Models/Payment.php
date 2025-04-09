@@ -9,15 +9,10 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['assignment_id','task_id', 'user_id', 'amount','expense_type'];
-
-    public function assignment()
+    protected $fillable = ['task_id', 'amount','payment_type'];
+    public function task()
     {
-        return $this->belongsTo(Assignment::class);
+        return $this->belongsTo(Task::class);
     }
 
-    public function employee()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 }

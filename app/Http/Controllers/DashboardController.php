@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
+use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
@@ -24,10 +24,10 @@ class DashboardController extends Controller
 
     public function dash(Request $request){
         $userId = Auth::id();
-        $allowance = Payment::where('user_id',$userId)->where('expense_type','allowance')->sum('amount');
-        $transport = Payment::where('user_id',$userId)->where('expense_type','transport')->sum('amount');
-        $accommodation = Payment::where('user_id',$userId)->where('expense_type','accomodation')->sum('amount');
-        $my_collection = Payment::where('user_id',$userId)->sum('amount');
+        $allowance = Expense::where('user_id',$userId)->where('expense_type','allowance')->sum('amount');
+        $transport = Expense::where('user_id',$userId)->where('expense_type','transport')->sum('amount');
+        $accommodation = Expense::where('user_id',$userId)->where('expense_type','accomodation')->sum('amount');
+        $my_collection = Expense::where('user_id',$userId)->sum('amount');
         $events = Task::count();
         $up_events = Task::where('task_status','Pending')->count();
         $done_events = Task::where('task_status','Completed')->count();
@@ -36,9 +36,9 @@ class DashboardController extends Controller
         $month = $request->input('month', 'all'); // Default to 'all' for all months
 
         // Base query
-        $allowanceQuery = Payment::where('expense_type', 'allowance');
-        $transportQuery = Payment::where('expense_type', 'transport');
-        $accommodationQuery = Payment::where('expense_type', 'accomodation');
+        $allowanceQuery = Expense::where('expense_type', 'allowance');
+        $transportQuery = Expense::where('expense_type', 'transport');
+        $accommodationQuery = Expense::where('expense_type', 'accomodation');
         $collectionQuery = Task::where('task_status', 'Completed');
 
         // Apply filters if year/month is selected

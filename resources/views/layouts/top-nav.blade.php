@@ -49,6 +49,13 @@
               <div class="d-flex align-items-center ms-auto">
 
                 @auth
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                        <i class="fa fa-shopping-cart me-1"></i>
+                        <span class="badge bg-primary ms-1">{{ count(session('cart', [])) }}</span>
+                    </a>
+                </li>
+
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="fa fa-user text-black"></i>

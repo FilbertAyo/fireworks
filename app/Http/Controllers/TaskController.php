@@ -19,23 +19,14 @@ class TaskController extends Controller
         $user = Auth::user();
 
         if ($user->userType != 0) {
-           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+            redirect:
+            return redirect()->back()->with('error', 'Access denied, Unauthorized access');
         }
         $products = Product::all();
         $tasks = Task::all();
         return view('jobs.task', compact('tasks', 'products'));
     }
 
-    public function book(Request $request)
-    {
-        // Get the selected product IDs from the request
-        $productIds = $request->input('products', []);
-
-        // Fetch the selected products from the database
-        $selectedProducts = Product::whereIn('id', $productIds)->get();
-
-        return view('book', compact('selectedProducts'));
-    }
 
     public function bookCreate(Request $request)
 
@@ -46,7 +37,7 @@ class TaskController extends Controller
             return $query->where('product_name', 'like', "%{$search}%")
                 ->orWhere('category', 'like', "%{$search}%");
         })
-        ->paginate(12);
+            ->paginate(12);
         return view('jobs.prod_list', compact('products', 'search'));
     }
 
@@ -74,10 +65,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -117,7 +105,7 @@ class TaskController extends Controller
             'event_email' => $validated['event_email'],
             'task_description' => $validated['task_description'],
             'task_status' => $validated['task_status'],
-           'user_id' => $validated['user_id'] ?? null,
+            'user_id' => $validated['user_id'] ?? null,
             'total_amount' => $totalAmount,
         ]);
 
@@ -133,6 +121,9 @@ class TaskController extends Controller
             ]);
         }
 
+        session()->forget('cart');
+
+
         return redirect()->back()->with('success', 'Task and products stored successfully!');
     }
 
@@ -144,13 +135,14 @@ class TaskController extends Controller
     {
 
         $users = User::all()->where('user_status', 'active')->whereIn('userType', [0, 1]);
+        $payments = Payment::where('task_id', $task->id)->get();
 
         $assignedUsers = User::whereHas('assignments', function ($query) use ($task) {
             $query->where('task_id', $task->id);
         })->get();
         $products = $task->taskProducts;
 
-        return view('jobs.taskshow', compact('task', 'products', 'users', 'assignedUsers'));
+        return view('jobs.taskshow', compact('task', 'products', 'users', 'assignedUsers','payments'));
     }
 
     public function task_details(Task $task)
@@ -165,6 +157,21 @@ class TaskController extends Controller
         return view('task_details', compact('task', 'products', 'users', 'assignedUsers'));
     }
 
+    public function taskPayment(Request $request)
+    {
+        $validated = $request->validate([
+            'task_id' => 'required|exists:tasks,id',
+            'payment_type' => 'required|string|max:255',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+       Payment::create([
+            'task_id' => $validated['task_id'],
+            'payment_type' => $validated['payment_type'],
+            'amount' => $validated['amount'],
+        ]);
+        return redirect()->back()->with('success', 'Payment recorded successfully!');
+    }
 
     public function edit(Task $task)
     {
@@ -211,4 +218,34 @@ class TaskController extends Controller
     }
 
 
+
+    public function addToCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $cart = session()->get('cart', []);
+
+        if (!in_array($productId, $cart)) {
+            $cart[] = $productId;
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('success', 'Product added to cart!');
+    }
+
+    public function book(Request $request)
+    {
+        // Get product IDs from session cart
+        $productIds = session('cart', []);
+
+        // Fetch products from DB
+        $selectedProducts = Product::whereIn('id', $productIds)->get();
+
+        return view('book', compact('selectedProducts'));
+    }
+
+    public function clear()
+    {
+        session()->forget('cart');
+        return redirect()->back()->with('success', 'Cart cleared successfully.');
+    }
 }

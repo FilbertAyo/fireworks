@@ -1,40 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.front-app')
 
-<head>
-    <meta charset="utf-8">
-    <title>Kenseep executive fireworks</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <link href="{{ asset('assets/images/icon-deal.png') }}" rel="icon">
-
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/templatemo-edu-meeting.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-</head>
-
-<body class="bg-white p-0">
-
-    @include('layouts.top-nav')
+@section('content')
 
     <div class="py-5">
         <div class="container">
@@ -84,9 +50,6 @@
 
                                 <!-- Add FontAwesome for icons -->
                                 <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
-
-
-
                             </div>
 
 
@@ -134,26 +97,17 @@
                                             </div>
                                         </div>
                                     @empty
-                                        <p>No Experts assigned for your task yet.</p>
+                                        <p class="text-danger">No Experts assigned for your task yet.</p>
                                     @endforelse
                                 </div>
                             </div>
 
                         </div>
-                    </div> <!-- End Container -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    @include('elements.footer')
-
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
-     <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 
     <script>
         @if (session('success'))
@@ -163,25 +117,4 @@
         @endif
     </script>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
-    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
-    <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
-    <script src="{{ asset('assets/js/lightbox.js') }}"></script>
-    <script src="{{ asset('assets/js/tabs.js') }}"></script>
-    <script src="{{ asset('assets/js/video.js') }}"></script>
-    <script src="{{ asset('assets/js/slick-slider.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
-
-
-</body>
-
-</html>
+   @endsection
