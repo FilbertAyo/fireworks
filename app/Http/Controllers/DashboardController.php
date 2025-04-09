@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
@@ -26,7 +27,7 @@ class DashboardController extends Controller
         $userId = Auth::id();
         $allowance = Expense::where('user_id',$userId)->where('expense_type','allowance')->sum('amount');
         $transport = Expense::where('user_id',$userId)->where('expense_type','transport')->sum('amount');
-        $accommodation = Expense::where('user_id',$userId)->where('expense_type','accomodation')->sum('amount');
+        $accommodation = Expense::where('user_id',$userId)->where('expense_type','accommodation')->sum('amount');
         $my_collection = Expense::where('user_id',$userId)->sum('amount');
         $events = Task::count();
         $up_events = Task::where('task_status','Pending')->count();
@@ -35,11 +36,15 @@ class DashboardController extends Controller
         $year = $request->input('year', 'all'); // Default to 'all' for all years
         $month = $request->input('month', 'all'); // Default to 'all' for all months
 
-        // Base query
+        // Expenses
         $allowanceQuery = Expense::where('expense_type', 'allowance');
         $transportQuery = Expense::where('expense_type', 'transport');
-        $accommodationQuery = Expense::where('expense_type', 'accomodation');
+        $accommodationQuery = Expense::where('expense_type', 'accommodation');
         $collectionQuery = Task::where('task_status', 'Completed');
+
+        //Payments
+        $operationQuery = Payment::where('payment_type', 'operation');
+        $contractQuery = Payment::where('payment_type', 'contract');
 
         // Apply filters if year/month is selected
         if ($year !== 'all') {
@@ -47,12 +52,16 @@ class DashboardController extends Controller
             $transportQuery->whereYear('created_at', $year);
             $accommodationQuery->whereYear('created_at', $year);
             $collectionQuery->whereYear('created_at', $year);
+            $operationQuery->whereYear('created_at', $year);
+            $contractQuery->whereYear('created_at', $year);
         }
         if ($month !== 'all') {
             $allowanceQuery->whereMonth('created_at', $month);
             $transportQuery->whereMonth('created_at', $month);
             $accommodationQuery->whereMonth('created_at', $month);
             $collectionQuery->whereMonth('created_at', $month);
+            $operationQuery->whereMonth('created_at', $month);
+            $contractQuery->whereMonth('created_at', $month);
         }
 
         // Get sum of amounts
@@ -60,11 +69,13 @@ class DashboardController extends Controller
         $totalTransport = $transportQuery->sum('amount');
         $totalAccommodation = $accommodationQuery->sum('amount');
         $totalCollection = $collectionQuery->sum('total_amount');
+        $totalOperation = $operationQuery->sum('amount');
+        $totalContract = $contractQuery->sum('amount');
 
         $totalExpenses = $totalAllowance + $totalTransport + $totalAccommodation;
-        $profitLoss = $totalCollection - $totalExpenses;
+        $profitLoss = ($totalCollection + $totalOperation + $totalContract )- $totalExpenses;
 
-        return view('dashboard', compact('allowance', 'transport','accommodation','my_collection','events','up_events','done_events','totalAllowance', 'totalTransport', 'totalAccommodation', 'totalCollection', 'profitLoss', 'year', 'month'));
+        return view('dashboard', compact('allowance', 'transport','accommodation','my_collection','events','up_events','done_events','totalAllowance', 'totalTransport', 'totalAccommodation', 'totalCollection','totalOperation','totalContract', 'profitLoss', 'year', 'month'));
     }
 
     public function myDashboard(){

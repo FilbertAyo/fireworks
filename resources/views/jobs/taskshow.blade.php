@@ -279,8 +279,8 @@
                             <label for="payment_type" class="form-label">Payment Type</label>
                             <select class="form-select" id="payment_type" name="payment_type" required>
                                 <option value="" selected disabled>--Choose payment type--</option>
-                                <option value="Operation">Operation payment</option>
-                                <option value="Contract">Contract payment</option>
+                                <option value="operation">Operation payment</option>
+                                <option value="contract">Contract payment</option>
                             </select>
                         </div>
 

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-
     public function index()
     {
         $user = Auth::user();
