@@ -151,11 +151,13 @@
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product.showProduct', $product->id) }}">
-                                            <img class="img-fluid" src="{{ asset($product->image_url) }}" alt="">
+                                            <img class="img-fluid product-image" src="{{ asset($product->image_url) }}"
+                                                alt="" style="  height: 200px; object-fit: cover; width: 100%;">
                                         </a>
                                         <a href="{{ $product->video_url }}" target="_blank"
-                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2"> <i class="bi bi-play-circle"></i></a>
-
+                                            class="bg-primary text-white position-absolute start-0 top-0 m-2 px-2">
+                                            <i class="bi bi-play-circle"></i>
+                                        </a>
                                     </div>
                                     <div class="py-4 px-2 pb-0 mb-2">
                                         <h6 class="text-primary mb-1">TZS {{ number_format($product->price) }}</h6>
@@ -165,9 +167,18 @@
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="flex-fill text-center border-end py-2"><i
-                                                class="fa fa-clock text-primary me-2"></i>{{ $product->duration }}'s</small>
-                                        <small class="flex-fill text-center py-2"><i
-                                                class="fa fa-box text-primary me-2"></i>{{ $product->piece }} pieces</small>
+                                                class="fa fa-clock text-primary me-1"></i>{{ $product->duration }}'s</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-box text-primary me-1"></i>{{ $product->piece }}p</small>
+
+                                        <small class="flex-fill text-center">
+                                            <form method="POST" action="{{ route('cart.add') }}">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit" class="btn text-dark"><i class="fa fa-cart-plus"></i>
+                                                </button>
+                                            </form>
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -227,36 +238,56 @@
         </div>
     </div>
 
-    {{-- <div class="container-xxl py-5">
-
-        <div class="text-center mx-auto mb-5 wow fadeInUp" style="max-width: 600px;">
-            <h1 class="mb-3">Our Team</h1>
-            <p>Meet our team</p>
+    <div class="container-xxl py-5">
+        <div class="text-center mx-auto">
+            <h1 class="mb-3">People & Companies We've Worked With</h1>
+            <p>We are proud to have provided fireworks services for the following companies and individuals</p>
         </div>
-        <div class="row g-4 wow fadeInUp">
 
-            @foreach ($users as $user)
-            <div class="col-lg-3 col-md-6" >
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="img/team-4.jpg" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+        <div id="workedWithCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                        <div class="col-md-2 text-center">
+                            <img src="assets/images/wasafi.png" alt="Company 1" class="d-block mx-auto" >
+                            <p>Company 1</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <img src="assets/images/wasafi.png" alt="Company 2" class="d-block mx-auto " >
+                            <p>Company 2</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <img src="assets/images/wasafi.png" alt="Company 3" class="d-block mx-auto">
+                            <p>Company 3</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <img src="assets/images/wasafi.png" alt="Company 1" class="d-block mx-auto">
+                            <p>Company 1</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <img src="assets/images/wasafi.png" alt="Company 2" class="d-block mx-auto " >
+                            <p>Company 2</p>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <img src="assets/images/wasafi.png" alt="Company 3" class="d-block mx-auto">
+                            <p>Company 3</p>
                         </div>
                     </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">{{ $user->name }}</h5>
-                        <small>Designation</small>
-                    </div>
                 </div>
+
             </div>
-            @endforeach
-
+            <button class="carousel-control-prev" type="button" data-bs-target="#workedWithCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#workedWithCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+    </div>
 
-</div> --}}
 
 
 

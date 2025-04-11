@@ -59,7 +59,7 @@
                   <button type="submit" class="btn btn-danger w-100 py-8 fs-4 mb-3 rounded-2">Register</button>
                   <div class="d-flex align-items-center justify-content-center">
                     @if (Route::has('password.request'))
-                    <a class="text-danger fw-bold" href="{{ route('login') }}">Already registered ?</a>
+                    <a class="text-dark fw-bold" href="{{ route('login') }}">Already registered ?</a>
                 @endif
 
                   </div>

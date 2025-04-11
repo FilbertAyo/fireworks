@@ -3,12 +3,9 @@
 @section('content')
 
 
-    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh">
-        <video autoplay muted loop id="bg-video">
-            <source src="assets/images/course-video.mp4" type="video/mp4" />
-        </video>
-        <div class="video-overlay header-text text-center">
+    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh; background-image: url('{{ asset('assets/images/kenseep.jpg') }}');">
 
+        <div class="video-overlay header-text text-center">
             <div class="container">
                 <div class="row">
                         <div class="caption">
@@ -19,10 +16,10 @@
         </div>
     </section>
 
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 20px;">
-    </div>
+    <div class="container-fluid bg-primary mb-5" style="padding: 20px;">
 
-    <div class="container card p-5">
+    </div>
+    <div class="container">
 
         <form method="POST" action="{{ route('task.store') }}" enctype="multipart/form-data">
             @csrf
@@ -36,7 +33,7 @@
             @else
                 <div class="row mt-3">
                     @foreach ($selectedProducts as $product)
-                        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                        <div class="col-6 col-md-4 col-lg-3 mb-3">
                             <div class="property-item rounded shadow-sm overflow-hidden border">
                                 <div class="position-relative overflow-hidden">
                                     <a href="javascript:void(0);" data-bs-toggle="modal"
@@ -45,11 +42,11 @@
                                     </a>
                                 </div>
                                 <div class="p-3 pb-0">
-                                    <h5 class="text-primary mb-1" id="price{{ $product->id }}"
+                                    <h6 class="text-primary mb-1" id="price{{ $product->id }}"
                                         data-base-price="{{ $product->price }}">
-                                        TZS {{ $product->price }}/=
-                                    </h5>
-                                    <a class="d-block h5 mb-2 text-decoration-none text-dark"
+                                        TZS {{ number_format($product->price) }}
+                                    </h6>
+                                    <a class="d-block h6 mb-2 text-decoration-none text-dark"
                                         href="">{{ $product->product_name }}</a>
                                     <div class="d-flex align-items-center mb-3">
                                         <button type="button" class="btn btn-outline-primary btn-sm me-2"

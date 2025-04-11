@@ -68,6 +68,8 @@ Route::delete('/category/{id}', [ProductController::class, 'destroyCategory'])->
 
 Route::post('/cart/add', [TaskController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [TaskController::class, 'viewCart'])->name('cart.view');
+Route::get('/cart/remove/{id}', [TaskController::class, 'remove'])->name('cart.remove');
+
 Route::get('/test', function () {
     return view('test');
 });

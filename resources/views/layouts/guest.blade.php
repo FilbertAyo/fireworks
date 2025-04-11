@@ -8,19 +8,18 @@
 
     <title>Kenseep executive fireworks</title>
 
-    <link rel="shortcut icon" type="image/png" href="backend/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="backend/assets/css/styles.min.css" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('backend/assets/images/logos/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.min.css') }}" />
 
 </head>
 
 <body>
 
+    {{ $slot }}
 
-            {{ $slot }}
 
-
-    <script src="backend/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="backend/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('backend/assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

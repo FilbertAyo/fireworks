@@ -44,16 +44,14 @@ class RegisteredUserController extends Controller
             'userType' => $request->userType,
         ]);
 
-        if ($request->userType == '0' || $request->userType == '1') {
+        event(new Registered($user));
 
-            event(new Registered($user));
+        if ($request->userType == '0' || $request->userType == '1') {
 
             return redirect()->back()->with('success', 'New User is added successfully to the organisation');
 
         } elseif ($request->userType == '2') {
             Auth::login($user);
-            event(new Registered($user));
-            
             return redirect()->route('welcome')->with('success', 'You have successfully registered');
 
         } else {

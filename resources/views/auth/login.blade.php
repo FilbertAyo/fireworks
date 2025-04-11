@@ -40,12 +40,16 @@
                         Remeber me
                       </label>
                     </div>
-                    {{-- <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a> --}}
+                    @if (Route::has('password.request'))
+                    <a class="text-danger" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
                   </div>
                   <button type="submit" class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
                     @if (Route::has('password.request'))
-                    <a class="text-danger fw-bold" href="{{ route('register') }}">Don't have an Account ?</a>
+                    <a class="text-dark fw-bold" href="{{ route('register') }}">Don't have an Account ?</a>
                 @endif
 
                   </div>

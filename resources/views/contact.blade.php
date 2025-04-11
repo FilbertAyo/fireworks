@@ -4,7 +4,6 @@
 
 
     <section class="section main-banner " id="top" data-section="section1" style="height: 20vh; background-image: url('{{ asset('assets/images/kenseep.jpg') }}');">
-
         <div class="video-overlay header-text text-center">
             <div class="container">
                 <div class="row">

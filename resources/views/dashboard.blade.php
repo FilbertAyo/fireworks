@@ -214,16 +214,19 @@
                             </div>
                         </div>
 
-                        <div class="card p-3">
                             <div class="row">
                                 <div class="col-6">
-                                    <canvas id="incomeExpenseChart" height="300"></canvas>
+                                    <div class="card p-3">
+                                    <canvas id="incomeExpenseChart" height="450"></canvas>
+                                    </div>
                                 </div>
                                 <div class="col-6">
+                                    <div class="card p-3">
                                     <canvas id="expensePieChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
 
                     </div>
 

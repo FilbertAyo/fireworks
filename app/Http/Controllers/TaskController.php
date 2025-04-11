@@ -247,4 +247,19 @@ class TaskController extends Controller
         session()->forget('cart');
         return redirect()->back()->with('success', 'Cart cleared successfully.');
     }
+    public function remove($id)
+    {
+        $cart = session('cart', []);
+        // Remove the product from the cart array
+        $cart = array_filter($cart, function($item) use ($id) {
+            return $item != $id;
+        });
+        session(['cart' => $cart]); // Update the session
+
+        // Flash message for item removed
+        session()->flash('cart_removed', true);
+
+        return redirect()->back(); // Redirect back to the cart page
+    }
+
 }

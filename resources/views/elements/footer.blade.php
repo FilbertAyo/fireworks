@@ -7,11 +7,10 @@
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+255 673 443 706</p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i>kenseepexecutivefireworks@gmail.com</p>
                 <div class="d-flex pt-2">
-                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i
-                            class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="https://wa.me/255673443706?text=Hello%20I%20am%20interested%20in%20your%20services"><i class="fab fa-whatsapp"></i></a>
+                     <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/kenseep_executive_fireworks?igsh=MTA4dmo2a2VkYzRvMg=="><i class="fab fa-instagram"></i></a>
+                     <a class="btn btn-outline-light btn-social" href="https://youtube.com/@kenseepexecutives?si=V8s0AXSfindcoN2_"><i class="fab fa-youtube"></i></a>
+                     <a class="btn btn-outline-light btn-social" href="https://www.tiktok.com/@kenseep_executives?_t=ZM-8vPOZMDNAFa&_r=1"><img src="{{ asset('assets/images/tik-tok.png') }}" alt=""></a>
+                     <a class="btn btn-outline-light btn-social" href="https://wa.me/255673443706?text=Hello%20I%20am%20interested%20in%20your%20services"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
