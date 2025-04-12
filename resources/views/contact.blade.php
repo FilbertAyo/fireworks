@@ -40,22 +40,22 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="rounded p-3" style="background-color: rgba(185, 0, 0, 0.3);">
-                                <div class="d-flex align-items-center bg-white rounded p-3">
+                                <a href="mailto:kenseepfireworks@gmail.com" class="d-flex align-items-center bg-white rounded p-3 text-muted">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
                                         <i class="fa fa-envelope-open text-primary"></i>
                                     </div>
-                                    <span>kenseepexecutivefireworks@gmail.com</span>
-                                </div>
+                                    <span>kenseepfireworks @gmail.com</span>
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="rounded p-3" style="background-color: rgba(185, 0, 0, 0.3);">
-                                <div class="d-flex align-items-center bg-white rounded p-3">
+                                <a href="tel:+255673443706" class="d-flex align-items-center bg-white rounded p-3 text-muted">
                                     <div class="icon me-3" style="width: 45px; height: 45px;">
                                         <i class="fa fa-phone-alt text-primary"></i>
                                     </div>
                                     <span>+255 673 443 706</span>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -70,6 +70,10 @@ Route::post('/cart/add', [TaskController::class, 'addToCart'])->name('cart.add')
 Route::get('/cart', [TaskController::class, 'viewCart'])->name('cart.view');
 Route::get('/cart/remove/{id}', [TaskController::class, 'remove'])->name('cart.remove');
 
+Route::get('/partner',[DashboardController::class, 'partners'])->name('partner');
+Route::post('/partner', [DashboardController::class, 'partnerStore'])->name('partner.store');
+Route::delete('/partner/{id}', [DashboardController::class, 'partnerDestroy'])->name('partner.destroy');
+
 Route::get('/test', function () {
     return view('test');
 });

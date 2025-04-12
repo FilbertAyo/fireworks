@@ -1,164 +1,251 @@
-<style>
-    /* Custom offcanvas style to make it open halfway */
-    #sidebarMenu {
-        height: 50vh;
-        /* Half the viewport height */
-        top: auto;
-        bottom: 0;
-    }
+<!doctype html>
+<html class="no-js" lang="en">
 
-    /* Ensure it's visible properly */
-    .offcanvas.offcanvas-start {
-        transform: translateX(-100%);
-        /* Initially hidden */
-    }
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    .offcanvas.show {
-        transform: translateX(0);
-        /* Slide it in */
-    }
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    .nav-link {
-        color: #777;
-    }
-
-    .nav-link.active {
-        color: #dc3545;
-        font-weight: bold;
-    }
+        <!-- title of site -->
+        <title>Directory Landing Page</title>
 
 
-</style>
-
-<header>
-    <div class="top-bar text-muted py-2" style="background-color: #fff;">
-        <div class="container d-flex justify-content-between align-items-center">
-            <!-- Left Side: Contact Info -->
-            <div class="d-flex align-items-center">
-                <small class="me-3 d-none d-sm-inline"><i class="fas fa-phone-alt me-1"></i> +255 673 443 706</small>
-                <small class="d-none d-sm-inline"><i class="fas fa-envelope me-1"></i>
-                    kenseepexecutivefireworks@gmail.com</small>
-                <small class="d-sm-none"><i class="fas fa-phone-alt"></i> +255 673 443 706</small>
-            </div>
-
-            <!-- Right Side: Social Media Icons -->
-            <div class="d-flex">
-                <a href="https://www.instagram.com/kenseep_executive_fireworks?igsh=MTA4dmo2a2VkYzRvMg=="
-                    class="text-muted me-3"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@kenseepexecutives?si=V8s0AXSfindcoN2_" class="text-muted me-3"><i
-                        class="fab fa-youtube"></i></a>
-                <a href="https://www.tiktok.com/@kenseep_executives?_t=ZM-8vPOZMDNAFa&_r=1" class="text-muted me-3"><img
-                        src="{{ asset('assets/images/tik-tokm.png') }}" alt=""></a>
-                <a href="https://wa.me/255673443706?text=Hello%20I%20am%20interested%20in%20your%20services"
-                    class="text-muted me-3" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                @auth
-                    <a href="{{ route('my-dashboard') }}" class="text-muted"><i class="fa fa-home"></i></a>
-                @else
-                    <a href="{{ route('login') }}" class="text-muted">Login</a>
-                @endauth
-
-            </div>
-        </div>
-    </div>
+		<!--slick.css-->
+        <link rel="stylesheet" href="asset/css/slick.css">
+		<link rel="stylesheet" href="asset/css/slick-theme.css">
+        <link rel="stylesheet" href="asset/css/style.css">
 
 
-    <nav class="navbar navbar-expand-lg p-3">
-        <!-- Sidebar Toggle Button for Medium and Small Screens -->
-        <button class="navbar-toggler d-lg-none order-1 text-muted border" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#sidebarMenu">
-            <i class="fas fa-bars"></i>
-        </button>
+    </head>
 
-        <!-- Logo remains as before -->
-        <a href="#" class="navbar-brand d-flex align-items-center text-center">
-            <div class="icon p-2 me-2">
-                <img class="img-fluid" src="{{ asset('assets/images/icon-deal.png') }}" alt="Icon"
-                    style="width: 30px; height: 30px;">
-            </div>
-        </a>
-
-        <!-- Profile at the Right -->
-
-        <div class="collapse navbar-collapse d-lg-flex d-none" id="navbarCollapse">
-            <div class="navbar-nav ms-auto">
-                <a href="{{ url('/') }}" class="nav-link me-3 {{ Request::is('/') ? 'active' : '' }}">HOME</a>
-                <a href="{{ url('/product_list') }}" class="nav-link me-3 {{ Request::is('product_list') ? 'active' : '' }}">PRODUCTS</a>
-                <a href="{{ url('/book') }}" class="nav-link me-3 {{ Request::is('book') ? 'active' : '' }}">BOOKING</a>
-                <a href="{{ url('/contact') }}" class="nav-link {{ Request::is('contact') ? 'active' : '' }}">CONTACT</a>
-            </div>
-        </div>
-
-        <div class="d-flex align-items-center ms-auto">
-
-            @auth
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
-                        <i class="fa fa-shopping-cart me-1"></i>
-                        <span class="badge bg-primary ms-1">{{ count(session('cart', [])) }}</span>
-                    </a>
-                </li>
-
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="fa fa-user text-black"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end bg-white text-center p-3 rounded shadow-lg border-0"
-                    aria-labelledby="drop2">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="text-dark fw-bold">{{ Auth::user()->name }}</div>
-                        <a href="{{ route('my-dashboard') }}"
-                            class="text-dark text-decoration-none mt-2 mb-2 px-3 py-1 rounded">My Dashboard</a>
-                        <form method="POST" action="{{ route('logout') }}" class="w-100">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm w-100 fw-bold ">Logout</button>
-                        </form>
-                    </div>
-                </div>
-
-            @endauth
-        </div>
-    </nav>
-
-    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarMenu">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="navbar-nav d-flex flex-column gap-3">
-                <a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}">HOME</a>
-                <a href="{{ url('/product_list') }}" class="nav-link {{ Request::is('product_list') ? 'active' : '' }}">PRODUCTS</a>
-                <a href="{{ url('/book') }}" class="nav-link {{ Request::is('book') ? 'active' : '' }}">BOOKING</a>
-                <a href="{{ url('/contact') }}" class="nav-link {{ Request::is('contact') ? 'active' : '' }}">CONTACT</a>
-            </div>
-        </div>
-
-    </div>
+	<body>
 
 
-</header>
-
-@include('elements.toastr')
-
-<style>
-    header {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: white;
-        z-index: 1050;
-        /* Ensures it's above most elements */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-</style>
 
 
-<div id="spinner"
-    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
+		<!--reviews start -->
+		<section id="reviews" class="reviews">
+			<div class="section-header">
+				<h2>clients reviews</h2>
+				<p>What our client say about us</p>
+			</div><!--/.section-header-->
+			<div class="reviews-content">
+				<div class="testimonial-carousel">
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c1.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Tom Leakar</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c2.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>monirul islam</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c3.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Shohrab Hossain</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c4.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Tom Leakar</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c1.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Tom Leakar</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c2.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>monirul islam</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c3.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Shohrab Hossain</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="asset/images/clients/c4.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Tom Leakar</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				</div>
+			</div>
+
+		</section><!--/.reviews-->
+
+
+		<script src="asset/js/jquery.js"></script>
+        <script src="asset/js/slick.min.js"></script>
+        <script src="asset/js/custom.js"></script>
+
+    </body>
+
+</html>

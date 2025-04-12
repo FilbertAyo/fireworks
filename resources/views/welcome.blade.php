@@ -66,57 +66,90 @@
             </div>
 
             <div class="col-lg-12 mt-5">
-
-                <div class="text-center mx-auto mb-4" >
-                    <h1 class="mb-1">Fireworks Services</h1>
+                <div class="text-center mx-auto mb-5">
+                    <h1 class="mb-1">Our Services</h1>
                     <p>Explore our spectacular fireworks services for all occasions.</p>
                 </div>
 
-                <div class="row d-flex align-items-stretch">
-                    <div class="col-12 col-md-4">
-                        <div class="meeting-item h-100">
-                            <div class="thumb">
-                                <div class="price">
-                                    <span class="text-danger">Event Celebrations</span>
-                                </div>
-                                <a href="meeting-details.html"><img src="assets/images/wedding picture ideas, fireworks.jpeg" alt="Event Celebrations"></a>
+                <div class="row g-4">
+                    <!-- Card 1 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative">
+                                <img src="assets/images/wedding picture ideas, fireworks.jpeg" class="card-img-top" alt="Event Celebrations">
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">Event Celebrations</span>
                             </div>
-                            <div class="down-content">
-                                <a class="text-white">Make your events unforgettable with spectacular fireworks displays for weddings, New Year’s, and more.</a>
+                            <div class="card-body">
+                                <h5 class="card-title">Wedding Fireworks</h5>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-primary me-2">5.0</span>
+                                    <small class="text-muted me-2">29+ Weddings</small>
+                                </div>
+                                <p class="card-text">Make your events unforgettable with spectacular fireworks displays for weddings, New Year’s, and more.</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                                <a href="{{ url('/product_list') }}" class="text-danger">Book Now</a>
+                                <div>
+                                    <i class="bi bi-person me-2"></i>
+                                    <i class="bi bi-heart"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <div class="meeting-item h-100">
-                            <div class="thumb">
-                                <div class="price">
-                                    <span class="text-danger">Online Fireworks Shop</span>
-                                </div>
-                                <a href="meeting-details.html"><img src="assets/images/56 First Date Ideas for Every Budget.jpeg" alt="Online Fireworks Shop"></a>
+                    <!-- Card 2 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative">
+                                <img src="assets/images/56 First Date Ideas for Every Budget.jpeg" class="card-img-top" alt="Online Fireworks Shop">
+                                <span class="badge bg-success position-absolute top-0 start-0 m-2">Online Shop</span>
                             </div>
-                            <div class="down-content">
-                                <a class="text-white">Buy fireworks online and have them delivered to your doorstep. Perfect for DIY celebrations. <br> <br>  </a>
+                            <div class="card-body">
+                                <h5 class="card-title">Buy Fireworks Online</h5>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-success me-2">4.5</span>
+                                    <small class="text-muted me-2">40+ Fireworks</small>
+                                </div>
+                                <p class="card-text">Buy fireworks online and have them delivered to your doorstep. Perfect for DIY celebrations.</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                                <a href="{{ url('/product_list') }}" class="text-success">Buy Now</a>
+                                <div>
+                                    <i class="bi bi-bag me-2"></i>
+                                    <i class="bi bi-cart"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <div class="meeting-item h-100">
-                            <div class="thumb">
-                                <div class="price">
-                                    <span class="text-primary">Special Occasions</span>
-                                </div>
-                                <a href="meeting-details.html"><img src="assets/images/Concert B&W Wallpaper.jpeg" alt="Special Occasions"></a>
+                    <!-- Card 3 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative">
+                                <img src="assets/images/Concert B&W Wallpaper.jpeg" class="card-img-top" alt="Special Occasions">
+                                <span class="badge bg-warning position-absolute top-0 start-0 m-2">Special Occasions</span>
                             </div>
-                            <div class="down-content">
-                                <a class="text-white">Enhance ceremonies like baby showers, football events, and club parties with breathtaking fireworks.</a>
+                            <div class="card-body">
+                                <h5 class="card-title">Club & Sport Shows</h5>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-warning text-dark me-2">5.0</span>
+                                    <small class="text-muted me-2">15+ Events</small>
+                                </div>
+                                <p class="card-text">Enhance ceremonies like baby showers, football events, and club parties with breathtaking fireworks.</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                                <a href="{{ url('/product_list') }}" class="text-warning">Book Now</a>
+                                <div>
+                                    <i class="bi bi-suit-club me-2"></i>
+                                    <i class="fa fa-futbol-o"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+
+
         </div>
     </div>
 
@@ -195,22 +228,6 @@
     </div>
 
 
-    <!-- Video Modal -->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="videoModalLabel">YouTube Video</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <iframe id="youtubeVideo" width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-
     <div class="container-xxl mt-5">
         <div class="container">
             <div class="rounded p-3" style="background:  rgba(185, 0, 0, 0.3);">
@@ -238,57 +255,7 @@
         </div>
     </div>
 
-    <div class="container-xxl py-5">
-        <div class="text-center mx-auto">
-            <h1 class="mb-3">People & Companies We've Worked With</h1>
-            <p>We are proud to have provided fireworks services for the following companies and individuals</p>
-        </div>
 
-        <div id="workedWithCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-md-2 text-center">
-                            <img src="assets/images/wasafi.png" alt="Company 1" class="d-block mx-auto" >
-                            <p>Company 1</p>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <img src="assets/images/wasafi.png" alt="Company 2" class="d-block mx-auto " >
-                            <p>Company 2</p>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <img src="assets/images/wasafi.png" alt="Company 3" class="d-block mx-auto">
-                            <p>Company 3</p>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <img src="assets/images/wasafi.png" alt="Company 1" class="d-block mx-auto">
-                            <p>Company 1</p>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <img src="assets/images/wasafi.png" alt="Company 2" class="d-block mx-auto " >
-                            <p>Company 2</p>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <img src="assets/images/wasafi.png" alt="Company 3" class="d-block mx-auto">
-                            <p>Company 3</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#workedWithCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#workedWithCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-
-
-
+@include('elements.partner')
 
 @endsection

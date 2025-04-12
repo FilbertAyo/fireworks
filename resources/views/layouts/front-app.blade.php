@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
     <title>KENSEEP EXECUTIVE FIREWORKS</title>
+    @stack('styles')
 
     <link href="{{ asset('assets/images/icon-deal.png') }}" rel="icon">
-
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/templatemo-edu-meeting.css') }}">
@@ -70,6 +70,8 @@
     @include('elements.footer')
 
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+      @stack('scripts')
 
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

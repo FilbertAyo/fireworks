@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Models\Partner;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 use Carbon\Carbon;
 
@@ -87,10 +89,10 @@ class DashboardController extends Controller
     }
     public function home(){
         $users = User::whereIn('userType', [0, 1])->get();
-
+        $partners = Partner::all();
         $products = Product::inRandomOrder()->take(8)->get();
 
-        return view('welcome',compact('users', 'products'));
+        return view('welcome',compact('users', 'products','partners'));
     }
     public function contact(){
         return view('contact');
@@ -109,6 +111,51 @@ class DashboardController extends Controller
         $message = $user->user_status == 'active' ? 'User has been activated' : 'User has been deactivated';
 
         return redirect()->back()->with('success', $message);
+    }
+
+    public function partners(){
+        $partners = Partner::all();
+        return view('settings.partners', compact('partners'));
+    }
+
+    public function partnerStore(Request $request)
+    {
+        $request->validate([
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $imageName = time() . '.' . $image->getClientOriginalExtension(); // Unique filename
+            $imagePath = 'partners/' . $imageName;
+            $image->move(public_path('partners'), $imageName);
+        }
+
+        $partner = new Partner();
+        $partner->name = $request->name;
+        $partner->logo = $imagePath;
+
+        // Save to database
+        $partner->save();
+
+        return redirect()->back()->with('success', 'Partner added successfully!');
+    }
+
+    public function partnerDestroy($id)
+    {
+        $partner = Partner::findOrFail($id);
+
+        // Delete the image file if it exists
+        $imagePath = public_path($partner->logo);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
+        // Delete the database record
+        $partner->delete();
+
+        return redirect()->back()->with('success', 'Partner deleted successfully!');
     }
 
 }

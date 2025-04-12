@@ -91,6 +91,12 @@
                             <span class="hide-menu">Category</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ url('/partner') }}" aria-expanded="false">
+                            <span><i class="ti ti-list"></i></span>
+                            <span class="hide-menu">Partners</span>
+                        </a>
+                    </li>
             </ul>
             <div class="unlimited-access hide-menu bg-light-danger position-relative mb-7 mt-5 rounded">
                 <div class="d-flex">

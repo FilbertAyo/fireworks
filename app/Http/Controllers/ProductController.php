@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -165,13 +166,18 @@ class ProductController extends Controller
             unlink(public_path($product->image_url));
         }
 
+        $imagePath = public_path($product->image_url);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
+
         // Delete the product record from the database
         $product->delete();
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Product deleted successfully.');
     }
-
 
 
     public function category(){

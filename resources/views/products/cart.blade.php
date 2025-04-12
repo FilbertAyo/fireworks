@@ -39,7 +39,7 @@
             <div class="d-flex align-items-center justify-content-between mb-3" style="gap: 5px;">
                 <a href="{{ route('book') }}" class="btn btn-primary w-100">Proceed to Book</a>
                 <a href="{{ $whatsappLink }}" target="_blank" class="btn btn-success w-100">
-                    <i class="fa fa-whatsapp me-1"></i> Buy via WhatsApp
+                   <span class="me-1"> Buy via</span> <i class="bi bi-whatsapp"></i>
                 </a>
             </div>
             {{-- Clear Cart --}}
