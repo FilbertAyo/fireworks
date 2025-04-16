@@ -14,7 +14,18 @@
 
                 <div class="row">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title fw-semibold ">List of Fireworks</h5>
+                        <div class="d-flex align-items-center gap-3">
+                            <h5 class="card-title fw-semibold">List of Fireworks</h5>
+                            <div class="position-relative text-dark">
+                                <i class="ti ti-shopping-cart me-1 position-relative" style="font-size: 1.2rem;">
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                                        {{ count(session('cart', [])) }}
+                                    </span>
+                                </i>
+                                Cart
+                            </div>
+                        </div>
+
 
                             <div class="col-md-6">
                                 <form action="{{ route('products.list') }}" method="GET" class="d-flex">
@@ -27,8 +38,6 @@
                     <div class="col-lg-12 d-flex align-items-stretch">
                         <div class="card w-100 p-3">
 
-                                <form method="GET" action="{{ route('book_create') }}">
-                                    @csrf
                                     <div class="row col-12">
                                         @forelse ($products as $product)
                                             <div class="col-lg-2 col-md-3 mb-3">
@@ -42,17 +51,20 @@
                                                     <div class="p-2 pb-0">
                                                         <h6 class="text-primary mb-1">TZS {{ number_format($product->price) }}</h6>
                                                         <a class="d-block h6 mb-2" href="">{{ $product->product_name }}</a>
-
+                                                        <small class="flex-fill"><i
+                                                            class="ti ti-list text-danger me-2"></i>{{ $product->category }}</small>
                                                     </div>
                                                     <div class="d-flex border-top">
-                                                        <small class="flex-fill text-center border-end text-danger">{{ $product->duration }}'s</small>
-                                                        <small class="flex-fill text-center border-end">{{ $product->category }}</small>
-                                                        <small class="flex-fill text-center py-2">
-                                                            <input type="checkbox"
-                                                                class="form-check-input" id="product{{ $product->id }}"
-                                                                name="products[]" value="{{ $product->id }}">
-                                                            <label class="form-check-label"
-                                                                for="product{{ $product->id }}">Select</label></small>
+                                                        <small class="flex-fill text-center border-end text-danger py-2">{{ $product->duration }}'s</small>
+                                                        <small class="flex-fill text-danger text-center border-end py-2">{{ $product->piece }}p</small>
+                                                        <small class="flex-fill text-center">
+                                                            <form method="POST" action="{{ route('cart.add') }}">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                                <button type="submit" class="badge bg-primary my-2"><i class="ti ti-shopping-cart"></i>
+                                                                </button>
+                                                            </form>
+                                                        </small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,10 +75,10 @@
                                             </div>
                                         @endforelse
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="badge bg-primary mt-4">Proceed to Book</button>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('cart.clear') }}" class="badge bg-danger">Clear Cart</a>
+                                        <a href="{{ route('book_create') }}" class="badge bg-primary mt-4">Proceed to Book</a>
                                     </div>
-                                </form>
 
                             <div class="d-flex justify-content-between mt-3">
                                 <div class="align-self-center">

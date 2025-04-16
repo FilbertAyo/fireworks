@@ -120,7 +120,7 @@
                                     <div class="card">
                                         <img src="{{ asset($product->product_image) }}" class="card-img-top"
                                             alt="Product Image">
-                                        <div class="card-body">
+                                        <div class="card-body p-2">
                                             <h6>{{ $product->product_name }}</h6>
                                             <p><strong>Price:</strong> TZS {{ $product->product_price }}/=</p>
                                             <p><strong>Quantity:</strong> {{ $product->product_quantity }}</p>

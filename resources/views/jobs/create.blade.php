@@ -27,13 +27,14 @@
 
                                     <h5 class="text-danger">Selected Products</h5>
                                     @if ($selectedProducts->isEmpty())
-                                        <div class="bg-primary text-center p-4">
+                                        <div class="bg-danger text-center p-4">
                                             <p class="text-white">No products selected. </p>
+                                            <a class="badge bg-primary" href="{{ url('book/products') }}">Select Fireworks</a>
                                         </div>
                                     @else
                                         <div class="row mt-3">
                                             @foreach ($selectedProducts as $product)
-                                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                                            <div class="col-lg-2 col-md-3 mb-3">
                                                     <div class="property-item rounded shadow-sm overflow-hidden border">
                                                         <div class="position-relative overflow-hidden">
                                                             <a href="javascript:void(0);" data-bs-toggle="modal"
@@ -59,16 +60,16 @@
                                                                     onclick="updateQuantity('plus', {{ $product->id }})">+</button>
                                                             </div>
                                                         </div>
-                        
+
                                                         <!-- this are needed to be uploaded to the database -->
                                                         <input type="hidden" name="product_id[]" value="{{ $product->id }}" >
                                                         <input type="hidden" name="product_image[]" value="{{ $product->image_url }}">
                                                         <input type="hidden" name="product_name[]" value="{{ $product->product_name }}">
                                                         <input type="hidden" name="product_price[]" value="{{ $product->price }}" id="hiddenPrice{{ $product->id }}">
-                        
+
                                                     </div>
                                                 </div>
-                        
+
                                                 <div class="modal fade" id="productModal{{ $product->id }}" tabindex="-1"
                                                     aria-labelledby="productModalLabel{{ $product->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -101,7 +102,7 @@
                                             @endforeach
                                         </div>
                                     @endif
-                        
+
                                     <h5 class="text-danger">Task details</h5>
                                     <!-- Task Name -->
                                     <div class="mb-3 mt-3">

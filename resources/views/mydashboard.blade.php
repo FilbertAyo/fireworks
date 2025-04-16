@@ -76,7 +76,12 @@
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold py-1">{{ $task->task_name }}</h6>
-                                                    <span class="alert alert-primary p-0">{{ $task->task_status }}</span>
+                                                    @if ($task->task_status == 'Pending')
+                                                    <span class="alert alert-danger p-0">{{ $task->task_status }}</span>
+                                                    @else
+                                                    <span class="alert alert-success p-0">{{ $task->task_status }}</span>
+                                                    @endif
+
                                                 </td>
 
                                                 <td>

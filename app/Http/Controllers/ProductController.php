@@ -89,7 +89,7 @@ class ProductController extends Controller
         $search = $request->input('search');
 
         // Paginate the products with search functionality
-        $products = Product::when($search, function ($query, $search) {
+        $products = Product::where('quantity','>',0)->when($search, function ($query, $search) {
             return $query->where('product_name', 'like', "%{$search}%")
                 ->orWhere('category', 'like', "%{$search}%");
         })

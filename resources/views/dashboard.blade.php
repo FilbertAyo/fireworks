@@ -98,137 +98,143 @@
                         </div>
                     </div>
 
-                    <div class="py-3">
-                        <h3>Company Evaluations</h3>
-                    </div>
+                    @if (Auth::user()->userType == 0)
+                        <div class="py-3">
+                            <h3>Company Evaluations</h3>
+                        </div>
 
-                    <div class="col-4">
-                        <div class="card p-3">
-                            <form method="GET" action="{{ url('/dash') }}" class="mb-3">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <select name="year" class="form-control">
-                                            <option value="all" {{ $year == 'all' ? 'selected' : '' }}>All Years
-                                            </option>
-                                            @for ($i = date('Y'); $i >= 2020; $i--)
-                                                <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>
-                                                    {{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select name="month" class="form-control">
-                                            <option value="all" {{ $month == 'all' ? 'selected' : '' }}>All Months
-                                            </option>
-                                            @foreach (range(1, 12) as $m)
-                                                <option value="{{ $m }}"
-                                                    {{ $m == $month ? 'selected' : '' }}>
-                                                    {{ date('F', mktime(0, 0, 0, $m, 1)) }}
+                        <div class="col-4">
+                            <div class="card p-3">
+                                <form method="GET" action="{{ url('/dash') }}" class="mb-3">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <select name="year" class="form-control">
+                                                <option value="all" {{ $year == 'all' ? 'selected' : '' }}>All Years
                                                 </option>
-                                            @endforeach
-                                        </select>
+                                                @for ($i = date('Y'); $i >= 2020; $i--)
+                                                    <option value="{{ $i }}"
+                                                        {{ $i == $year ? 'selected' : '' }}>
+                                                        {{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <select name="month" class="form-control">
+                                                <option value="all" {{ $month == 'all' ? 'selected' : '' }}>All
+                                                    Months
+                                                </option>
+                                                @foreach (range(1, 12) as $m)
+                                                    <option value="{{ $m }}"
+                                                        {{ $m == $month ? 'selected' : '' }}>
+                                                        {{ date('F', mktime(0, 0, 0, $m, 1)) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
 
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Amount (TZS)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Fireworks collections</td>
-                                        <td>Income</td>
-                                        <td>{{ number_format($totalCollection) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Operation</td>
-                                        <td>Income</td>
-                                        <td>{{ number_format($totalOperation) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Contract</td>
-                                        <td>Income</td>
-                                        <td>{{ number_format($totalContract) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Allowance</td>
-                                        <td>Expense</td>
-                                        <td>{{ number_format($totalAllowance) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Transport</td>
-                                        <td>Expense</td>
-                                        <td>{{ number_format($totalTransport) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Accommodation</td>
-                                        <td>Expense</td>
-                                        <td>{{ number_format($totalAccommodation) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Profit/Loss</strong></td>
-                                        <td></td>
-                                        <td>
-                                            <strong class="{{ $profitLoss >= 0 ? 'text-success' : 'text-danger' }}">
-                                                {{ $profitLoss >= 0 ? '+' : '-' }}
-                                                {{ number_format(abs($profitLoss)) }}
-                                            </strong>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Amount (TZS)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Fireworks collections</td>
+                                            <td>Income</td>
+                                            <td>{{ number_format($totalCollection) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Operation</td>
+                                            <td>Income</td>
+                                            <td>{{ number_format($totalOperation) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contract</td>
+                                            <td>Income</td>
+                                            <td>{{ number_format($totalContract) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Allowance</td>
+                                            <td>Expense</td>
+                                            <td>{{ number_format($totalAllowance) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Transport</td>
+                                            <td>Expense</td>
+                                            <td>{{ number_format($totalTransport) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Accommodation</td>
+                                            <td>Expense</td>
+                                            <td>{{ number_format($totalAccommodation) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Profit/Loss</strong></td>
+                                            <td></td>
+                                            <td>
+                                                <strong
+                                                    class="{{ $profitLoss >= 0 ? 'text-success' : 'text-danger' }}">
+                                                    {{ $profitLoss >= 0 ? '+' : '-' }}
+                                                    {{ number_format(abs($profitLoss)) }}
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
+                            </div>
                         </div>
-                    </div>
 
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="card-body">
+                                            <h6>Total Events</h6>
+                                            <h4>{{ $events }}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card-body">
+                                            <h6 class="text-warning">Upcoming Events</h6>
+                                            <h4 class="text-warning">{{ $up_events }} </h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card-body">
+                                            <h6 class="text-success">Events Done</h6>
+                                            <h4 class="text-success">{{ $done_events }} </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="col-8">
-                        <div class="card">
                             <div class="row">
-                                <div class="col-4">
-                                    <div class="card-body">
-                                        <h6>Total Events</h6>
-                                        <h4>{{ $events }}</h4>
+                                <div class="col-6">
+                                    <div class="card p-3">
+                                        <canvas id="incomeExpenseChart" height="450"></canvas>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="card-body">
-                                        <h6 class="text-warning">Upcoming Events</h6>
-                                        <h4 class="text-warning">{{ $up_events }} </h4>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card-body">
-                                        <h6 class="text-success">Events Done</h6>
-                                        <h4 class="text-success">{{ $done_events }} </h4>
+                                <div class="col-6">
+                                    <div class="card p-3">
+                                        <canvas id="expensePieChart"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="card p-3">
-                                    <canvas id="incomeExpenseChart" height="450"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card p-3">
-                                    <canvas id="expensePieChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                    @endif
 
 
-                    </div>
+
 
                 </div>
             </div>
@@ -289,50 +295,50 @@
         });
     </script>
 
-<script>
-    const pieCtx = document.getElementById('expensePieChart').getContext('2d');
-    const expensePieChart = new Chart(pieCtx, {
-        type: 'pie',
-        data: {
-            labels: ['Allowance', 'Transport', 'Accommodation'],
-            datasets: [{
-                label: 'Expenses',
-                data: [
-                    {{ $totalAllowance }},
-                    {{ $totalTransport }},
-                    {{ $totalAccommodation }}
-                ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(54, 162, 235, 0.6)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(54, 162, 235, 0.6)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const value = context.raw.toLocaleString();
-                            return `${context.label}: TZS ${value}`;
+    <script>
+        const pieCtx = document.getElementById('expensePieChart').getContext('2d');
+        const expensePieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Allowance', 'Transport', 'Accommodation'],
+                datasets: [{
+                    label: 'Expenses',
+                    data: [
+                        {{ $totalAllowance }},
+                        {{ $totalTransport }},
+                        {{ $totalAccommodation }}
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(54, 162, 235, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(54, 162, 235, 0.6)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw.toLocaleString();
+                                return `${context.label}: TZS ${value}`;
+                            }
                         }
                     }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 
 

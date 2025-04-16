@@ -23,7 +23,7 @@
 
                             <div class="row justify-content-center mt-3">
                                 <div class="col-auto buy-firework">
-                                    <a href="/becomesponsor.html" class="outline-btn">Buy firework</a>
+                                    <a href="{{ url('product_list') }}" class="outline-btn">Buy firework</a>
                                 </div>
                                 <div class="col-auto">
                                     @auth
@@ -239,8 +239,7 @@
                         <div class="col-lg-6">
                             <div class="mb-4">
                                 <h1 class="mb-3">Contact Us</h1>
-                                <p>Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit
-                                    diam justo sed vero dolor duo.</p>
+                                <p class="fs-6">We’re here to assist you with any inquiries or service requests. Whether you need support, have a question, or want to schedule a service, feel free to reach out to us.</p>
                             </div>
                             <a href="tel:+255673443706" class="btn btn-primary me-2 mt-3">
                                 <i class="fa fa-phone-alt me-2"></i>Make A Call

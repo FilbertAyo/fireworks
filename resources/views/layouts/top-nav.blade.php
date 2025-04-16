@@ -54,7 +54,14 @@
                     <i class="fab fa-whatsapp"></i>
                 </a>
                 @auth
-                    <a href="{{ route('my-dashboard') }}" class="text-muted"><i class="fa fa-home"></i></a>
+
+                {{-- Dashboard of the users --}}
+                @if (Auth::user()->userType == 0 || Auth::user()->userType == 1)
+                <a href="{{ route('dashboard') }}" class="text-muted"><i class="fa fa-home"></i></a>
+                @else
+                <a href="{{ route('my-dashboard') }}" class="text-muted"><i class="fa fa-home"></i></a>
+                @endif
+
                 @else
                     <a href="{{ route('login') }}" class="text-muted">Login</a>
                 @endauth

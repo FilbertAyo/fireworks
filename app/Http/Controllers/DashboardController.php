@@ -90,7 +90,7 @@ class DashboardController extends Controller
     public function home(){
         $users = User::whereIn('userType', [0, 1])->get();
         $partners = Partner::all();
-        $products = Product::inRandomOrder()->take(8)->get();
+        $products = Product::where('quantity','>',0)->inRandomOrder()->take(8)->get();
 
         return view('welcome',compact('users', 'products','partners'));
     }

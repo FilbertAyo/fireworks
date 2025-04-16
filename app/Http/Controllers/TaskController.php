@@ -32,7 +32,7 @@ class TaskController extends Controller
     {
         $search = $request->input('search');
         // Paginate the products with search functionality
-        $products = Product::when($search, function ($query, $search) {
+        $products = Product::where('quantity','>',0)->when($search, function ($query, $search) {
             return $query->where('product_name', 'like', "%{$search}%")
                 ->orWhere('category', 'like', "%{$search}%");
         })
@@ -42,9 +42,11 @@ class TaskController extends Controller
 
     public function book_create(Request $request)
     {
-        $productIds = $request->input('products', []);
+        $productIds = session('cart', []);
 
+        // Fetch products from DB
         $selectedProducts = Product::whereIn('id', $productIds)->get();
+
 
         return view('jobs.create', compact('selectedProducts'));
     }
@@ -123,7 +125,7 @@ class TaskController extends Controller
         session()->forget('cart');
 
 
-        return redirect()->back()->with('success', 'Task and products stored successfully!');
+        return redirect()->back()->with('success', 'Your booking sent successfully');
     }
 
 
@@ -180,11 +182,34 @@ class TaskController extends Controller
 
     public function update($id)
     {
-        $task = Task::find($id);
+        // Find the task
+        $task = Task::findOrFail($id);
+
+        // Get all related TaskProducts
+        $taskProducts = TaskProduct::where('task_id', $task->id)->get();
+
+        // First: check if all products have enough stock
+        foreach ($taskProducts as $taskProduct) {
+            $product = Product::find($taskProduct->product_id);
+
+            if (!$product || $product->quantity < $taskProduct->product_quantity) {
+                return redirect()->back()->with('error', 'Insufficient stock for this product ');
+            }
+        }
+
+        // All products have sufficient stock, now deduct quantity
+        foreach ($taskProducts as $taskProduct) {
+            $product = Product::find($taskProduct->product_id);
+            $product->quantity -= $taskProduct->product_quantity;
+            $product->save();
+        }
+
+        // Now update the task payment status
         $task->update(['payment_status' => 'Paid']);
 
-        return redirect()->back()->with('success', 'Payment status updated successfully!');
+        return redirect()->back()->with('success', 'Payment status updated and stock adjusted successfully!');
     }
+
 
     public function task_done($id)
     {

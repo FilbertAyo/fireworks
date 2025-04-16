@@ -63,12 +63,16 @@
                                                     <td>{{ $product->piece }}</td>
                                                     <td>{{ $product->quantity }}</td>
                                                     <td>
-                                                        @if ($product->product_status == 'In Stock')
+                                                        @if($product->quantity == 0)
                                                             <span
-                                                                class="alert alert-success p-1">{{ $product->product_status }}</span>
-                                                        @elseif ($product->product_status == 'Sold Out')
+                                                                class="alert alert-danger p-1">Out of Stock</span>
+                                                        @elseif ($product->quantity < 10)
                                                             <span
-                                                                class="alert alert-danger p-1">{{ $product->product_status }}</span>
+                                                                class="alert alert-warning p-1">Limited Stock</span>
+                                                        @elseif ($product->quantity >= 10)
+                                                            <span
+                                                                class="alert alert-success p-1">In Stock</span>
+
                                                         @endif
                                                     </td>
                                                     <td>

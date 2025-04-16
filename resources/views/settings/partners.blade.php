@@ -31,7 +31,7 @@
                             <div class="card-body p-4">
                                 <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 align-middle table-bordered">
-                                        <thead class="text-dark fs-4">
+                                        <thead>
                                             <tr>
                                                 <th>Id</th>
                                                 <th> Logo</th>
@@ -45,7 +45,7 @@
                                                     <td>{{ $index + 1 }} </td>
                                                     <td>
                                                         <img src="{{ asset( $partner->logo) }}"
-                                                            alt="Logo" class="rounded-circle" width="50px"
+                                                            alt="Logo" width="50px"
                                                             height="50px">
                                                     </td>
                                                     <td> {{ $partner->name }} </td>
