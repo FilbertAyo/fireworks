@@ -22,7 +22,7 @@
 <body class="font-sans antialiased">
 
 
-    @if (Auth::check() && Auth::user()->userType == '2')
+    @if (Auth::check() && Auth::user()->hasRole('customer'))
         <script>
             window.location.href = "{{ url()->previous() }}";
         </script>

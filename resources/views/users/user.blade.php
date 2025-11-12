@@ -61,13 +61,10 @@
                                                         <span class="fw-normal">{{ $user->email }}</span>
                                                     </td>
                                                     <td class="border-bottom-0">
-
-                                                        @if ($user->userType == 0)
-                                                            Admin
-                                                        @else
-                                                            Expert
-                                                        @endif
-
+                                                        @php
+                                                            $role = $user->roles->first();
+                                                        @endphp
+                                                        {{ $role?->display_name ?? ($role?->name ? ucwords(str_replace('_', ' ', $role->name)) : 'N/A') }}
                                                     </td>
                                                     <td class="border-bottom-0">
 
@@ -101,7 +98,7 @@
                                                             data-bs-name="{{ $user->name }}"
                                                             data-bs-phone="{{ $user->phone }}"
                                                             data-bs-email="{{ $user->email }}"
-                                                            data-bs-userType="{{ $user->userType }}"
+                                                            data-bs-role="{{ $role?->display_name ?? ($role?->name ? ucwords(str_replace('_', ' ', $role->name)) : 'N/A') }}"
                                                             data-bs-userStatus="{{ $user->user_status }}">
                                                             <i class="ti ti-eye"></i>
                                                         </a>
@@ -127,7 +124,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailModalLabel">User Details <span id="userType"
+                    <h5 class="modal-title" id="userDetailModalLabel">User Details <span id="userRole"
                             class="badge bg-dark mx-1 fs-1"></span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -184,7 +181,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('/register') }}">
+                    <form method="POST" action="{{ route('admin.users.store') }}">
                         @csrf
                         <!-- Name -->
                         <div class="mb-3">
@@ -225,10 +222,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">User Role</label>
-                            <select name="userType" id="" class="form-control">
-                                <option value="0">Admin</option>
-                                <option value="1">Expert</option>
+                            <label for="role" class="form-label">User Role</label>
+                            <select name="role" id="role" class="form-control">
+                                <option value="admin">Admin</option>
+                                <option value="staff">Expert</option>
                             </select>
                         </div>
 
@@ -288,21 +285,16 @@
 
             userDetailModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
-                var userId = button.getAttribute('data-bs-id');
                 var name = button.getAttribute('data-bs-name');
                 var phone = button.getAttribute('data-bs-phone');
                 var email = button.getAttribute('data-bs-email');
-                var userType = button.getAttribute('data-bs-userType');
+                var userRole = button.getAttribute('data-bs-role');
 
                 document.getElementById('userName').textContent = name;
                 document.getElementById('userPhone').textContent = "Phone: " + phone;
                 document.getElementById('userEmail').textContent = "Email: " + email;
 
-                if (userType == 0) {
-                    document.getElementById('userType').textContent = "Admin";
-                } else {
-                    document.getElementById('userType').textContent = "Expert";
-                }
+                document.getElementById('userRole').textContent = userRole || 'N/A';
 
             });
 

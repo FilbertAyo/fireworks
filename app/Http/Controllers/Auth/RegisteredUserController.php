@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -34,27 +35,37 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => 'required',
+            'role' => ['nullable', 'string', Rule::in(['admin', 'staff', 'customer'])],
         ]);
+
+        $role = $request->input('role', 'customer') ?: 'customer';
+
+        $isAdminRequest = in_array($role, ['admin', 'staff'], true);
+
+        if ($isAdminRequest && (! Auth::check() || ! Auth::user()->hasRole('admin'))) {
+            abort(403, 'Only administrators can create staff accounts.');
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'userType' => $request->userType,
         ]);
 
-        if ($request->userType == '0' || $request->userType == '1') {
+        $user->assignRole($role);
+
+        if ($isAdminRequest) {
 
             event(new Registered($user));
 
             return redirect()->back()->with('success', 'New User is added successfully to the organisation');
 
-        } elseif ($request->userType == '2') {
+        } elseif ($role === 'customer') {
             Auth::login($user);
             event(new Registered($user));
-            
-            return redirect()->route('welcome')->with('success', 'You have successfully registered');
+
+            return redirect()->route('my-dashboard')->with('success', 'You have successfully registered');
 
         } else {
             return redirect()->back()->with('error', 'Invalid User');

@@ -18,8 +18,8 @@ class TaskController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->userType != 0) {
-           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+        if (! $user || ! $user->hasRole(['admin', 'staff'])) {
+            return redirect()->back()->with('error', 'Access denied, unauthorized access');
         }
         $products = Product::all();
         $tasks = Task::all();
@@ -143,7 +143,13 @@ class TaskController extends Controller
     public function show(Task $task)
     {
 
-        $users = User::all()->where('user_status', 'active')->whereIn('userType', [0, 1]);
+        $users = User::query()
+            ->with('roles')
+            ->where('user_status', 'active')
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', ['admin', 'staff']);
+            })
+            ->get();
 
         $assignedUsers = User::whereHas('assignments', function ($query) use ($task) {
             $query->where('task_id', $task->id);
@@ -155,7 +161,13 @@ class TaskController extends Controller
 
     public function task_details(Task $task)
     {
-        $users = User::all()->where('user_status', 'active');
+        $users = User::query()
+            ->with('roles')
+            ->where('user_status', 'active')
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', ['admin', 'staff']);
+            })
+            ->get();
         $assignedUsers = User::whereHas('assignments', function ($query) use ($task) {
             $query->where('task_id', $task->id);
         })->get();

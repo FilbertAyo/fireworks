@@ -54,7 +54,7 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
 
-                <input type="hidden" value="2" name="userType">
+                <input type="hidden" value="customer" name="role">
 
                   <button type="submit" class="btn btn-danger w-100 py-8 fs-4 mb-3 rounded-2">Register</button>
                   <div class="d-flex align-items-center justify-content-center">

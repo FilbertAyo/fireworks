@@ -18,7 +18,7 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                @if (Auth::user()->userType == 0 || Auth::user()->userType == 1)
+                @if (auth()->user()?->hasRole(['admin', 'staff']))
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/mytask') }}" aria-expanded="false">
                             <span>
@@ -29,7 +29,7 @@
                     </li>
                 @endif
 
-                @if (Auth::user()->userType == 0)
+                @if (auth()->user()?->hasRole('admin'))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Users</span>
@@ -72,25 +72,25 @@
                             <span class="hide-menu">Assignment</span>
                         </a>
                     </li>
+                @endif
+                    @if (auth()->user()?->hasRole('admin'))
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Settings</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
+                                <span><i class="ti ti-checklist"></i></span>
+                                <span class="hide-menu">Products</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('/category') }}" aria-expanded="false">
+                                <span><i class="ti ti-list"></i></span>
+                                <span class="hide-menu">Category</span>
+                            </a>
+                        </li>
                     @endif
-
-
-                    <li class="nav-small-cap">
-                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">Settings</span>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
-                            <span><i class="ti ti-checklist"></i></span>
-                            <span class="hide-menu">Products</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ url('/category') }}" aria-expanded="false">
-                            <span><i class="ti ti-list"></i></span>
-                            <span class="hide-menu">Category</span>
-                        </a>
-                    </li>
             </ul>
             <div class="unlimited-access hide-menu bg-light-danger position-relative mb-7 mt-5 rounded">
                 <div class="d-flex">

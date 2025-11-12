@@ -15,11 +15,21 @@ class DashboardController extends Controller
 {
     public function dashboard(){
 
-        if (Auth::user()->userType == '2') {
+        $user = Auth::user();
+
+        if (! $user) {
             return redirect('/');
-        } else {
-            return redirect('/dash');
         }
+
+        if ($user->hasRole(['admin', 'staff'])) {
+            return redirect()->intended('/dash');
+        }
+
+        if ($user->hasRole('customer')) {
+            return redirect()->intended(route('my-dashboard'));
+        }
+
+        return redirect('/');
     }
 
     public function dash(Request $request){
@@ -75,7 +85,12 @@ class DashboardController extends Controller
         return view('mydashboard',compact('tasks'));
     }
     public function home(){
-        $users = User::whereIn('userType', [0, 1])->get();
+        $users = User::query()
+            ->with('roles')
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', ['admin', 'staff']);
+            })
+            ->get();
 
         $products = Product::inRandomOrder()->take(8)->get();
 
@@ -86,7 +101,12 @@ class DashboardController extends Controller
     }
 
     public function about(){
-        $users = User::whereIn('userType',[0,1])->get();
+        $users = User::query()
+            ->with('roles')
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', ['admin', 'staff']);
+            })
+            ->get();
         return view('about',compact('users'));
     }
     public function updateStatus(Request $request, $id)

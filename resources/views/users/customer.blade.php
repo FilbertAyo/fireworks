@@ -91,7 +91,7 @@
                                                             data-bs-name="{{ $user->name }}"
                                                             data-bs-phone="{{ $user->phone }}"
                                                             data-bs-email="{{ $user->email }}"
-                                                            data-bs-userType="{{ $user->userType }}"
+                                                            data-bs-role="Customer"
                                                             data-bs-userStatus="{{ $user->user_status }}">
                                                             <i class="ti ti-eye"></i>
                                                         </a>
@@ -133,10 +133,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('/register') }}">
+                    <form method="POST" action="{{ route('admin.users.store') }}">
                         @csrf
 
-                        <input type="hidden" name="userType">
+                        <input type="hidden" name="role" value="customer">
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>

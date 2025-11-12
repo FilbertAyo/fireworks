@@ -17,28 +17,40 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        if ($user->userType != 0) {
-           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+        if (! $user || ! $user->hasRole('admin')) {
+            return redirect()->back()->with('error', 'Access denied, unauthorized access');
         }
 
-        $users = User::whereIn('userType', [0, 1])->get();
+        $users = User::query()
+            ->with('roles')
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', ['admin', 'staff']);
+            })
+            ->get();
         return view('users.user',compact('users'));
     }
 
     public function customers(Request $request){
         $search = $request->input('search');
-        $users = User::where('userType',2)->when($search, function($query,$search){
-            return $query->where('name','like',"%{$search}%")
-            ->orWhere('email','like',"%{$search}%");
-        })->paginate(10);
+        $users = User::query()
+            ->with('roles')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'customer');
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($innerQuery) use ($search) {
+                    $innerQuery->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
 
         $user = Auth::user();
 
-        if ($user->userType != 0) {
-           redirect: return redirect()->back()->with('error', 'Access denied, Unauthorized access');
+        if (! $user || ! $user->hasRole('admin')) {
+            return redirect()->back()->with('error', 'Access denied, unauthorized access');
         }
 
-        // $users = User::where('userType',2)->get();
         return view('users.customer',compact('users','search'));
     }
 

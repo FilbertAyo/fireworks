@@ -20,12 +20,12 @@
                             @endif
                         </h5>
 
-                        @if ($task->payment_status == 'Not Paid' && Auth::user()->userType == 0)
+                        @if ($task->payment_status == 'Not Paid' && Auth::user()->hasRole('admin'))
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
                                 Update Payment
                             </button>
-                        @elseif ($task->payment_status == 'Paid'&& Auth::user()->userType == 0 && $task->task_status == 'Pending')
+                        @elseif ($task->payment_status == 'Paid'&& Auth::user()->hasRole('admin') && $task->task_status == 'Pending')
                         <button type="button" class="badge bg-success" data-bs-toggle="modal"
                         data-bs-target="#exampleModal2">
                         Is Task Done?
@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    @if (Auth::user()->userType == 0)
+                    @if (Auth::user()->hasRole('admin'))
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-3">Payment Details</h5>
                             <div class="card p-3">
@@ -138,7 +138,7 @@
                                 </div>
                             @endforelse
 
-                            @if (Auth::user()->userType == 0 && $task->task_status == 'Pending' )
+                            @if (Auth::user()->hasRole('admin') && $task->task_status == 'Pending' )
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#assignTaskModal">Add Expert</a>
                             @endif

@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title fw-semibold ">List of Categories</h5>
-                        @if (Auth::check() && Auth::user()->userType == '0')
+                        @if (Auth::check() && Auth::user()->hasRole('admin'))
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                        New Category
@@ -45,7 +45,7 @@
                                                     <td> {{ $category->category_name }} </td>
 
                                                     <td>
-                                                        @if (Auth::check() && Auth::user()->userType == '0')
+                                                        @if (Auth::check() && Auth::user()->hasRole('admin'))
                                                         <a href="{{ route('category.destroy', $category->id) }}"
                                                             class="badge bg-danger"
                                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this category?')) { document.getElementById('delete-form-{{ $category->id }}').submit(); }">
