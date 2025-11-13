@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100">
+                        <div class="card w-100 shadow-none border ">
                             <div class="card-body p-4">
                                 <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 align-middle table-bordered">

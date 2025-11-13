@@ -22,7 +22,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/mytask') }}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-alert-circle"></i>
+                                <i class="ti ti-briefcase"></i>
                             </span>
                             <span class="hide-menu">My Tasks</span>
                         </a>
@@ -32,12 +32,30 @@
                 @if (auth()->user()?->hasRole('admin'))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">Users</span>
+                        <span class="hide-menu">Users & Managements</span>
                     </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('task.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-list-check"></i>
+                            </span>
+                            <span class="hide-menu">Task</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('assignments.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-clipboard-check"></i>
+                            </span>
+                            <span class="hide-menu">Assignment</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/users') }}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-users"></i>
+                                <i class="ti ti-user"></i>
                             </span>
                             <span class="hide-menu">Team</span>
                         </a>
@@ -50,46 +68,31 @@
                             <span class="hide-menu">Customers</span>
                         </a>
                     </li>
-
-                    <li class="nav-small-cap">
-                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">JOBS</span>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('task.index') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-article"></i>
-                            </span>
-                            <span class="hide-menu">Task</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('assignments.index') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-checklist"></i>
-                            </span>
-                            <span class="hide-menu">Assignment</span>
-                        </a>
-                    </li>
                 @endif
                     @if (auth()->user()?->hasRole('admin'))
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Settings</span>
+                            <span class="hide-menu">Configuration</span>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
-                                <span><i class="ti ti-checklist"></i></span>
+                                <span><i class="ti ti-package"></i></span>
                                 <span class="hide-menu">Products</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ url('/category') }}" aria-expanded="false">
-                                <span><i class="ti ti-list"></i></span>
+                                <span><i class="ti ti-category"></i></span>
                                 <span class="hide-menu">Category</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('settings.index') }}" aria-expanded="false">
+                                <span><i class="ti ti-adjustments"></i></span>
+                                <span class="hide-menu">Site Preferences</span>
+                            </a>
+                        </li>
+
                     @endif
             </ul>
             <div class="unlimited-access hide-menu bg-light-danger position-relative mb-7 mt-5 rounded">

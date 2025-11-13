@@ -1,90 +1,47 @@
-<!DOCTYPE html>
+@extends('layouts.front')
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KENSEEP EXECUTIVE FIREWORKS</title>
+@section('title', 'KENSEEP EXECUTIVE FIREWORKS')
 
-    <!-- ======= Google Font =======-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
-    <!-- End Google Font-->
-
-    <!-- ======= Styles =======-->
-    <link href="assets/vendors/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendors/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="assets/vendors/glightbox/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets/vendors/aos/aos.css" rel="stylesheet">
-    <!-- End Styles-->
-
-    <!-- ======= Theme Style =======-->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <!-- End Theme Style-->
-
-    <!-- ======= Apply theme =======-->
-    <script>
-      // Apply the theme as early as possible to avoid flicker
-      (function() {
-      const storedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-bs-theme', storedTheme);
-      })();
-    </script>
-  </head>
-  <body>
-
-    <div class="top-bar text-white py-2" style="background-color: #222222;">
-        <div class="container d-flex justify-content-between align-items-center">
-            <!-- Left Side: Contact Info -->
-            <div class="d-flex align-items-center">
-                <small class="me-3 d-none d-sm-inline"><i class="fas fa-phone-alt me-1"></i> +255 673 443 706</small>
-                <small class="d-none d-sm-inline"><i class="fas fa-envelope me-1"></i> kenseepexecutivefireworks@gmail.com</small>
-                <small class="d-sm-none"><i class="fas fa-phone-alt"></i> +255 673 443 706</small>
-            </div>
-
-            <!-- Right Side: Social Media Icons -->
-            <div class="d-flex">
-                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/255673443706?text=Hello%20I%20am%20interested%20in%20your%20services" class="text-white me-3" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-
-            </div>
-          </div>
-    </div>
-    <!-- ======= Site Wrap =======-->
-    <div class="site-wrap">
-
-        @include('layouts.top-nav')
-
-
-      <main>
+@section('content')
 
         <section class="hero__v6 section" id="home">
           <div class="container">
             <div class="row">
               <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="row">
-                  <div class="col-lg-11"><span class="hero-subtitle text-uppercase" data-aos="fade-up" data-aos-delay="0">PREMIER PYROTECHNIC SPECIALISTS</span>
+                  <div class="col-lg-11">
+                    <span class="hero-subtitle text-uppercase" data-aos="fade-up" data-aos-delay="0">PREMIER PYROTECHNIC SPECIALISTS</span>
                     <h1 class="hero-title mb-3" data-aos="fade-up" data-aos-delay="100">KENSEEP EXECUTIVE FIREWORKS</h1>
                     <p class="hero-description mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="200">Igniting unforgettable experiences with bespoke fireworks displays, professional show design, and safe deliveries for every celebration.</p>
-                    <div class="cta d-flex gap-2 mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="300"><a class="btn" href="#">Plan Your Show</a><a class="btn btn-white-outline" href="#">Explore Services
+                    <div class="cta d-flex gap-2 mb-3 mb-lg-4" data-aos="fade-up" data-aos-delay="300">
+                      <a class="btn" href="{{ url('/product_list') }}">Plan Your Show</a>
+                      <a class="btn btn-white-outline" href="#services">
+                        Explore Services
                         <svg class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M7 7h10v10"></path>
                           <path d="M7 17 17 7"></path>
-                        </svg></a></div>
-                    <div class="logos mb-4" data-aos="fade-up" data-aos-delay="400"><span class="logos-title text-uppercase mb-4 d-block">Trusted by Tanzania’s premier celebrations</span>
-                      <div class="logos-images d-flex gap-4 align-items-center"><img class="img-fluid js-img-to-inline-svg" src="assets/images/logo/actual-size/logo-air-bnb__black.svg" alt="Company 1" style="width: 110px;"><img class="img-fluid js-img-to-inline-svg" src="assets/images/logo/actual-size/logo-ibm__black.svg" alt="Company 2" style="width: 80px;"><img class="img-fluid js-img-to-inline-svg" src="assets/images/logo/actual-size/logo-google__black.svg" alt="Company 3" style="width: 110px;"></div>
+                        </svg>
+                      </a>
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center gap-2 gap-lg-3 text-muted small" data-aos="fade-up" data-aos-delay="350">
+                      <span class="text-muted">Already working with us?</span>
+                      <a class="link-body-emphasis fw-semibold" href="{{ route('login') }}">Sign in</a>
+                      <span>or</span>
+                      <a class="link-primary fw-semibold" href="{{ route('register') }}">Register</a>
+                    </div>
+                    <div class="logos mb-4" data-aos="fade-up" data-aos-delay="400">
+                      <span class="logos-title text-uppercase mb-4 d-block">Trusted by Tanzania’s premier celebrations</span>
+                      <div class="logos-images d-flex gap-4 align-items-center">
+                        <img class="img-fluid js-img-to-inline-svg" src="{{ asset('assets/images/logo/actual-size/logo-air-bnb__black.svg') }}" alt="Company 1" style="width: 110px;">
+                        <img class="img-fluid js-img-to-inline-svg" src="{{ asset('assets/images/logo/actual-size/logo-ibm__black.svg') }}" alt="Company 2" style="width: 80px;">
+                        <img class="img-fluid js-img-to-inline-svg" src="{{ asset('assets/images/logo/actual-size/logo-google__black.svg') }}" alt="Company 3" style="width: 110px;">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="hero-img"><img class="img-card img-fluid" src="assets/images/card-expenses.png" alt="Image card" data-aos="fade-down" data-aos-delay="600"><img class="img-main img-fluid rounded-4" src="assets/images/image2.jpeg" alt="Hero Image" data-aos="fade-in" data-aos-delay="500"></div>
+                <div class="hero-img"><img class="img-card img-fluid" src="{{ asset('assets/images/hero2.png') }}" alt="Image card" data-aos="fade-down" data-aos-delay="600"><img class="img-main img-fluid rounded-4" src="{{ asset('assets/images/image2.jpeg') }}" alt="Hero Image" data-aos="fade-in" data-aos-delay="500"></div>
               </div>
             </div>
           </div>
@@ -116,7 +73,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="img-wrap position-relative"><img class="img-fluid rounded-4" src="assets/images/about_2-min.jpg" alt="FreeBootstrap.net image placeholder" data-aos="fade-up" data-aos-delay="0">
+                <div class="img-wrap position-relative"><img class="img-fluid rounded-4" src="{{ asset('assets/images/kenseep.jpg') }}" alt="FreeBootstrap.net image placeholder" data-aos="fade-up" data-aos-delay="0">
                   <div class="mission-statement p-4 rounded-4 d-flex gap-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="mission-icon text-center rounded-circle"><i class="bi bi-lightbulb fs-4"></i></div>
                     <div>
@@ -187,6 +144,53 @@
         </section>
         <!-- End Features-->
 
+        @if(isset($products) && $products->count())
+        <section class="section products__highlight" id="featured-products">
+          <div class="container">
+            <div class="row align-items-center mb-5">
+              <div class="col-lg-8">
+                <span class="subtitle text-uppercase mb-3 d-inline-block" data-aos="fade-up" data-aos-delay="0">Featured Fireworks</span>
+                <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">Preview the effects our clients love</h2>
+                <p class="mb-0 text-muted" data-aos="fade-up" data-aos-delay="150">Handpicked shells and special effects that showcase the artistry and precision behind every Kenseep display.</p>
+              </div>
+              <div class="col-lg-4 text-lg-end mt-3 mt-lg-0" data-aos="fade-left" data-aos-delay="150">
+                <a class="btn btn-primary" href="{{ url('/product_list') }}">
+                  <i class="bi bi-stars me-2"></i>View Full Catalogue
+                </a>
+              </div>
+            </div>
+            <div class="row g-4">
+              @foreach($products->take(4) as $product)
+              <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ 200 + ($loop->index * 100) }}">
+                <div class="card h-100 border-0 shadow-sm rounded-4">
+                  <div class="position-relative">
+                    <img src="{{ asset($product->image_url) }}" class="card-img-top rounded-top-4 object-fit-cover" alt="{{ $product->product_name }}" style="height: 220px;">
+                    @if($product->video_url)
+                    <a href="{{ $product->video_url }}" target="_blank" rel="noopener"
+                       class="btn btn-primary btn-sm rounded-circle position-absolute top-0 start-0 m-3 d-inline-flex align-items-center justify-content-center"
+                       style="width: 38px; height: 38px;">
+                      <i class="bi bi-play-circle"></i>
+                      <span class="visually-hidden">Preview</span>
+                    </a>
+                    @endif
+                  </div>
+                  <div class="card-body d-flex flex-column gap-2">
+                    <h5 class="fw-bold mb-1">{{ $product->product_name }}</h5>
+                    <p class="text-muted small mb-0">{{ $product->category }}</p>
+                    <div class="d-flex justify-content-between text-muted small mt-auto pt-3 border-top">
+                      <span><i class="bi bi-lightning-charge me-1 text-primary"></i>{{ $product->duration }}'s</span>
+                      <span><i class="bi bi-box-seam me-1 text-primary"></i>{{ $product->piece }} pcs</span>
+                    </div>
+                    <p class="fw-semibold text-primary mb-0">TZS {{ number_format($product->price) }}</p>
+                  </div>
+                </div>
+              </div>
+              @endforeach
+            </div>
+          </div>
+        </section>
+        @endif
+
         <!-- ======= Pricing =======-->
         <section class="section pricing__v2" id="pricing">
           <div class="container">
@@ -199,28 +203,28 @@
             <div class="row">
               <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="300">
                 <div class="p-5 rounded-4 price-table h-100">
-                  <h3>Spark Starter</h3>
-                  <p>Perfect for intimate gatherings, birthdays, and proposals with curated effects and quick setup.</p>
-                  <div class="price mb-4"><strong>TZS 450K</strong><span>/ show</span></div>
-                  <div><a class="btn" href="#">Request Quote</a></div>
+                  <h3>DIY FireX Delivery</h3>
+                  <p>Order curated fireworks delivered free of charge so you can set up and launch your own celebration with clear safety guidance.</p>
+                  <div class="price mb-4"><strong>On request</strong><span>/ shipment</span></div>
+                  <div><a class="btn" href="#">Start Order</a></div>
                 </div>
               </div>
               <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
                 <div class="p-5 rounded-4 price-table popular h-100">
                   <div class="row">
                     <div class="col-md-6">
-                      <h3 class="mb-3">Signature Showcase</h3>
-                      <p>Engineered for weddings, corporate galas, and national celebrations featuring synchronized pyrotechnics and special effects.</p>
-                      <div class="price mb-4"><strong class="me-1">Custom</strong><span>/ event</span></div>
-                      <div><a class="btn btn-white hover-outline" href="#">Plan With Us</a></div>
+                      <h3 class="mb-3">Full-Service FireX Show</h3>
+                      <p>Book our specialist crew to design, deliver, and expertly control your fireworks experience for weddings, corporate events, and public displays.</p>
+                      <div class="price mb-4"><strong class="me-1">TZS 50,000</strong><span>/ event</span></div>
+                      <div><a class="btn btn-white hover-outline" href="{{ route('products.index') }}">Book Event Now</a></div>
                     </div>
                     <div class="col-md-6 pricing-features">
                       <h4 class="text-uppercase fw-bold mb-3">Includes</h4>
                       <ul class="list-unstyled d-flex flex-column gap-3">
-                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Show concepting and simulation preview</span></li>
-                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Permits, insurance, and safety crew</span></li>
-                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Premium aerial shells and stage effects</span></li>
-                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Show control, music sync, and clean-up</span></li>
+                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Professional show design and onsite supervision</span></li>
+                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Permits, insurance, and certified pyrotechnicians</span></li>
+                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Premium effects, synchronization, and crowd management</span></li>
+                        <li class="d-flex gap-2 align-items-start mb-0"><span class="icon rounded-circle position-relative mt-1"><i class="bi bi-check"></i></span><span>Complete setup, show control, and post-event clean-up</span></li>
                       </ul>
                     </div>
                   </div>
@@ -243,7 +247,7 @@
             <div class="row g-md-5">
               <div class="col-md-6 col-lg-3">
                 <div class="step-card text-center h-100 d-flex flex-column justify-content-start position-relative" data-aos="fade-up" data-aos-delay="0">
-                  <div data-aos="fade-right" data-aos-delay="500"><img class="arch-line" src="assets/images/arch-line.svg" alt="FreeBootstrap.net image placeholder"></div><span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">1</span>
+                  <div data-aos="fade-right" data-aos-delay="500"><img class="arch-line" src="{{ asset('assets/images/arch-line.svg') }}" alt="FreeBootstrap.net image placeholder"></div><span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">1</span>
                   <div>
                     <h3 class="fs-5 mb-4">Share Your Vision</h3>
                     <p>Tell us about your occasion, venue, and dream effects so we can craft the perfect concept.</p>
@@ -252,14 +256,14 @@
               </div>
               <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
                 <div class="step-card reverse text-center h-100 d-flex flex-column justify-content-start position-relative">
-                  <div data-aos="fade-right" data-aos-delay="1100"><img class="arch-line reverse" src="assets/images/arch-line-reverse.svg" alt="FreeBootstrap.net image placeholder"></div><span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">2</span>
+                  <div data-aos="fade-right" data-aos-delay="1100"><img class="arch-line reverse" src="{{ asset('assets/images/arch-line-reverse.svg') }}" alt="FreeBootstrap.net image placeholder"></div><span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">2</span>
                   <h3 class="fs-5 mb-4">Design & Approvals</h3>
                   <p>We design your display, secure permits, and coordinate with authorities to guarantee compliance.</p>
                 </div>
               </div>
               <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="1200">
                 <div class="step-card text-center h-100 d-flex flex-column justify-content-start position-relative">
-                  <div data-aos="fade-right" data-aos-delay="1700"><img class="arch-line" src="assets/images/arch-line.svg" alt="FreeBootstrap.net image placeholder"></div><span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">3</span>
+                  <div data-aos="fade-right" data-aos-delay="1700"><img class="arch-line" src="{{ asset('assets/images/arch-line.svg') }}" alt="FreeBootstrap.net image placeholder"></div><span class="step-number rounded-circle text-center fw-bold mb-5 mx-auto">3</span>
                   <h3 class="fs-5 mb-4">Setup & Rehearsal</h3>
                   <p>Our crew handles logistics, rigging, and synchronized cues while you focus on guests.</p>
                 </div>
@@ -290,19 +294,19 @@
                   </div>
                   <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0 text-center" data-aos="fade-up" data-aos-delay="100">
                     <div class="stat-item">
-                      <h3 class="fs-1 fw-bold"><span class="purecounter" data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="2">0</span><span>K+</span></h3>
+                      <h3 class="fs-1 fw-bold"><span class="purecounter" data-purecounter-start="0" data-purecounter-end="200" data-purecounter-duration="2">0</span><span>+</span></h3>
                       <p class="mb-0">Events Illuminated</p>
                     </div>
                   </div>
                   <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0 text-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="stat-item">
-                      <h3 class="fs-1 fw-bold"> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="200" data-purecounter-duration="2">0</span><span>%+</span></h3>
+                      <h3 class="fs-1 fw-bold"> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="2">0</span><span>%</span></h3>
                       <p class="mb-0">Safety Compliance</p>
                     </div>
                   </div>
                   <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0 text-center" data-aos="fade-up" data-aos-delay="300">
                     <div class="stat-item">
-                      <h3 class="fs-1 fw-bold"><span class="purecounter" data-purecounter-start="0" data-purecounter-end="20" data-purecounter-duration="2">0</span><span>+</span></h3>
+                      <h3 class="fs-1 fw-bold"><span class="purecounter" data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="2">0</span><span>+</span></h3>
                       <p class="mb-0">Years Pyro Expertise</p>
                     </div>
                   </div>
@@ -430,7 +434,7 @@
                     &rdquo;
                   </blockquote>
                   <div class="testimonial-author d-flex gap-3 align-items-center">
-                    <div class="author-img"><img class="rounded-circle img-fluid" src="assets/images/person-sq-2-min.jpg" alt="FreeBootstrap.net image placeholder"></div>
+                    <div class="author-img"><img class="rounded-circle img-fluid" src="{{ asset('assets/images/person-sq-2-min.jpg') }}" alt="FreeBootstrap.net image placeholder"></div>
                     <div class="lh-base"><strong class="d-block">John Davis</strong><span>Groom, Destination Wedding</span></div>
                   </div>
                 </div>
@@ -443,7 +447,7 @@
                     &rdquo;
                   </blockquote>
                   <div class="testimonial-author d-flex gap-3 align-items-center">
-                    <div class="author-img"><img class="rounded-circle img-fluid" src="assets/images/person-sq-1-min.jpg" alt="FreeBootstrap.net image placeholder"></div>
+                    <div class="author-img"><img class="rounded-circle img-fluid" src="{{ asset('assets/images/person-sq-1-min.jpg') }}" alt="FreeBootstrap.net image placeholder"></div>
                     <div class="lh-base"><strong class="d-block">Emily Smith</strong><span>Events Director, Coastal Resort</span></div>
                   </div>
                 </div>
@@ -456,7 +460,7 @@
                     &rdquo;
                   </blockquote>
                   <div class="testimonial-author d-flex gap-3 align-items-center">
-                    <div class="author-img"><img class="rounded-circle img-fluid" src="assets/images/person-sq-5-min.jpg" alt="FreeBootstrap.net image placeholder"></div>
+                    <div class="author-img"><img class="rounded-circle img-fluid" src="{{ asset('assets/images/person-sq-5-min.jpg') }}" alt="FreeBootstrap.net image placeholder"></div>
                     <div class="lh-base"><strong class="d-block">Michael Rodriguez</strong><span>Marketing Lead, TechCorp</span></div>
                   </div>
                 </div>
@@ -469,7 +473,7 @@
                     &rdquo;
                   </blockquote>
                   <div class="testimonial-author d-flex gap-3 align-items-center">
-                    <div class="author-img"><img class="rounded-circle img-fluid" src="assets/images/person-sq-3-min.jpg" alt="FreeBootstrap.net image placeholder"></div>
+                    <div class="author-img"><img class="rounded-circle img-fluid" src="{{ asset('assets/images/person-sq-3-min.jpg') }}" alt="FreeBootstrap.net image placeholder"></div>
                     <div class="lh-base"><strong class="d-block">Sarah Lee</strong><span>Operations Manager, Arena FC</span></div>
                   </div>
                 </div>
@@ -482,7 +486,7 @@
                     &rdquo;
                   </blockquote>
                   <div class="testimonial-author d-flex gap-3 align-items-center">
-                    <div class="author-img"><img class="rounded-circle img-fluid" src="assets/images/person-sq-7-min.jpg" alt="FreeBootstrap.net image placeholder"></div>
+                    <div class="author-img"><img class="rounded-circle img-fluid" src="{{ asset('assets/images/person-sq-7-min.jpg') }}" alt="FreeBootstrap.net image placeholder"></div>
                     <div class="lh-base"><strong class="d-block">James Kim</strong><span>Festival Coordinator, City Council</span></div>
                   </div>
                 </div>
@@ -495,7 +499,7 @@
                     &rdquo;
                   </blockquote>
                   <div class="testimonial-author d-flex gap-3 align-items-center">
-                    <div class="author-img"><img class="rounded-circle img-fluid" src="assets/images/person-sq-8-min.jpg" alt="FreeBootstrap.net image placeholder"></div>
+                    <div class="author-img"><img class="rounded-circle img-fluid" src="{{ asset('assets/images/person-sq-8-min.jpg') }}" alt="FreeBootstrap.net image placeholder"></div>
                     <div class="lh-base"><strong class="d-block">Laura Brown</strong><span>Brand Manager, Luxe Spirits</span></div>
                   </div>
                 </div>
@@ -517,48 +521,31 @@
             <div class="row">
               <div class="col-md-8 mx-auto" data-aos="fade-up" data-aos-delay="200">
                 <div class="faq-content">
+                  @if(isset($faqs) && $faqs->isNotEmpty())
                   <div class="accordion custom-accordion" id="accordionPanelsStayOpenExample">
+                    @foreach ($faqs as $index => $faq)
+                    @php
+                      $collapseId = 'faq-collapse-'.$faq->id;
+                      $headingId = 'faq-heading-'.$faq->id;
+                      $isFirst = $index === 0;
+                    @endphp
                     <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">What types of events do you support?</button>
+                      <h2 class="accordion-header" id="{{ $headingId }}">
+                        <button class="accordion-button{{ $isFirst ? '' : ' collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $collapseId }}" aria-expanded="{{ $isFirst ? 'true' : 'false' }}" aria-controls="{{ $collapseId }}">
+                          {{ $faq->question }}
+                        </button>
                       </h2>
-                      <div class="accordion-collapse collapse show" id="panelsStayOpen-collapseOne">
-                        <div class="accordion-body">We design and execute displays for weddings, corporate launches, festivals, sporting events, private parties, and national celebrations. Each show is customized to the venue, audience, and storytelling goals.</div>
+                      <div class="accordion-collapse collapse{{ $isFirst ? ' show' : '' }}" id="{{ $collapseId }}" aria-labelledby="{{ $headingId }}">
+                        <div class="accordion-body">
+                          {{ $faq->answer }}
+                        </div>
                       </div>
                     </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">How far in advance should I book?</button>
-                      </h2>
-                      <div class="accordion-collapse collapse" id="panelsStayOpen-collapseTwo">
-                        <div class="accordion-body">For major events we recommend securing your date 6–8 weeks in advance to allow time for permits and design. Smaller private shows can often be scheduled within 2–3 weeks, subject to availability.</div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">Do you handle permits and safety?</button>
-                      </h2>
-                      <div class="accordion-collapse collapse" id="panelsStayOpen-collapseThree">
-                        <div class="accordion-body">Absolutely. Our team manages site inspections, municipal permits, insurance coverage, and comprehensive safety plans. All technicians are certified and follow international pyrotechnic standards.</div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">Can you synchronize fireworks with music?</button>
-                      </h2>
-                      <div class="accordion-collapse collapse" id="panelsStayOpen-collapseFour">
-                        <div class="accordion-body">Yes! We specialize in pyromusical shows. Share your soundtrack—or we’ll help curate one—and our designers will program effects to match every beat and crescendo.</div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">What happens if the weather changes?</button>
-                      </h2>
-                      <div class="accordion-collapse collapse" id="panelsStayOpen-collapseFive">
-                        <div class="accordion-body">Safety always comes first. We monitor conditions leading up to your event and have contingency plans, including rescheduling, alternative effects, or partial adjustments when wind or rain makes fireworks unsafe.</div>
-                      </div>
-                    </div>
+                    @endforeach
                   </div>
+                  @else
+                  <p class="text-center mb-0">FAQs are coming soon. Please check back later.</p>
+                  @endif
                 </div>
               </div>
             </div>
@@ -569,8 +556,11 @@
 
         <!-- ======= Contact =======-->
         <section class="section contact__v2" id="contact">
+
           <div class="container">
             <div class="row mb-5">
+
+
               <div class="col-md-6 col-lg-7 mx-auto text-center"><span class="subtitle text-uppercase mb-3" data-aos="fade-up" data-aos-delay="0">Contact</span>
                 <h2 class="h2 fw-bold mb-3" data-aos="fade-up" data-aos-delay="0">Contact Us</h2>
                 <p data-aos="fade-up" data-aos-delay="100">Ready to light up your next celebration? Reach out to our pyrotechnic specialists for quotes, site visits, and custom show designs.</p>
@@ -622,31 +612,15 @@
                   <div class="mt-3 d-none alert alert-danger" id="errorMessage">Message sending failed. Please try again later.</div>
                 </div>
               </div>
+              <div class="col-md-12 mt-3 wow fadeInUp" data-wow-delay="0.1s">
+                <iframe class="position-relative rounded w-100 h-100"
+               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d355554.22144880914!2d39.145270221339686!3d-6.817569823190105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c49379dacc0d7%3A0x789626112ec5fd97!2sExternal%20Bus%20Stop!5e1!3m2!1sen!2stz!4v1737907905948!5m2!1sen!2stz"
+                    frameborder="0" style="min-height: 400px; border:0;" allowfullscreen="" aria-hidden="false"
+                    tabindex="0"></iframe>
+            </div>
             </div>
           </div>
         </section>
         <!-- End Contact-->
 
-        @include('layouts.footer')
-
-      </main>
-    </div>
-
-    <!-- ======= Back to Top =======-->
-    <button id="back-to-top"><i class="bi bi-arrow-up-short"></i></button>
-    <!-- End Back to top-->
-
-    <!-- ======= Javascripts =======-->
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendors/gsap/gsap.min.js"></script>
-    <script src="assets/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/vendors/isotope/isotope.pkgd.min.js"></script>
-    <script src="assets/vendors/glightbox/glightbox.min.js"></script>
-    <script src="assets/vendors/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendors/aos/aos.js"></script>
-    <script src="assets/vendors/purecounter/purecounter.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/send_email.js"></script>
-    <!-- End JavaScripts-->
-  </body>
-</html>
+@endsection

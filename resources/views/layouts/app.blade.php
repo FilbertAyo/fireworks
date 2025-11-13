@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('toastr/css/toastr.min.css') }}">
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-light">
 
 
     @if (Auth::check() && Auth::user()->hasRole('customer'))

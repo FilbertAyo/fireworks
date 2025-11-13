@@ -197,4 +197,17 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 
+    public function updateCategory(Request $request, $category)
+    {
+        $data = $request->validate([
+            'category_name' => 'required|string|max:255',
+        ]);
+
+        $category = Category::findOrFail($category);
+        $category->category_name = $data['category_name'];
+        $category->save();
+
+        return redirect()->back()->with('success', 'Category updated successfully');
+    }
+
 }

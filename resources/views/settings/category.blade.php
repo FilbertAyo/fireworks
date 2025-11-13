@@ -27,7 +27,7 @@
 
 
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100">
+                        <div class="card w-100 shadow-none border ">
                             <div class="card-body p-4">
                                 <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 align-middle table-bordered">
@@ -46,6 +46,13 @@
 
                                                     <td>
                                                         @if (Auth::check() && Auth::user()->hasRole('admin'))
+                                                        <a href="#" class="badge bg-primary me-1 edit-category-btn"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editCategoryModal"
+                                                            data-category-id="{{ $category->id }}"
+                                                            data-category-name="{{ $category->category_name }}">
+                                                            <i class="ti ti-edit"></i>
+                                                        </a>
                                                         <a href="{{ route('category.destroy', $category->id) }}"
                                                             class="badge bg-danger"
                                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this category?')) { document.getElementById('delete-form-{{ $category->id }}').submit(); }">
@@ -59,6 +66,9 @@
                                                         </form>
 
                                                             @else
+                                                            <a href="#" class="badge bg-primary me-1 show-toastr">
+                                                                <i class="ti ti-edit"></i>
+                                                            </a>
                                                             <a href="#" class="badge bg-danger show-toastr">
                                                                 <i class="ti ti-trash"></i>
                                                             </a>
@@ -123,4 +133,54 @@
     </div>
 
 
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="edit-category-form">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-3">
+                            <label for="edit_category_name" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="edit_category_name" name="category_name"
+                                placeholder="Name" required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editCategoryModal = document.getElementById('editCategoryModal');
+            const editCategoryForm = document.getElementById('edit-category-form');
+            const editCategoryNameInput = document.getElementById('edit_category_name');
+
+            if (editCategoryModal) {
+                editCategoryModal.addEventListener('show.bs.modal', function (event) {
+                    const button = event.relatedTarget;
+                    if (!button) {
+                        return;
+                    }
+
+                    const categoryId = button.getAttribute('data-category-id');
+                    const categoryName = button.getAttribute('data-category-name');
+
+                    editCategoryNameInput.value = categoryName || '';
+                    editCategoryForm.action = "{{ url('/category') }}/" + categoryId;
+                });
+            }
+        });
+    </script>
 </x-app-layout>

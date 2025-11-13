@@ -18,12 +18,11 @@
                     </div>
 
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100">
+                        <div class="card w-100 shadow-none border ">
                             <div class="card-body p-4">
                                 <form method="POST" action="{{ route('task.store') }}">
                                     @csrf
 
-                                    {{-- <input type="hidden" name="user_id" value="0"> --}}
 
                                     <h5 class="text-danger">Selected Products</h5>
                                     @if ($selectedProducts->isEmpty())
@@ -35,10 +34,10 @@
                                             @foreach ($selectedProducts as $product)
                                                 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                                     <div class="property-item rounded shadow-sm overflow-hidden border">
-                                                        <div class="position-relative overflow-hidden">
+                                                        <div class="position-relative overflow-hidden selected-product-thumb">
                                                             <a href="javascript:void(0);" data-bs-toggle="modal"
                                                                 data-bs-target="#productModal{{ $product->id }}">
-                                                                <img class="img-fluid" src="{{ asset($product->image_url) }}" alt="Product Image">
+                                                                <img class="img-fluid selected-product-img" src="{{ asset($product->image_url) }}" alt="Product Image">
                                                             </a>
                                                         </div>
                                                         <div class="p-3 pb-0">
@@ -59,16 +58,16 @@
                                                                     onclick="updateQuantity('plus', {{ $product->id }})">+</button>
                                                             </div>
                                                         </div>
-                        
+
                                                         <!-- this are needed to be uploaded to the database -->
                                                         <input type="hidden" name="product_id[]" value="{{ $product->id }}" >
                                                         <input type="hidden" name="product_image[]" value="{{ $product->image_url }}">
                                                         <input type="hidden" name="product_name[]" value="{{ $product->product_name }}">
                                                         <input type="hidden" name="product_price[]" value="{{ $product->price }}" id="hiddenPrice{{ $product->id }}">
-                        
+
                                                     </div>
                                                 </div>
-                        
+
                                                 <div class="modal fade" id="productModal{{ $product->id }}" tabindex="-1"
                                                     aria-labelledby="productModalLabel{{ $product->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -80,7 +79,7 @@
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <img class="img-fluid mb-3" src="img/property-1.jpg" alt="Product Image">
+                                                                <img class="img-fluid mb-3 selected-product-modal-img" src="{{ asset($product->image_url) }}" alt="Product Image">
                                                                 <div class="row">
                                                                     <div class="col-6">
                                                                         <p><strong>Price:</strong> TZS {{ $product->price }}</p>
@@ -101,7 +100,7 @@
                                             @endforeach
                                         </div>
                                     @endif
-                        
+
                                     <h5 class="text-danger">Task details</h5>
                                     <!-- Task Name -->
                                     <div class="mb-3 mt-3">
@@ -201,6 +200,23 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <style>
+        .selected-product-thumb {
+            height: 200px;
+        }
+
+        .selected-product-img,
+        .selected-product-modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .selected-product-modal-img {
+            max-height: 360px;
+        }
+    </style>
 
 
 

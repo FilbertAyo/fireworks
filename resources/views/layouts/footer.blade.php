@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0 quick-contact">
               <h3 class="mb-3">Contact</h3>
-              <p class="d-flex mb-3"><i class="bi bi-geo-alt-fill me-3"></i><span>Dar es Salaam, Tanzania<br>Shows delivered nationwide</span></p><a class="d-flex mb-3" href="mailto:kenseepexecutivefireworks@gmail.com"><i class="bi bi-envelope-fill me-3"></i><span>kenseepexecutivefireworks@gmail.com</span></a><a class="d-flex mb-3" href="tel://+255673443706"><i class="bi bi-telephone-fill me-3"></i><span>+255 673 443 706</span></a><a class="d-flex mb-3" href="https://freebootstrap.net"><i class="bi bi-globe me-3"></i><span>kenseepfireworks.co.tz</span></a>
+              <p class="d-flex mb-3"><i class="bi bi-geo-alt-fill me-3"></i><span>Dar es Salaam, Tanzania<br>Shows delivered nationwide</span></p><a class="d-flex mb-3" href="mailto:kenseepexecutivefireworks@gmail.com"><i class="bi bi-envelope-fill me-3"></i><span>kenseepexecutivefireworks@gmail.com</span></a><a class="d-flex mb-3" href="tel://+255673443706"><i class="bi bi-telephone-fill me-3"></i><span>+255 673 443 706</span></a><a class="d-flex mb-3" href="https://freebootstrap.net"><i class="bi bi-globe me-3"></i><span>kenseepexecutive.co.tz</span></a>
             </div>
           </div>
         </div>
@@ -52,10 +52,9 @@
         <div class="col-xl-8 text-center text-xl-start mb-3 mb-xl-0">
 
           &copy;
-          <script>document.write(new Date().getFullYear());</script> Nova.
-           All rights reserved. Designed with <i class="bi bi-heart-fill text-danger"></i> by <a href="https://freebootstrap.net">FreeBootstrap.net</a>
+          <script>document.write(new Date().getFullYear());</script> Kenseep Executive Fireworks.
         </div>
-        <div class="col-xl-4 justify-content-start justify-content-xl-end quick-links d-flex flex-column flex-xl-row text-center text-xl-start gap-1">Distributed by<a href="https://themewagon.com" target="_blank">ThemeWagon</a></div>
+        <div class="col-xl-4 justify-content-start justify-content-xl-end quick-links d-flex flex-column flex-xl-row text-center text-xl-start gap-1">Designed by<a href="https://themewagon.com" target="_blank">Filbert Ayo</a></div>
       </div>
     </div>
   </footer>

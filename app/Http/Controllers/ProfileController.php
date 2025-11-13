@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,13 @@ class ProfileController extends Controller
                 $query->whereIn('name', ['admin', 'staff']);
             })
             ->get();
-        return view('users.user',compact('users'));
+
+        $availableRoles = Role::query()
+            ->whereIn('name', ['admin', 'staff'])
+            ->orderBy('name')
+            ->get();
+
+        return view('users.user', compact('users', 'availableRoles'));
     }
 
     public function customers(Request $request){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Task;
@@ -93,8 +94,12 @@ class DashboardController extends Controller
             ->get();
 
         $products = Product::inRandomOrder()->take(8)->get();
+        $faqs = Faq::query()
+            ->where('is_active', true)
+            ->orderBy('id')
+            ->get();
 
-        return view('welcome',compact('users', 'products'));
+        return view('welcome',compact('users', 'products', 'faqs'));
     }
     public function contact(){
         return view('contact');

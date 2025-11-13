@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100 shadow-sm">
+                        <div class="card w-100 shadow-none border  shadow-sm">
                             <div class="card-body p-4">
                                 <table class="table table-bordered">
                                     <tbody>
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100 shadow-sm">
+                        <div class="card w-100 shadow-none border  shadow-sm">
                             <div class="card-body p-4">
                                 <table class="table table-bordered">
                                     <thead>
@@ -167,7 +167,7 @@
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
 
-                                    
+
 
                                 </form>
                             </div>

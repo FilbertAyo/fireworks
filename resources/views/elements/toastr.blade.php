@@ -46,7 +46,6 @@
                     hideMethod: "fadeOut",
                     tapToDismiss: !1
                 })
-
         });
     </script>
 @endif

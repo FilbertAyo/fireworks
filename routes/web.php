@@ -3,8 +3,10 @@
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,12 +47,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/users', [ProfileController::class, 'users'])->name('admin.users');
         Route::get('/customers', [ProfileController::class, 'customers'])->name('admin.customers');
         Route::post('/admin/users', [RegisteredUserController::class, 'store'])->name('admin.users.store');
+        Route::put('/admin/users/{user}', [RegisteredUserController::class, 'update'])->name('admin.users.update');
         Route::put('/users/{id}/status', [DashboardController::class, 'updateStatus'])->name('users.updateStatus');
 
         Route::resource('products', ProductController::class);
         Route::get('/category', [ProductController::class, 'category'])->name('category');
         Route::post('/category', [ProductController::class, 'storeCategory'])->name('category.store');
+        Route::put('/category/{id}', [ProductController::class, 'updateCategory'])->name('category.update');
         Route::delete('/category/{id}', [ProductController::class, 'destroyCategory'])->name('category.destroy');
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::post('/settings/faqs', [FaqController::class, 'store'])->name('settings.faqs.store');
+        Route::put('/settings/faqs/{faq}', [FaqController::class, 'update'])->name('settings.faqs.update');
+        Route::delete('/settings/faqs/{faq}', [FaqController::class, 'destroy'])->name('settings.faqs.destroy');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

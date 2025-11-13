@@ -38,21 +38,41 @@ class TaskController extends Controller
     }
 
     public function bookCreate(Request $request)
-
     {
         $search = $request->input('search');
+
+        $selectedProductIds = collect($request->input('selected', []))
+            ->map(fn ($id) => (int) $id)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+
         // Paginate the products with search functionality
         $products = Product::when($search, function ($query, $search) {
-            return $query->where('product_name', 'like', "%{$search}%")
-                ->orWhere('category', 'like', "%{$search}%");
+            return $query->where(function ($query) use ($search) {
+                $query->where('product_name', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%");
+            });
         })
-        ->paginate(12);
-        return view('jobs.prod_list', compact('products', 'search'));
+        ->paginate(12)
+        ->appends($request->except('page'));
+
+        $selectedProductDetails = ! empty($selectedProductIds)
+            ? Product::whereIn('id', $selectedProductIds)->get()
+            : collect();
+
+        return view('jobs.prod_list', compact('products', 'search', 'selectedProductIds', 'selectedProductDetails'));
     }
 
     public function book_create(Request $request)
     {
-        $productIds = $request->input('products', []);
+        $productIds = collect($request->input('products', []))
+            ->map(fn ($id) => (int) $id)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
 
         $selectedProducts = Product::whereIn('id', $productIds)->get();
 
@@ -117,7 +137,7 @@ class TaskController extends Controller
             'event_email' => $validated['event_email'],
             'task_description' => $validated['task_description'],
             'task_status' => $validated['task_status'],
-           'user_id' => $validated['user_id'] ?? null,
+            'user_id' => $validated['user_id'] ?? null,
             'total_amount' => $totalAmount,
         ]);
 
@@ -133,7 +153,7 @@ class TaskController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Task and products stored successfully!');
+        return redirect()->route('task.index')->with('success', 'Task and products stored successfully!');
     }
 
 

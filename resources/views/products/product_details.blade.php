@@ -1,122 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.front')
 
-<head>
-    <meta charset="utf-8">
-    <title>Kenseep executive fireworks</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+@section('title', $product->product_name . ' | Fireworks Detail')
 
+@section('content')
+<section class="section">
+    <div class="container d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+        <div>
+            <span class="subtitle text-uppercase mt-4 d-inline-block">Fireworks Detail</span>
+            <h1 class="mb-3">{{ $product->product_name }}</h1>
+            <p class="mb-0 text-muted">Dive into the choreography, effects, and design inspiration behind this signature display element.</p>
+        </div>
+        <a href="{{ url('/product_list') }}" class="btn btn-white-outline">
+            <i class="bi bi-arrow-left me-2"></i>Back to catalogue
+        </a>
+    </div>
+</section>
 
-    <link href="{{ asset('assets/images/icon-deal.png') }}" rel="icon">
-
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/templatemo-edu-meeting.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-</head>
-
-<body class="bg-white p-0">
-    @include('layouts.top-nav')
-
-    <section class="section main-banner " id="top" data-section="section1" style="height: 20vh; background-image: url('{{ asset('assets/images/kenseep.jpg') }}');">
-
-        <div class="video-overlay header-text text-center">
-            <div class="container">
-                <div class="row">
-                        <div class="caption">
-                            <h2 style="font-size: 35px;">Fireworks Details</h2>
+<section class="section bg-body-tertiary">
+    <div class="container">
+        <div class="card border shadow-none overflow-hidden">
+            <div class="row g-0 align-items-stretch p-3">
+                <div class="col-lg-5">
+                    <div class="h-100 position-relative">
+                        <img class="img-fluid w-100 h-100 object-fit-cover" src="{{ asset($product->image_url) }}" alt="{{ $product->product_name }}">
+                        @if($product->video_url)
+                            <a href="{{ $product->video_url }}" target="_blank" rel="noopener"
+                               class="btn btn-primary btn-sm rounded-pill position-absolute top-0 start-0 m-3 d-inline-flex align-items-center gap-1">
+                                <i class="bi bi-play-circle"></i><span>Watch Preview</span>
+                            </a>
+                        @endif
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="col-lg-7">
+                    <div class="card-body p-4 p-lg-5 h-100 d-flex flex-column gap-4">
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 text-uppercase">{{ $product->category }}</span>
+                            <h2 class="h3 fw-bold mb-2">{{ $product->product_name }}</h2>
+                            <p class="text-primary fw-semibold fs-4 mb-0">TZS {{ number_format($product->price) }}</p>
+                        </div>
 
-    <div class="container-fluid bg-primary" style="padding: 20px;">
-
-    </div>
-
-    <div class="container-xxl mt-3 p-3">
-        <div class="row justify-content-center">
-            <div class="card border-0 rounded" style="background-color: #F6F6F6;">
-                <div class="row g-0 align-items-center">
-                    <!-- Product Image -->
-                    <div class="col-md-5 py-3">
-                        <img class="img-fluid rounded-start" src="{{ asset($product->image_url) }}" alt="Product Image">
-                    </div>
-                    <!-- Product Details -->
-                    <div class="col-md-7">
-                        <div class="card-body">
-                            <h3 class="card-title text-primary"> {{ $product->product_name }}</h3>
-                            <h5 class="text-success"><i class="fas fa-tag"></i> <strong>Price:</strong> <span class="text-success">TZS {{ number_format($product->price  )}}</span></h5>
-                            <p><i class="fas fa-layer-group"></i> <strong>Category:</strong> {{ $product->category }}</p>
-                            <p><i class="fas fa-video"></i> <strong>Video Preview:</strong>
-                                <a href="{{ $product->video_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
-                                    <i class="fas fa-play-circle"></i> Watch Video
-                                </a>
-                            </p>
-                            <p><i class="fas fa-align-left"></i> <strong>Description:</strong></p>
-                            <p>{{ $product->product_description }}</p>
-                            <p><i class="fas fa-clock"></i> <strong>Duration:</strong> {{ $product->duration }}'s</p>
-                            <div class="d-flex justify-content-start mt-4" style="gap: 5px;">
-                                <button type="button" class="btn btn-danger">Buy Now</button>
-                                <button type="button" class="btn btn-success "><i class="fas fa-shopping-cart"></i> Add to cart</button>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center gap-3 p-3 rounded-4 bg-body-tertiary">
+                                    <span class="icon rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                        <i class="bi bi-clock-history"></i>
+                                    </span>
+                                    <div>
+                                        <h6 class="mb-0 text-uppercase text-muted small">Duration</h6>
+                                        <p class="fw-semibold mb-0">{{ $product->duration }} seconds</p>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center gap-3 p-3 rounded-4 bg-body-tertiary">
+                                    <span class="icon rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                        <i class="bi bi-box-seam"></i>
+                                    </span>
+                                    <div>
+                                        <h6 class="mb-0 text-uppercase text-muted small">Pieces</h6>
+                                        <p class="fw-semibold mb-0">{{ $product->piece }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5 class="fw-semibold mb-2">Show Highlights</h5>
+                            <p class="mb-0">{{ $product->product_description }}</p>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="d-flex flex-column flex-md-row align-items-md-center gap-3">
+                                <a href="{{ url('/product_list') }}" class="btn btn-primary px-4 py-2">
+                                    <i class="bi bi-plus-circle me-2"></i>Add to booking shortlist
+                                </a>
+                                <a href="{{ route('book') }}" class="btn btn-white-outline px-4 py-2">
+                                    <i class="bi bi-stars me-2"></i>Plan your event
+                                </a>
+                            </div>
+                            <p class="text-muted small mt-3 mb-0">Tip: Combine this effect with synchronized music and aerial shells for a breathtaking finale sequence.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Font Awesome for Icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-
-    </div>
-
-
-    @include('elements.footer')
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
-    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
-    <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
-    <script src="{{ asset('assets/js/lightbox.js') }}"></script>
-    <script src="{{ asset('assets/js/tabs.js') }}"></script>
-    <script src="{{ asset('assets/js/video.js') }}"></script>
-    <script src="{{ asset('assets/js/slick-slider.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
-
-</body>
-
-</html>
+</section>
+@endsection

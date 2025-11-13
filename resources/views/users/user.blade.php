@@ -15,12 +15,12 @@
                         <h5 class="card-title fw-semibold ">Employees</h5>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
-                            New Expert
+                            Add Team Member
                         </button>
                     </div>
 
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100">
+                        <div class="card w-100 shadow-none border  shadow-none border">
                             <div class="card-body p-4">
 
                                 <div class="table-responsive">
@@ -63,8 +63,10 @@
                                                     <td class="border-bottom-0">
                                                         @php
                                                             $role = $user->roles->first();
+                                                            $roleName = $role?->name;
+                                                            $roleDisplay = $role?->display_name ?? ($roleName ? ucwords(str_replace('_', ' ', $roleName)) : 'N/A');
                                                         @endphp
-                                                        {{ $role?->display_name ?? ($role?->name ? ucwords(str_replace('_', ' ', $role->name)) : 'N/A') }}
+                                                        {{ $roleDisplay }}
                                                     </td>
                                                     <td class="border-bottom-0">
 
@@ -98,9 +100,19 @@
                                                             data-bs-name="{{ $user->name }}"
                                                             data-bs-phone="{{ $user->phone }}"
                                                             data-bs-email="{{ $user->email }}"
-                                                            data-bs-role="{{ $role?->display_name ?? ($role?->name ? ucwords(str_replace('_', ' ', $role->name)) : 'N/A') }}"
+                                                            data-bs-role="{{ $roleDisplay }}"
                                                             data-bs-userStatus="{{ $user->user_status }}">
                                                             <i class="ti ti-eye"></i>
+                                                        </a>
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            class="badge bg-warning text-dark"
+                                                            data-bs-target="#editUserModal"
+                                                            data-action="{{ route('admin.users.update', $user) }}"
+                                                            data-name="{{ $user->name }}"
+                                                            data-email="{{ $user->email }}"
+                                                            data-phone="{{ $user->phone }}"
+                                                            data-role="{{ $roleName ?? '' }}">
+                                                            <i class="ti ti-edit"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -223,10 +235,19 @@
 
                         <div class="mb-3">
                             <label for="role" class="form-label">User Role</label>
-                            <select name="role" id="role" class="form-control">
-                                <option value="admin">Admin</option>
-                                <option value="staff">Expert</option>
+                            <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
+                                <option value="" disabled {{ old('role') ? '' : 'selected' }}>Select role</option>
+                                @foreach ($availableRoles ?? [] as $roleOption)
+                                    <option value="{{ $roleOption->name }}" {{ old('role') === $roleOption->name ? 'selected' : '' }}>
+                                        {{ $roleOption->display_name ?? ucwords(str_replace('_', ' ', $roleOption->name)) }}
+                                    </option>
+                                @endforeach
                             </select>
+                            @error('role')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <!-- Password -->
@@ -250,6 +271,55 @@
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit Team Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="editUserForm">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-3">
+                            <label for="edit_name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit_name" name="name" required autocomplete="name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit_email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="edit_email" name="email" required autocomplete="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit_phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="edit_phone" name="phone" required autocomplete="phone">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit_role" class="form-label">User Role</label>
+                            <select name="role" id="edit_role" class="form-control" required>
+                                <option value="" disabled>Select role</option>
+                                @foreach ($availableRoles ?? [] as $roleOption)
+                                    <option value="{{ $roleOption->name }}">
+                                        {{ $roleOption->display_name ?? ucwords(str_replace('_', ' ', $roleOption->name)) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
                 </div>
@@ -299,6 +369,29 @@
             });
 
 
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var editUserModal = document.getElementById('editUserModal');
+
+            editUserModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var form = document.getElementById('editUserForm');
+                form.action = button.getAttribute('data-action');
+
+                document.getElementById('edit_name').value = button.getAttribute('data-name') || '';
+                document.getElementById('edit_email').value = button.getAttribute('data-email') || '';
+                document.getElementById('edit_phone').value = button.getAttribute('data-phone') || '';
+
+                var roleSelect = document.getElementById('edit_role');
+                var currentRole = button.getAttribute('data-role') || '';
+
+                Array.from(roleSelect.options).forEach(function(option) {
+                    option.selected = option.value === currentRole;
+                });
+            });
         });
     </script>
 

@@ -71,4 +71,28 @@ class RegisteredUserController extends Controller
             return redirect()->back()->with('error', 'Invalid User');
         }
     }
+
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        if (! Auth::check() || ! Auth::user()->hasRole('admin')) {
+            abort(403, 'Only administrators can update team members.');
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'phone' => ['required', 'string', Rule::unique(User::class, 'phone')->ignore($user->id)],
+            'role' => ['required', 'string', Rule::in(['admin', 'staff'])],
+        ]);
+
+        $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ])->save();
+
+        $user->syncRoles([$request->role]);
+
+        return redirect()->back()->with('success', 'Team member updated successfully.');
+    }
 }

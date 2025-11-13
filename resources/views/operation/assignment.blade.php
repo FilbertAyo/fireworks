@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="col-lg-12 d-flex align-items-stretch">
-                        <div class="card w-100">
+                        <div class="card w-100 shadow-none border ">
                             <div class="card-body p-4">
 
                                 <div class="table-responsive">
@@ -68,7 +68,7 @@
                                                                 {{ $assignment->status == 'pending' ? 'alert-danger' : 'alert-success' }} ">
                                                                 {{ $assignment->status }}
                                                             </span>
-                                                      
+
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('assignments.show',$assignment->id) }}" class="badge bg-primary"><i class="ti ti-eye"></i></a>

@@ -1,7 +1,7 @@
 <header class="fbs__net-navbar navbar navbar-expand-lg dark" aria-label="freebootstrap.net navbar">
     <div class="container d-flex align-items-center justify-content-between">
       <!-- Start Logo-->
-      <a class="navbar-brand w-auto" href="index.html">
+      <a class="navbar-brand w-auto" href="{{ url('/') }}">
 
 
         <!-- logo dark--><img class="logo dark img-fluid" src="assets/images/icon-deal.png" alt="" style="width: 40px; height: 40px;">
@@ -13,7 +13,7 @@
 
         <div class="offcanvas-header">
           <div class="offcanvas-header-logo">
-            <a class="logo-link" id="fbs__net-navbarsLabel" href="index.html">
+            <a class="logo-link" id="fbs__net-navbarsLabel" href="{{ url('/') }}">
               <!-- logo dark--><img class="logo dark img-fluid" src="assets/images/icon-deal.png" alt="" style="width: 40px; height: 40px;">
 
           </div>
@@ -24,49 +24,59 @@
 
 
           <ul class="navbar-nav nav me-auto ps-lg-5 mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link scroll-link active" aria-current="page" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link scroll-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link scroll-link" href="#services">Services</a></li>
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Products <i class="bi bi-chevron-down"></i></a>
-
-              <ul class="dropdown-menu">
-                <li><a class="nav-link scroll-link dropdown-item" href="#">Multipages</a></li>
-                <li><a class="nav-link scroll-link dropdown-item" href="#services">Services</a></li>
-                <li><a class="nav-link scroll-link dropdown-item" href="#pricing">Pricing</a></li>
-                <li class="nav-item dropstart"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropstart <i class="bi bi-chevron-right"></i></a>
-                  <ul class="dropdown-menu">
-                    <li><a class="nav-link scroll-link dropdown-item" href="#services">Services</a></li>
-                    <li><a class="nav-link scroll-link dropdown-item" href="#pricing">Pricing</a></li>
-                    <li class="nav-item dropstart"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropstart <i class="bi bi-chevron-right"></i></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="nav-link scroll-link dropdown-item" href="#services">Services</a></li>
-                        <li><a class="nav-link scroll-link dropdown-item" href="#pricing">Pricing</a></li>
-                        <li><a class="nav-link scroll-link dropdown-item" href="#">Something else here</a></li>
-                        <li class="nav-item dropend"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropend <i class="bi bi-chevron-right"></i></a>
-                          <ul class="dropdown-menu">
-                            <li><a class="nav-link scroll-link dropdown-item" href="#services">Services</a></li>
-                            <li><a class="nav-link scroll-link dropdown-item" href="#pricing">Pricing</a></li>
-                            <li><a class="nav-link scroll-link dropdown-item" href="#">Something else here</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-
-            </li>
-            <li class="nav-item"><a class="nav-link scroll-link" href="#contact">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" aria-current="page" href="{{ url('/#home') }}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url('/#about') }}">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url('/#services') }}">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url('/product_list') }}">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url('/#pricing') }}">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url('/#contact') }}">Contact</a></li>
           </ul>
+
+          <div class="d-lg-none pt-4 border-top mt-4">
+            @auth
+              <a class="btn btn-white-outline w-100 mb-2 d-flex justify-content-center align-items-center gap-2" href="{{ route('my-dashboard') }}">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2">
+                  <i class="bi bi-box-arrow-right"></i> Sign Out
+                </button>
+              </form>
+            @else
+              <a class="btn btn-primary w-100 mb-2 d-flex justify-content-center align-items-center gap-2" href="{{ route('login') }}">
+                <i class="bi bi-box-arrow-in-right"></i> Sign In
+              </a>
+              <a class="btn btn-white-outline w-100 d-flex justify-content-center align-items-center gap-2" href="{{ route('register') }}">
+                <i class="bi bi-person-plus"></i> Register
+              </a>
+            @endauth
+          </div>
 
         </div>
       </div>
       <!-- End offcanvas-->
 
       <div class="ms-auto w-auto">
-
-
-        <div class="header-social d-flex align-items-center gap-1"><a class="btn btn-primary py-2" href="#">Get Started</a>
+        <div class="header-social d-flex align-items-center gap-2">
+          @auth
+            <a class="btn btn-primary py-2 d-none d-lg-inline-flex align-items-center gap-2" href="{{ route('my-dashboard') }}">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <form method="POST" action="{{ route('logout') }}" class="d-none d-lg-inline">
+              @csrf
+              <button type="submit" class="btn btn-primary py-2 d-none d-lg-inline-flex align-items-center gap-2">
+                <i class="bi bi-box-arrow-right"></i> Sign Out
+              </button>
+            </form>
+          @else
+            <a class="btn btn-primary py-2 d-none d-lg-inline-flex align-items-center gap-2" href="{{ route('login') }}">
+              <i class="bi bi-box-arrow-in-right"></i> Sign In
+            </a>
+            <a class="btn btn-primary py-2 d-none d-lg-inline-flex align-items-center gap-2" href="{{ route('register') }}">
+              <i class="bi bi-person-plus"></i> Register
+            </a>
+          @endauth
 
           <button class="fbs__net-navbar-toggler justify-content-center align-items-center ms-auto" data-bs-toggle="offcanvas" data-bs-target="#fbs__net-navbars" aria-controls="fbs__net-navbars" aria-label="Toggle navigation" aria-expanded="false">
             <svg class="fbs__net-icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +91,6 @@
           </button>
 
         </div>
-
       </div>
     </div>
   </header>
