@@ -22,6 +22,12 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+    // Customer booking route - accessible to all authenticated users
+    Route::post('/booking/store', [TaskController::class, 'store'])->name('booking.store');
+    
+    // Task details route - accessible to customers (their own tasks) and admin/staff (all tasks)
+    Route::get('/booking_detail/{task}', [TaskController::class, 'task_details'])->name('task.showTask');
+
     Route::middleware('role:customer')->group(function () {
         Route::get('/my-dashboard', [DashboardController::class, 'myDashboard'])->name('my-dashboard');
     });
@@ -32,7 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('task', TaskController::class);
         Route::get('mytask', [TaskController::class, 'myTask'])->name('task.mine');
-        Route::get('/booking_detail/{task}', [TaskController::class, 'task_details'])->name('task.showTask');
         Route::put('/task_done/{id}', [TaskController::class, 'task_done'])->name('task_done');
 
         Route::resource('assignments', AssignmentController::class);

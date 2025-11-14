@@ -17,8 +17,27 @@
             <div class="col-lg-11">
                 <div class="card border shadow-none">
                     <div class="card-body p-4 p-lg-5">
-                        <form method="POST" action="{{ route('task.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('booking.store') }}" enctype="multipart/form-data">
                             @csrf
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show rounded-4 mb-4" role="alert">
+                                  <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show rounded-4 mb-4" role="alert">
+                                    <i class="bi bi-exclamation-circle me-2"></i>{{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                             <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3 mb-4">
                                 <h3 class="mb-0">Selected Products</h3>
                                 @if ($selectedProducts->isNotEmpty())
@@ -28,38 +47,37 @@
                                 @endif
                             </div>
 
-                            @if ($selectedProducts->isEmpty())
-                                <div class="alert alert-info d-flex flex-column flex-md-row align-items-md-center justify-content-between p-4 rounded-4">
-                                    <div class="d-flex align-items-start gap-3">
-                                        <span class="badge bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
-                                            <i class="bi bi-stars"></i>
-                                        </span>
-                                        <div>
-                                            <h5 class="mb-1">No products selected yet</h5>
-                                            <p class="mb-0">Browse our fireworks catalogue to build the perfect show package for your event.</p>
-                                        </div>
+                            {{-- Always render product fields even when selectedProducts is empty --}}
+                            <div class="row g-4 mt-1">
+                                @if($selectedProducts->isEmpty())
+                                    {{-- If empty, render one hidden "dummy" product (fields stay present for validation) --}}
+                                    <div class="d-none">
+                                        <input type="hidden" name="product_id[]" value="">
+                                        <input type="hidden" name="product_image[]" value="">
+                                        <input type="hidden" name="product_name[]" value="">
+                                        <input type="hidden" name="product_price[]" value="">
+                                        <input type="hidden" name="product_quantity[]" value="1">
                                     </div>
-                                    <a href="{{ url('/product_list') }}" class="btn btn-primary mt-3 mt-md-0">
-                                        Explore Fireworks
-                                    </a>
-                                </div>
-                            @else
-                                <div class="row g-4 mt-1">
-                                    @foreach ($selectedProducts as $product)
+                                @else
+                                    @foreach ($selectedProducts as $index => $product)
                                         <div class="col-sm-6 col-lg-4 col-xl-3">
                                             <div class="card h-100 border-0 shadow-sm rounded-4">
-                                                <div class="position-relative">
+                                                <div class="position-relative" style="height: 220px; overflow: hidden;">
                                                     <button type="button"
-                                                            class="btn btn-white-outline position-absolute top-0 end-0 m-3 rounded-circle"
+                                                            class="btn btn-white-outline position-absolute top-0 end-0 m-3 rounded-circle z-1"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#productModal{{ $product->id }}">
+                                                            data-bs-target="#productModal{{ $product->id }}"
+                                                            style="z-index: 1;">
                                                         <i class="bi bi-info-lg"></i>
                                                     </button>
-                                                    <img class="card-img-top rounded-top-4" src="{{ asset($product->image_url) }}" alt="{{ $product->product_name }}">
+                                                    <img class="card-img-top rounded-top-4"
+                                                         src="{{ asset($product->image_url) }}"
+                                                         alt="{{ $product->product_name }}"
+                                                         style="width: 100%; height: 100%; object-fit: cover;">
                                                 </div>
                                                 <div class="card-body">
-                                                    <h5 class="text-primary fw-bold mb-2" id="price{{ $product->id }}" data-base-price="{{ $product->price }}">
-                                                        TZS {{ number_format($product->price) }}/=
+                                                    <h5 class="text-primary fw-bold mb-2" id="price{{ $product->id }}" data-base-price="{{ old('product_price.' . $index, $product->price) }}">
+                                                        TZS {{ number_format(old('product_price.' . $index, $product->price)) }}/=
                                                     </h5>
                                                     <h6 class="mb-3">{{ $product->product_name }}</h6>
                                                     <div class="d-flex align-items-center bg-body-tertiary rounded-pill px-2 py-1 gap-2 flex-nowrap">
@@ -68,17 +86,19 @@
                                                         </button>
                                                         <input type="number" class="form-control text-center border-0 bg-transparent flex-grow-1 flex-shrink-0"
                                                                style="max-width: 60px;"
-                                                               id="quantityInput{{ $product->id }}" name="product_quantity[]" value="1" min="1" readonly>
+                                                               id="quantityInput{{ $product->id }}"
+                                                               name="product_quantity[]"
+                                                               value="{{ old('product_quantity.' . $index, 1) }}"
+                                                               min="1" readonly>
                                                         <button type="button" class="btn btn-sm btn-white-outline flex-shrink-0" onclick="updateQuantity('plus', {{ $product->id }})">
                                                             <i class="bi bi-plus"></i>
                                                         </button>
                                                     </div>
                                                 </div>
-
                                                 <input type="hidden" name="product_id[]" value="{{ $product->id }}">
                                                 <input type="hidden" name="product_image[]" value="{{ $product->image_url }}">
                                                 <input type="hidden" name="product_name[]" value="{{ $product->product_name }}">
-                                                <input type="hidden" name="product_price[]" value="{{ $product->price }}" id="hiddenPrice{{ $product->id }}">
+                                                <input type="hidden" name="product_price[]" value="{{ old('product_price.' . $index, $product->price) }}" id="hiddenPrice{{ $product->id }}">
                                             </div>
                                         </div>
 
@@ -93,7 +113,10 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img class="img-fluid rounded-4 mb-4" src="{{ asset($product->image_url) }}" alt="{{ $product->product_name }}">
+                                                        <img class="img-fluid rounded-4 mb-4"
+                                                             src="{{ asset($product->image_url) }}"
+                                                             alt="{{ $product->product_name }}"
+                                                             style="width: 100%; height: 400px; object-fit: cover;">
                                                         <div class="row g-4">
                                                             <div class="col-md-6">
                                                                 <p class="mb-2"><strong>Price:</strong> TZS {{ number_format($product->price) }}</p>
@@ -117,10 +140,27 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                @endif
+                            </div>
+
+                            @if ($selectedProducts->isEmpty())
+                                <div class="alert alert-info d-flex flex-column flex-md-row align-items-md-center justify-content-between p-4 rounded-4">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <span class="badge bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                                            <i class="bi bi-stars"></i>
+                                        </span>
+                                        <div>
+                                            <h5 class="mb-1">No products selected yet</h5>
+                                            <p class="mb-0">Browse our fireworks catalogue to build the perfect show package for your event.</p>
+                                        </div>
+                                    </div>
+                                    <a href="{{ url('/product_list') }}" class="btn btn-primary mt-3 mt-md-0">
+                                        Explore Fireworks
+                                    </a>
                                 </div>
                             @endif
 
-                            @if ($selectedProducts->isNotEmpty())
+                            @if ($selectedProducts->isNotEmpty() || old('product_id')) {{-- Keep event fields even on failed validation --}}
                                 <hr class="my-5">
                                 <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3 mb-4">
                                     <h3 class="mb-0">Event Details</h3>
@@ -130,31 +170,67 @@
                                 <div class="row g-4">
                                     <div class="col-12">
                                         <label for="task_name" class="form-label fw-semibold">Event Name / Venue</label>
-                                        <input type="text" class="form-control" id="task_name" name="task_name" placeholder="e.g. Mwenge Wedding Celebration" required>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="task_name"
+                                               name="task_name"
+                                               placeholder="e.g. Mwenge Wedding Celebration"
+                                               value="{{ old('task_name') }}"
+                                               required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="event_date" class="form-label fw-semibold">Event Date</label>
-                                        <input type="date" class="form-control" id="event_date" name="event_date" required>
+                                        <input type="date"
+                                               class="form-control"
+                                               id="event_date"
+                                               name="event_date"
+                                               value="{{ old('event_date') }}"
+                                               required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="event_time" class="form-label fw-semibold">Event Time</label>
-                                        <input type="time" class="form-control" id="event_time" name="event_time" required>
+                                        <input type="time"
+                                               class="form-control"
+                                               id="event_time"
+                                               name="event_time"
+                                               value="{{ old('event_time') }}"
+                                               required>
                                     </div>
                                     <div class="col-12">
                                         <label for="event_address" class="form-label fw-semibold">Event Address</label>
-                                        <input type="text" class="form-control" id="event_address" name="event_address" placeholder="Location for the fireworks display" required>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="event_address"
+                                               name="event_address"
+                                               placeholder="Location for the fireworks display"
+                                               value="{{ old('event_address') }}"
+                                               required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="contact_phone" class="form-label fw-semibold">Primary Contact Phone</label>
-                                        <input type="tel" class="form-control" id="contact_phone" name="event_phone" value="{{ Auth::user()->phone }}" required>
+                                        <input type="tel"
+                                               class="form-control"
+                                               id="contact_phone"
+                                               name="event_phone"
+                                               value="{{ old('event_phone', Auth::user()->phone) }}"
+                                               required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="contact_person" class="form-label fw-semibold">Contact Email</label>
-                                        <input type="email" class="form-control" id="contact_person" name="event_email" value="{{ Auth::user()->email }}" required>
+                                        <input type="email"
+                                               class="form-control"
+                                               id="contact_person"
+                                               name="event_email"
+                                               value="{{ old('event_email', Auth::user()->email) }}"
+                                               required>
                                     </div>
                                     <div class="col-12">
                                         <label for="task_description" class="form-label fw-semibold">Additional Notes</label>
-                                        <textarea class="form-control" id="task_description" name="task_description" rows="3" placeholder="Share timing cues, special requirements, or inspiration for your show."></textarea>
+                                        <textarea class="form-control"
+                                              id="task_description"
+                                              name="task_description"
+                                              rows="3"
+                                              placeholder="Share timing cues, special requirements, or inspiration for your show.">{{ old('task_description') }}</textarea>
                                     </div>
                                 </div>
 
@@ -174,6 +250,30 @@
     </div>
 </section>
 @endsection
+
+@push('styles')
+<style>
+    /* Ensure consistent image sizing in product cards */
+    .card .position-relative {
+        background-color: #f8f9fa;
+    }
+
+    .card .position-relative img {
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .position-relative img {
+        transform: scale(1.05);
+    }
+
+    /* Responsive image heights */
+    @media (max-width: 576px) {
+        .card .position-relative {
+            height: 200px !important;
+        }
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script>

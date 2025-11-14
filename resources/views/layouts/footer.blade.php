@@ -54,7 +54,7 @@
           &copy;
           <script>document.write(new Date().getFullYear());</script> Kenseep Executive Fireworks.
         </div>
-        <div class="col-xl-4 justify-content-start justify-content-xl-end quick-links d-flex flex-column flex-xl-row text-center text-xl-start gap-1">Designed by<a href="https://themewagon.com" target="_blank">Filbert Ayo</a></div>
+        <div class="col-xl-4 justify-content-start justify-content-xl-end quick-links d-flex flex-column flex-xl-row text-center text-xl-start gap-1">Designed by<a href="https://filbertayo-flax-xi.vercel.app/" target="_blank">Filbert Ayo</a></div>
       </div>
     </div>
   </footer>

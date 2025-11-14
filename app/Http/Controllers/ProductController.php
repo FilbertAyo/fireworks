@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -85,13 +86,17 @@ class ProductController extends Controller
 
     public function product_list(Request $request) {
 
-        $search = $request->input('search');
+        $search = trim($request->input('search'));
 
-        // Paginate the products with search functionality
+        // Paginate the products with search functionality (case-insensitive)
         $products = Product::when($search, function ($query, $search) {
-            return $query->where('product_name', 'like', "%{$search}%")
-                ->orWhere('category', 'like', "%{$search}%");
+            $searchTerm = '%' . strtolower(trim($search)) . '%';
+            return $query->where(function ($query) use ($searchTerm) {
+                $query->where(DB::raw('LOWER(product_name)'), 'like', $searchTerm)
+                    ->orWhere(DB::raw('LOWER(category)'), 'like', $searchTerm);
+            });
         })
+        ->orderBy('product_name')
         ->paginate(8);
 
         return view('products.product_list', compact('products','search'));

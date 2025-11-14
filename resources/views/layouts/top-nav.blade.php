@@ -4,7 +4,7 @@
       <a class="navbar-brand w-auto" href="{{ url('/') }}">
 
 
-        <!-- logo dark--><img class="logo dark img-fluid" src="assets/images/icon-deal.png" alt="" style="width: 40px; height: 40px;">
+        <!-- logo dark--><img class="logo dark img-fluid" src="{{ asset('assets/images/icon-deal.png') }}" alt="" style="width: 40px; height: 40px;">
 
       {{-- <img class="logo light img-fluid" src="assets/images/logo-light.svg"> --}}
 
@@ -14,7 +14,7 @@
         <div class="offcanvas-header">
           <div class="offcanvas-header-logo">
             <a class="logo-link" id="fbs__net-navbarsLabel" href="{{ url('/') }}">
-              <!-- logo dark--><img class="logo dark img-fluid" src="assets/images/icon-deal.png" alt="" style="width: 40px; height: 40px;">
+              <!-- logo dark--><img class="logo dark img-fluid" src="{{ asset('assets/images/icon-deal.png') }}" alt="" style="width: 40px; height: 40px;">
 
           </div>
           <button class="btn-close btn-close-black" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>

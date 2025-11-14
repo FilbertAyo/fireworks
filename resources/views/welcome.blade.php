@@ -29,14 +29,15 @@
                       <span>or</span>
                       <a class="link-primary fw-semibold" href="{{ route('register') }}">Register</a>
                     </div>
-                    <div class="logos mb-4" data-aos="fade-up" data-aos-delay="400">
-                      <span class="logos-title text-uppercase mb-4 d-block">Trusted by Tanzania’s premier celebrations</span>
-                      <div class="logos-images d-flex gap-4 align-items-center">
-                        <img class="img-fluid js-img-to-inline-svg" src="{{ asset('assets/images/logo/actual-size/logo-air-bnb__black.svg') }}" alt="Company 1" style="width: 110px;">
-                        <img class="img-fluid js-img-to-inline-svg" src="{{ asset('assets/images/logo/actual-size/logo-ibm__black.svg') }}" alt="Company 2" style="width: 80px;">
-                        <img class="img-fluid js-img-to-inline-svg" src="{{ asset('assets/images/logo/actual-size/logo-google__black.svg') }}" alt="Company 3" style="width: 110px;">
-                      </div>
+                    <div class="logos mb-4" data-aos="fade-up" data-aos-delay="400"><span
+                        class="logos-title text-uppercase mb-4 d-block">Trusted by Tanzania's premier celebrations</span>
+                    <div class="logos-images d-flex gap-4 align-items-center">
+                        <img class="img-fluid" src="{{ asset('assets/images/logo/wasafi.png') }}"
+                            alt="Company 1" style="width: 60px;">
+
                     </div>
+                </div>
+                 
                   </div>
                 </div>
               </div>

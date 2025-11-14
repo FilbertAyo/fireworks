@@ -9,6 +9,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -70,7 +71,7 @@ class DashboardController extends Controller
         $totalAllowance = $allowanceQuery->sum('amount');
         $totalTransport = $transportQuery->sum('amount');
         $totalAccommodation = $accommodationQuery->sum('amount');
-        $totalCollection = $collectionQuery->sum('total_amount');
+        $totalCollection = $collectionQuery->sum(DB::raw('CAST(total_amount AS DECIMAL)'));
 
         $totalExpenses = $totalAllowance + $totalTransport + $totalAccommodation;
         $profitLoss = $totalCollection - $totalExpenses;

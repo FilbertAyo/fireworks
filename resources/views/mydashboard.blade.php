@@ -54,7 +54,7 @@
                             </div>
                         @else
                             <div class="table-responsive">
-                                <table class="table align-middle">
+                                <table class="table table-bordered align-middle">
                                     <thead class="table-light">
                                     <tr>
                                         <th scope="col" class="text-uppercase small text-muted">#</th>
